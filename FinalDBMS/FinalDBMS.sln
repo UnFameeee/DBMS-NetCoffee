@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalDBMS", "FinalDBMS\FinalDBMS.csproj", "{84FF79D6-B910-4029-BA23-EBE4EAE99F08}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84FF79D6-B910-4029-BA23-EBE4EAE99F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84FF79D6-B910-4029-BA23-EBE4EAE99F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84FF79D6-B910-4029-BA23-EBE4EAE99F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84FF79D6-B910-4029-BA23-EBE4EAE99F08}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1AE64BA1-C1A3-47C8-BFF0-8C4924F7150A}
+	EndGlobalSection
+EndGlobal
