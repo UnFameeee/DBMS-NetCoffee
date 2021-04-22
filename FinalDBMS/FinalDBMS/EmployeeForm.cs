@@ -17,16 +17,43 @@ namespace FinalDBMS
             InitializeComponent();
         }
 
+        private void EmployeeForm_Load(object sender, EventArgs e)
+        {
+            foreach (Control item in flpLeftMenu.Controls)
+                item.Width = flpLeftMenu.Width;
+            btnProfile.PerformClick();
+        }
+        private void btn__Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnbig_Click(object sender, EventArgs e)
+        {
+            this.WindowState = (this.WindowState == FormWindowState.Normal) ? FormWindowState.Maximized : FormWindowState.Normal;
+        }
+
+        private void btnX_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void btnLeftMenu_Click(object sender, EventArgs e)
+        {
+            pnLeft.Width = (pnLeft.Width == 200) ? 50 : 200;
+        }
 
         private void Menu_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            lbMenu.Text = btn.ToString();
+            lbMenu.Text = btn.Tag.ToString();
 
             foreach (Control item in flpLeftMenu.Controls)
-                item.BackColor = flpLeftMenu.BackColor;            
+                item.BackColor = flpLeftMenu.BackColor;
 
-            btn.BackColor = Color.WhiteSmoke;
+            if (btn.Name != btnHelp.Name)
+                btnHelp.BackColor = flpLeftMenu.BackColor;
+
+            btn.BackColor = Color.Aquamarine;
         }
     }
 }
