@@ -1,0 +1,11 @@
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.exe.config
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.exe
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.pdb
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csprojAssemblyReference.cache
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.LoginForm.resources
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.EmployeeForm.resources
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.Properties.Resources.resources
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csproj.GenerateResource.cache
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csproj.CoreCompileInputs.cache
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.exe
+C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.pdb
