@@ -46,25 +46,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="1. Login\LoginForm.cs">
+    <Compile Include="C-SHARPCODE\CustomerData.cs" />
+    <Compile Include="Form\EMPLOYEE\EmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="1. Login\LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EmployeeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EmployeeForm.Designer.cs">
+    <Compile Include="Form\EMPLOYEE\EmployeeForm.Designer.cs">
       <DependentUpon>EmployeeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\MAIN\CUSTOMER\AddCustomerFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\MAIN\CUSTOMER\AddCustomerFrm.Designer.cs">
+      <DependentUpon>AddCustomerFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\LOGIN\LoginFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\LOGIN\LoginFrm.Designer.cs">
+      <DependentUpon>LoginFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="C-SHARPCODE\LoginData.cs" />
+    <Compile Include="Form\MAIN\MainFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\MAIN\MainFrm.Designer.cs">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="C-SHARPCODE\Mydb.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="1. Login\LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EmployeeForm.resx">
+    <Compile Include="Form\LOGIN\RegisterEmployeeFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\LOGIN\RegisterEmployeeFrm.Designer.cs">
+      <DependentUpon>RegisterEmployeeFrm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Form\EMPLOYEE\EmployeeForm.resx">
       <DependentUpon>EmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\MAIN\CUSTOMER\AddCustomerFrm.resx">
+      <DependentUpon>AddCustomerFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\LOGIN\LoginFrm.resx">
+      <DependentUpon>LoginFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\MAIN\MainFrm.resx">
+      <DependentUpon>MainFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -75,6 +102,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Form\LOGIN\RegisterEmployeeFrm.resx">
+      <DependentUpon>RegisterEmployeeFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -89,8 +119,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="2. Mainform\" />
-    <Folder Include="3. Employee\" />
+    <Folder Include="Form\DEVICE\" />
+    <Folder Include="Form\Thang\" />
+    <Folder Include="Form\Wibu\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,8 +16,7 @@ namespace FinalDBMS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new LoginForm());
-            Application.Run(new EmployeeForm());
+            Application.Run(new LoginFrm());
         }
     }
 }
