@@ -1,11 +1,13 @@
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.exe.config
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.exe
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.pdb
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csprojAssemblyReference.cache
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.LoginForm.resources
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.EmployeeForm.resources
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.Properties.Resources.resources
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csproj.GenerateResource.cache
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csproj.CoreCompileInputs.cache
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.exe
-C:\Users\HAI DU\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.pdb
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.exe.config
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.exe
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.pdb
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csprojAssemblyReference.cache
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.LoginFrm.resources
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.Properties.Resources.resources
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.RegisterEmployeeFrm.resources
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csproj.GenerateResource.cache
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csproj.CoreCompileInputs.cache
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.exe
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.pdb
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.AddCustomerFrm.resources
+E:\Tài liệu học tập\Năm 2 kỳ 2\DBMS - Hệ quản trị cơ sở dữ liệu\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.MainFrm.resources
