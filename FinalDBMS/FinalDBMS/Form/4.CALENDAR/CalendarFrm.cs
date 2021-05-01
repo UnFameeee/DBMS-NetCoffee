@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace FinalDBMS
 {
-    public partial class LoginForm : Form
+    public partial class CalendarFrm : Form
     {
-        public LoginForm()
+        public CalendarFrm()
         {
             InitializeComponent();
         }
