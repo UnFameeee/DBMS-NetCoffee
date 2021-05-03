@@ -17,6 +17,7 @@ namespace FinalDBMS
 
         //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-26GDDIM\SQLEXPRESS;Initial Catalog=DBMS_FinalProject;Integrated Security=True");   --2 dụ
 
+        SqlConnection db = new SqlConnection(@"Data Source=.\;Initial Catalog=Payroll;Integrated Security=True");
         public SqlConnection getConnection
         {
             get { return db; }

@@ -46,44 +46,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form\4.CALENDAR\CalendarFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Form\4.CALENDAR\CalendarFrm.cs" />
     <Compile Include="Form\4.CALENDAR\CalendarFrm.Designer.cs">
       <DependentUpon>CalendarFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\1.LOGIN\CustomerData.cs" />
-    <Compile Include="Form\2.EMPLOYEE\EmployeeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Form\2.EMPLOYEE\EmployeeForm.cs" />
     <Compile Include="Form\2.EMPLOYEE\EmployeeForm.Designer.cs">
       <DependentUpon>EmployeeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\MAIN\CUSTOMER\AddCustomerFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Form\MAIN\CUSTOMER\AddCustomerFrm.cs" />
     <Compile Include="Form\MAIN\CUSTOMER\AddCustomerFrm.Designer.cs">
       <DependentUpon>AddCustomerFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\1.LOGIN\LoginFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Form\1.LOGIN\LoginFrm.cs" />
     <Compile Include="Form\1.LOGIN\LoginFrm.Designer.cs">
       <DependentUpon>LoginFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\1.LOGIN\LoginData.cs" />
-    <Compile Include="Form\MAIN\MainFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Form\MAIN\MainFrm.cs" />
     <Compile Include="Form\MAIN\MainFrm.Designer.cs">
       <DependentUpon>MainFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="C-SHARPCODE\Mydb.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Form\1.LOGIN\RegisterEmployeeFrm.cs">
+    <Compile Include="Form\Wibu\PAYROLL\Check.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\Wibu\PAYROLL\Check.Designer.cs">
+      <DependentUpon>Check.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Form\1.LOGIN\RegisterEmployeeFrm.cs" />
     <Compile Include="Form\1.LOGIN\RegisterEmployeeFrm.Designer.cs">
       <DependentUpon>RegisterEmployeeFrm.cs</DependentUpon>
     </Compile>
@@ -127,7 +121,6 @@
   <ItemGroup>
     <Folder Include="Form\3.DEVICE\" />
     <Folder Include="Form\Thang\" />
-    <Folder Include="Form\Wibu\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
