@@ -12,11 +12,11 @@ CREATE TABLE JOB
 
 CREATE TABLE EMPLOYEE 
 (
-	IDEmployee nvarchar(100) PRIMARY KEY,					--ID nhân viên
-	FullName nvarchar(100) not null,				--Họ Tên
-	Gender nvarchar(10),							--Giới tính
-	Birthday date,									--Ngày sinh
-	Phone int,										--SĐT
+	IDEmployee nvarchar(100) PRIMARY KEY,			  --ID nhân viên									
+	FullName nvarchar(100) not null,				    --Họ Tên
+	Gender nvarchar(10),							          --Giới tính
+	Birthday date,									            --Ngày sinh
+	Phone int,										              --SĐT
 	IdentityNumber nvarchar(100) not null,			--số CMND
 	StatusEmployee nvarchar(100),
 	Email nvarchar(100),
