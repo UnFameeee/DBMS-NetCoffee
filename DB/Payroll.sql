@@ -3,14 +3,28 @@ GO
 USE Payroll
 GO
 
+CREATE TABLE JOB 
+(
+	WorkID nvarchar(100) PRIMARY KEY,				--Mã Công Việc (QL, NV, LC)
+	CoefficientsSalary real,						--Hệ Số Lương (QL: x2, NV: x1, LC: x1.5)
+	JobDetail nvarchar(100)							--Chi tiết công việc: (QL: Quản Lý, NV: Nhân Viên, LC: Lao Công)
+)
+
 CREATE TABLE EMPLOYEE 
 (
 	IDEmployee nvarchar(100) PRIMARY KEY,					--ID nhân viên
-	DisplaynameEmployee nvarchar(100) not null,				--Họ Tên
-	EmployeeType INT										--0 là quản lý, 1 là nhân viên, 2 là lao công
+	FullName nvarchar(100) not null,				--Họ Tên
+	Gender nvarchar(10),							--Giới tính
+	Birthday date,									--Ngày sinh
+	Phone int,										--SĐT
+	IdentityNumber nvarchar(100) not null,			--số CMND
+	StatusEmployee nvarchar(100),
+	Email nvarchar(100),
+	WorkID nvarchar(100) references JOB(WorkID)	--MãCV
 )
-GO
-CREATE TABLE WORK
+
+
+CREATE TABLE WORKSHIFT
 (
 	IDEmployee NVARCHAR(100),
 	CheckIn DATETIME,
@@ -22,22 +36,46 @@ CREATE TABLE WORK
 CREATE TABLE SALARY
 (
 	IDEmployee NVARCHAR(100),
-	MonthWork INT CHECK (MonthWork >= 1 AND MonthWork <= 12),
-	YearWork INT CHECK (YearWork >= 0),
+	MonthWork INT,
+	YearWork INT CONSTRAINT CHK_Month CHECK (YearWork >= 0),
 	Reward REAL DEFAULT 0,									
-	Punish REAL DEFAULT 0,
+	Fine REAL DEFAULT 0,
 	NumberofWorkShift INT DEFAULT 0,
 	SalaryEmployee REAL DEFAULT 0,
 	PRIMARY KEY (IDEmployee, MonthWork)
 )
 GO
 
-CREATE TRIGGER RewardPunishCheckOut ON dbo.WORK
+CREATE PROCEDURE PRC_CheckIn @IDEmployee NVARCHAR(100)
+AS
+BEGIN
+	INSERT INTO dbo.WORKSHIFT (IDEmployee, CheckIn) VALUES (@IDEmployee, GETDATE())
+END
+GO
+CREATE PROCEDURE PRC_CheckOut @IDEmployee NVARCHAR(100)
+AS
+BEGIN
+	UPDATE WORKSHIFT SET CheckOut = GETDATE() WHERE IDEmployee = @IDEmployee
+END
+GO
+CREATE PROCEDURE PRC_CheckIDEmployee @IDEmployee NVARCHAR(100)
+AS
+BEGIN
+	SELECT * FROM EMPLOYEE WHERE IDEmployee = @IDEmployee
+END
+GO
+CREATE PROCEDURE PRC_CheckIDEmployeeWorking @IDEmployee NVARCHAR(100)
+AS
+BEGIN
+	SELECT * FROM WORKSHIFT WHERE IDEmployee = @IDEmployee
+END
+GO
+CREATE TRIGGER TRG_RewardFineCheckOut ON dbo.WORKSHIFT
 AFTER UPDATE
 AS
 BEGIN
-	DECLARE @iIDEmployee NVARCHAR(100), @Second INT
-	SELECT @iIDEmployee = IDEmployee, @Second = DATEDIFF(SECOND, CheckIn, CheckOut)
+	DECLARE @iIDEmployee NVARCHAR(100), @Minute INT
+	SELECT @iIDEmployee = IDEmployee, @Minute = DATEDIFF(MINUTE, CheckIn, CheckOut)
 	FROM  Inserted
 	
 	DECLARE @iNumberofWorkShift INT,  @iMonthWork INT, @iYearWork INT
@@ -45,30 +83,29 @@ BEGIN
 	FROM dbo.SALARY
 	WHERE IDEmployee = @iIDEmployee
 	
-
-	DECLARE @Reward FLOAT, @Punish FLOAT 
-	IF (@Second >= 28800)
+	DECLARE @Reward REAL, @Fine REAL 
+	IF (@Minute >= 480)
 	BEGIN
-		SET @Reward = @Second - 28800
-		SET @Punish = 0
+		SET @Reward = @Minute % 15
+		SET @Fine = 0
 	END
-	ELSE IF (@Second < 28800)
+	ELSE IF (@Minute < 480)
 	BEGIN
-		SET @Punish = 28800 - @Second
+		SET @Fine = @Minute % 15
 		SET @Reward = 0
 	END
 
-	IF (@iNumberofWorkShift >= 30 AND @Second >= 28800)
+	IF (@iNumberofWorkShift >= 30 AND @Minute >= 480)
 		SET @Reward = @Reward * 1.1
 
 	UPDATE dbo.SALARY
-	SET Reward = Reward + @Reward / 3600, Punish = Punish + @Punish / 3600
+	SET Reward = Reward + @Reward / 60, Fine = Fine + @Fine / 60
 	WHERE @iIDEmployee = IDEmployee AND @iMonthWork = MonthWork AND @iYearWork = YearWork
 END
 GO
 
 
-CREATE TRIGGER SalaryCheckOut ON dbo.WORK
+CREATE TRIGGER TRG_SalaryCheckOut ON dbo.WORKSHIFT
 AFTER UPDATE
 AS
 BEGIN
@@ -81,36 +118,39 @@ BEGIN
 	FROM dbo.SALARY
 	WHERE @iIDEmployee = dbo.SALARY.IDEmployee AND MONTH(@iCheckOut) = MonthWork AND YEAR(@iCheckOut) = YearWork
 
-	DECLARE @iReward INT, @iPunish INT
-	SELECT @iReward = Reward, @iPunish = Punish, @iNumberofWorkShift = NumberofWorkShift
+	DECLARE @iReward INT, @iFine INT
+	SELECT @iReward = Reward, @iFine = Fine, @iNumberofWorkShift = NumberofWorkShift
 	FROM dbo.SALARY
 	WHERE @iIDEmployee = dbo.SALARY.IDEmployee AND MONTH(@iCheckOut) = MonthWork AND YEAR(@iCheckOut) = YearWork
 
 	DECLARE @iEmployeeType INT
-	SELECT @iEmployeeType = EmployeeType
+	SELECT @iEmployeeType = WorkID
 	FROM dbo.EMPLOYEE 
-	WHERE @iIDEmployee = dbo.EMPLOYEE.EmployeeType	
+	WHERE @iIDEmployee = dbo.EMPLOYEE.IDEmployee	
+
+	DECLARE @CoefficientsSalary REAL
+	SELECT @CoefficientsSalary = CoefficientsSalary
+	FROM dbo.JOB
+	WHERE @iEmployeeType = dbo.JOB.WorkID
+
+	DECLARE @Wages REAL
+	--Nên chỉnh sửa lại nếu có ca làm
+	IF (DATEPART(HOUR, @iCheckIN) >= 0 AND DATEPART(HOUR, @iCheckIN) <= 8)										--Làm giờ ban đêm
+		SET @Wages = 8 * @CoefficientsSalary * 20000 * 1.5
+	ELSE
+		SET @Wages = 8 * @CoefficientsSalary * 20000
 
 	DECLARE @SalarybyPosition INT
-	IF (@iEmployeeType = 0)
-		SET @SalarybyPosition = @iNumberofWorkShift * 8 * 4000 + (@iReward - @iPunish) * 3000
-	ELSE IF (@iEmployeeType = 1)
-		SET @SalarybyPosition = @iNumberofWorkShift * 8 * 2000 + (@iReward - @iPunish) * 3000
-	ELSE
-		SET @SalarybyPosition = @iNumberofWorkShift * 8 * 3000 + (@iReward - @iPunish) * 3000
+	SET @SalarybyPosition = @iNumberofWorkShift * @Wages + (@iReward - @iFine) * 30000							--Set tiền lương
 	
-	IF (DATEPART(HOUR, @iCheckIN) >= 0 AND DATEPART(HOUR, @iCheckOut) <= 8)
-		SET @SalarybyPosition = @SalarybyPosition * 1.5
-
 	UPDATE dbo.SALARY
 	SET SalaryEmployee = @SalarybyPosition
 	WHERE dbo.SALARY.IDEmployee = @iIDEmployee AND dbo.SALARY.MonthWork = MONTH(@iCheckOut) AND dbo.SALARY.YearWork = YEAR(@iCheckOut)
 END
 GO
-DROP TRIGGER dbo.InsertSalary
-GO
 
-CREATE TRIGGER SalaryCheckIn ON dbo.WORK
+
+CREATE TRIGGER TRG_SalaryCheckIn ON dbo.WORKSHIFT
 AFTER INSERT
 AS
 BEGIN
@@ -139,5 +179,5 @@ BEGIN
 		)
 	UPDATE dbo.SALARY
 	SET NumberofWorkShift = NumberofWorkShift + 1
-	WHERE @iIDEmployee = IDEmployee
+	WHERE @iIDEmployee = IDEmployee AND MONTH(@iCheckIn) = MonthWork AND YEAR(@iCheckIn) = YearWork
 END
