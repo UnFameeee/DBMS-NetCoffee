@@ -23,8 +23,13 @@ namespace FinalDBMS
         {
             if (salary.CheckIDEmployee(txtID.Text))
             {
-                salary.AddCheckIn(txtID.Text);
-                dataGridViewTimeKeeping.DataSource = salary.ShowTimeKeeping();
+                if (!salary.CheckIDWork(txtID.Text))
+                {
+                    salary.AddCheckIn(txtID.Text);
+                    dataGridViewTimeKeeping.DataSource = salary.ShowTimeKeeping();
+                }
+                else
+                    MessageBox.Show("ID is working. Can't check in");
             }
             else
                 MessageBox.Show("Can't find the ID");
@@ -32,13 +37,13 @@ namespace FinalDBMS
 
         private void btnCheckOut_Click(object sender, EventArgs e)
         {
-                if (salary.CheckIDWork(txtID.Text))
-                {
-                    salary.AddCheckOut(txtID.Text);
-                    dataGridViewTimeKeeping.DataSource = salary.ShowTimeKeeping();
-                }
-                else
-                    MessageBox.Show("Can't find the ID");
+            if (salary.CheckIDWork(txtID.Text))
+            {
+                salary.AddCheckOut(txtID.Text);
+                dataGridViewTimeKeeping.DataSource = salary.ShowTimeKeeping();
+            }
+            else
+                MessageBox.Show("Can't find the ID");
         }
     }
 }
