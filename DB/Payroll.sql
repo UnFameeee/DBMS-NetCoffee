@@ -7,7 +7,7 @@ CREATE TABLE EMPLOYEE
 (
 	IDEmployee nvarchar(100) PRIMARY KEY,					--ID nhân viên
 	DisplaynameEmployee nvarchar(100) not null,				--Họ Tên
-	EmployeeType INT										--0 là quản lý, 1 là nhân viên, 2 là lao công
+	EmployeeType INT											
 )
 GO
 CREATE TABLE WORK
