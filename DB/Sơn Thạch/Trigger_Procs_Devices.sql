@@ -107,7 +107,7 @@ BEGIN
 END
 
 --Test Trigger
---Keyboard hiện tại của Vip là Razer Huntsman Mini Mercurycòn Thường là Razer Blackwidow Lite
+--Keyboard hiện tại của Vip là Razer Huntsman Mini Mercury còn Thường là Razer Blackwidow Lite
 --Trường hợp sai
 UPDATE DEVICETYPE  SET KeyBoard = 'Razer Huntsman Mini Mercury' WHERE TypeID = 'Thuong'
 
@@ -154,7 +154,7 @@ create table ACCOUNTCUSTOMER
 	PassWord nvarchar(100),
 	TimeAvailible int,												--dựa vào số tiền nạp và id máy để tính thời gian			
 	TimeUsed int,													--thời gian đã dùng
-	TimeRemain int,												--thời gian còn lại = thời gian có - thời gian đã dùng
+	TimeRemain int,													--thời gian còn lại = thời gian có - thời gian đã dùng
 	CustomerID nvarchar(100) references CUSTOMER(CustomerID),					
 	DeviceID nvarchar(100) references DEVICES(DeviceID),
 	StatusCustomer INT
