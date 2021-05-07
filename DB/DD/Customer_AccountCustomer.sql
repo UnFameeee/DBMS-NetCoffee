@@ -2,7 +2,7 @@
 
 
 
----***********BIG NOTE:  CÁC BẢNG DƯỚI ĐÂY ĐÃ CÓ NHỮNG THUỘC TÍNH BỊ THAY ĐỔI, THÊM, XOÁ SO VỚI BẢNG TRONG DATABASE BAN ĐẦU !!!!!!!!!!!
+---***********BIG NOTE:  CÁC BẢNG DƯỚI ĐÂY ĐÃ CÓ NHỮNG THUỘC TÍNH BỊ THAY ĐỔI, THÊM, XOÁ SO VỚI BẢNG TRONG DATABASE BAN ĐẦU !!!!!!!!!!!OK
 --Khách hàng--
 create table CUSTOMER
 (
@@ -28,7 +28,7 @@ create table ACCOUNTCUSTOMER
 go
 --***:Stored Procedure 
 --thêm mới khách hàng Cus
-CREATE PROC Creat_customer (@cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon int)
+CREATE PROC Create_customer (@cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon int)
 AS
 BEGIN
  INSERT INTO dbo.CUSTOMER
@@ -82,8 +82,9 @@ BEGIN
 	WHERE CUSTOMER.CustomerID=@cid
 END
 go
---** Việc khách hàng nạp tiền vào Cus và Acus là 2 việc khác nhau vì 2 loại tiền này phục mục đích khác, tiền của Cus là tiền chung có thể để nạp tiền giờ chơi hay order đồ ăn
---việc phân biệt này giúp cho việc tính toán số giơf chơi còn lại trong Acus trực quan hơn
+--** Việc khách hàng nạp tiền vào Cus và Acus là 2 việc khác nhau vì 2 loại tiền này phục mục đích khác, 
+--tiền của Cus là tiền chung có thể để nạp tiền giờ chơi hay order đồ ăn
+--việc phân biệt này giúp cho việc tính toán số giờ chơi còn lại trong Acus trực quan hơn
 --Khách hàng nạp tiền vào Account
 
 go
@@ -122,9 +123,9 @@ BEGIN
 END
 go
 ---***Trigger
---khi Cus đăng nhập vào máy để bắt đầu chơi
+--khi Cus đăng nhập vào máy để bắt đầu chơi (1 là đang sử dụng - 0 là không sử dụng) dibu
 go
-CREATE TRIGGER Useronline_AccountCus ON dbo.ACCOUNTCUSTOMER
+CREATE TRIGGER UserOnline_AccountCus ON dbo.ACCOUNTCUSTOMER
 FOR INSERT
 AS
 BEGIN
@@ -133,7 +134,7 @@ BEGIN
 	SELECT @did=Inserted.DeviceID , @st=Inserted.StatusCustomer, @cid =Inserted.CustomerID
 	FROM Inserted
 
-	IF(@st =1 AND @did IS NOT NULL)
+	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
 			SET DStatus=1
@@ -174,7 +175,7 @@ BEGIN
 	SELECT @did=Inserted.DeviceID , @st=Inserted.StatusCustomer, @cid =Inserted.CustomerID
 	FROM Inserted
 
-	IF(@st =0 AND @did IS NULL)
+	IF(@st = 0 AND @did IS NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
 			SET DStatus=0
@@ -207,7 +208,7 @@ BEGIN
 		END
 end
 GO
---Khi tạo tài khoản cho Cus mà không nhập đủ thông tin
+--Khi tạo tài khoản cho Cus mà không nhập đủ thông tin 
 GO
 CREATE TRIGGER InvalidInsert_Customer ON dbo.CUSTOMER
 FOR INSERT

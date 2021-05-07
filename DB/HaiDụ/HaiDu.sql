@@ -40,9 +40,9 @@ CREATE TABLE EMPLOYEE
 	Birthday date,									--Ngày sinh
 	Phone int,										--SĐT
 	IdentityNumber nvarchar(100) not null,			--số CMND
-	StatusEmployee nvarchar(100),
+	StatusEmployee nvarchar(100),					--Work / not Work (wibu)
 	Email nvarchar(100),
-	WorkID nvarchar(100) references JOB(WorkID)	--MãCV
+	WorkID nvarchar(100) references JOB(WorkID)		--MãCV
 )
 --Thêm 3 quản lý, 12 nhân viên, 6 lao công (QT)
 INSERT INTO EMPLOYEE VALUES ('NV1', N'Lê Thị Hai', N'Nữ', '2000-10-20', 123456789, '079200001910', '', '', 'LC')
@@ -154,7 +154,6 @@ create trigger TG_FormatIdentityNumber on EMPLOYEE
 for insert, update as
 declare @ID nvarchar(100), @Identity nvarchar(100)
 begin
-
 	--Lấy ra mã ID của nhân viên vừa nhập
 	select @ID = inserted.ID
 	from inserted
@@ -164,13 +163,11 @@ begin
 	from EMPLOYEE
 	where EMPLOYEE.ID = @ID
 
-
 	if(len(@Identity) <= 12 and len(@Identity) >= 9)
 	begin
 		print ('IdentityNumber must have more than 8 characters!!!')
 		rollback
 	end
-
 end
 
 
