@@ -16,7 +16,12 @@ namespace FinalDBMS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Timekeeping());
+
+            //Application.Run(new Timekeeping());
+
+            Application.Run(new MainFrm());
+            //Application.Run(new CalendarFrm());
+
         }
     }
 }
