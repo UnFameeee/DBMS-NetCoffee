@@ -51,8 +51,12 @@ CREATE TABLE WORK									--Ca làm (trong 1 ca làm thì có 1 ql, 4 nv, 3 lc)
 	PRIMARY KEY(EmpID, ShiftID)
 )
 
+ALTER TABLE WORK DROP CONSTRAINT FK_EmpIDandID
 ALTER TABLE WORK ADD CONSTRAINT FK_EmpIDandID FOREIGN KEY(EmpID) REFERENCES EMPLOYEE(ID)					--FK là FOREIGN KEY
+
 ALTER TABLE WORK ADD CONSTRAINT FK_ShiftIDandWorkShift FOREIGN KEY(ShiftID) REFERENCES WORKSHIFT(ShiftID)
+
+ALTER TABLE WORK DROP CONSTRAINT FK_ShiftManagerandEmpID
 ALTER TABLE WORK ADD CONSTRAINT FK_ShiftManagerandEmpID FOREIGN KEY(ShiftManagerID) REFERENCES EMPLOYEE(ID)
 
 --Ca 1
@@ -64,6 +68,7 @@ INSERT INTO WORK VALUES ('NV6', 1, 'NV5')	--NV
 INSERT INTO WORK VALUES ('NV7', 1, 'NV5')	--NV
 INSERT INTO WORK VALUES ('NV8', 1, 'NV5')	--NV
 --Ca 2
+INSERT INTO WORK VALUES ('NV14', 2, '')		--QL
 INSERT INTO WORK VALUES ('NV3', 2, 'NV14')	--LC
 INSERT INTO WORK VALUES ('NV18', 2, 'NV14')	--LC
 INSERT INTO WORK VALUES ('NV9', 2, 'NV14')	--NV
@@ -71,6 +76,7 @@ INSERT INTO WORK VALUES ('NV10', 2, 'NV14')	--NV
 INSERT INTO WORK VALUES ('NV11', 2, 'NV14')	--NV
 INSERT INTO WORK VALUES ('NV12', 2, 'NV14')	--NV
 --Ca 3
+INSERT INTO WORK VALUES ('NV20', 3, '')		--QL
 INSERT INTO WORK VALUES ('NV19', 3, 'NV20')	--LC
 INSERT INTO WORK VALUES ('NV21', 3, 'NV20')	--LC
 INSERT INTO WORK VALUES ('NV13', 3, 'NV20')	--NV
@@ -116,7 +122,7 @@ SELECT * FROM dbo.SearchEmployees(N'Thành')								--chạy function
 
 
 --Trigger ở bảng Work--
---Khi thêm 1 nhân viên vào, người đó không được là quản lý
+--Khi thêm 1 nhân viên vào
 DROP TRIGGER TG_CantAddManager
 CREATE TRIGGER TG_CantAddManager ON WORK
 FOR INSERT, UPDATE AS
@@ -142,25 +148,45 @@ INSERT INTO WORK VALUES ('NV5', 1, 'NV5')	--LC
 UPDATE WORK SET EmpID = 'NV5' WHERE EmpID = 'NV1' and ShiftID = 1
 
 --Khi thêm ID của 1 nhân viên vào ShiftManagerID thì người đó bắt buộc phải là quản lý
+--Nếu người được thêm là quản lý thì ShiftManagerID = null
 DROP TRIGGER TG_ShiftManagerMustBeManager
 CREATE TRIGGER TG_ShiftManagerMustBeManager On WORK
 FOR INSERT, UPDATE AS
-DECLARE @ShiftManagerID nvarchar(100), @Position nvarchar(100)
+DECLARE @ShiftManagerID nvarchar(100), @Position nvarchar(100), @EmpID nvarchar(100)
 BEGIN 
 	--Lấy ra mã quản lý của 1 nhân viên vừa thêm/cập nhật vào
-	SELECT @ShiftManagerID = inserted.ShiftManagerID
+	SELECT @EmpID = inserted.EmpID, @ShiftManagerID = inserted.ShiftManagerID
 	FROM inserted
-	--Tìm ra vị trí của mã quản lý đó
-	SELECT @Position = EMPLOYEE.WorkID
-	FROM EMPLOYEE
-	WHERE EMPLOYEE.ID = @ShiftManagerID
-	--Nếu đó không phải là Quản Lý (QL) Rollback
-	IF(@Position != 'QL')
+	--Nếu mãQL là null
+	IF(@ShiftManagerID = '')				
 	BEGIN
-		PRINT ('Shift Manager must be a Manager!!!')
-		ROLLBACK
+		--Tìm ra vị trí của EmpID
+		SELECT @Position = EMPLOYEE.WorkID
+		FROM EMPLOYEE
+		WHERE EMPLOYEE.ID = @EmpID
+		--Nếu đó không là quản lý thì RollBack (Vì quản lý không thể quản lý quản lý)
+		IF(@Position = 'QL')
+		BEGIN
+			PRINT ('Cant Insert or Update because Manager cant be managed by Manager!!!')
+			ROLLBACK
+		END
+	END
+
+	ELSE	--Nếu mã quản lý != null
+	BEGIN
+		--Tìm ra vị trí của mã quản lý đó
+		SELECT @Position = EMPLOYEE.WorkID
+		FROM EMPLOYEE
+		WHERE EMPLOYEE.ID = @ShiftManagerID
+		--Nếu đó không phải là Quản Lý (QL) Rollback
+		IF(@Position != 'QL')
+		BEGIN
+			PRINT ('Shift Manager must be a Manager!!!')
+			ROLLBACK
+		END
 	END
 END
+
 --Test nhập
 INSERT INTO WORK VALUES ('NV13', 2, 'NV1')	--LC
 --Test update
@@ -169,3 +195,9 @@ UPDATE WORK SET ShiftManagerID = 'NV1' WHERE EmpID = 'NV1' and ShiftID = 1
 
 --Tìm nhân viên hiện có trong 1 ca theo giờ hiện tại
 CREATE FUNCTION 
+
+
+CREATE DATABASE PHONG
+GO
+USE PHONG
+GO

@@ -22,5 +22,12 @@ namespace FinalDBMS
             AddCustomerFrm frm = new AddCustomerFrm();
             frm.Show();
         }
+
+        private void TimeKeepingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CalendarFrm frm = new CalendarFrm() { TopLevel = false, TopMost = false};
+            pnlMain.Controls.Add(frm);
+            frm.Show();
+        }
     }
 }
