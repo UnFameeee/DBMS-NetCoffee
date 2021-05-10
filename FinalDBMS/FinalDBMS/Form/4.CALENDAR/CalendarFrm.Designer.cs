@@ -32,16 +32,39 @@ namespace FinalDBMS
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.btnExit = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pnlPicture = new System.Windows.Forms.Panel();
+            this.pb6 = new System.Windows.Forms.PictureBox();
+            this.pb5 = new System.Windows.Forms.PictureBox();
+            this.pb4 = new System.Windows.Forms.PictureBox();
+            this.pb7 = new System.Windows.Forms.PictureBox();
+            this.pb3 = new System.Windows.Forms.PictureBox();
+            this.pb2 = new System.Windows.Forms.PictureBox();
+            this.pb1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbCheckin = new System.Windows.Forms.Label();
+            this.tbInfo = new System.Windows.Forms.TextBox();
+            this.dataGridViewTimeKeeping = new System.Windows.Forms.DataGridView();
             this.btnCheckOut = new System.Windows.Forms.Button();
             this.txtID = new System.Windows.Forms.TextBox();
             this.lblID = new System.Windows.Forms.Label();
             this.btnCheckIn = new System.Windows.Forms.Button();
-            this.dataGridViewTimeKeeping = new System.Windows.Forms.DataGridView();
-            this.tbInfo = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lbCheckin = new System.Windows.Forms.Label();
+            this.lb1 = new System.Windows.Forms.Label();
+            this.lb2 = new System.Windows.Forms.Label();
+            this.lb3 = new System.Windows.Forms.Label();
+            this.lb6 = new System.Windows.Forms.Label();
+            this.lb5 = new System.Windows.Forms.Label();
+            this.lb4 = new System.Windows.Forms.Label();
+            this.lb7 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
+            this.pnlPicture.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTimeKeeping)).BeginInit();
             this.SuspendLayout();
@@ -66,11 +89,101 @@ namespace FinalDBMS
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.pnlPicture);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Location = new System.Drawing.Point(600, 32);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(462, 512);
             this.panel2.TabIndex = 5;
+            // 
+            // pnlPicture
+            // 
+            this.pnlPicture.Controls.Add(this.lb7);
+            this.pnlPicture.Controls.Add(this.lb6);
+            this.pnlPicture.Controls.Add(this.lb5);
+            this.pnlPicture.Controls.Add(this.lb4);
+            this.pnlPicture.Controls.Add(this.lb3);
+            this.pnlPicture.Controls.Add(this.lb2);
+            this.pnlPicture.Controls.Add(this.lb1);
+            this.pnlPicture.Controls.Add(this.pb6);
+            this.pnlPicture.Controls.Add(this.pb5);
+            this.pnlPicture.Controls.Add(this.pb4);
+            this.pnlPicture.Controls.Add(this.pb7);
+            this.pnlPicture.Controls.Add(this.pb3);
+            this.pnlPicture.Controls.Add(this.pb2);
+            this.pnlPicture.Controls.Add(this.pb1);
+            this.pnlPicture.Location = new System.Drawing.Point(0, 44);
+            this.pnlPicture.Name = "pnlPicture";
+            this.pnlPicture.Size = new System.Drawing.Size(462, 465);
+            this.pnlPicture.TabIndex = 1;
+            // 
+            // pb6
+            // 
+            this.pb6.Location = new System.Drawing.Point(343, 166);
+            this.pb6.Name = "pb6";
+            this.pb6.Size = new System.Drawing.Size(81, 105);
+            this.pb6.TabIndex = 6;
+            this.pb6.TabStop = false;
+            // 
+            // pb5
+            // 
+            this.pb5.Location = new System.Drawing.Point(186, 166);
+            this.pb5.Name = "pb5";
+            this.pb5.Size = new System.Drawing.Size(81, 105);
+            this.pb5.TabIndex = 5;
+            this.pb5.TabStop = false;
+            // 
+            // pb4
+            // 
+            this.pb4.Location = new System.Drawing.Point(40, 166);
+            this.pb4.Name = "pb4";
+            this.pb4.Size = new System.Drawing.Size(81, 105);
+            this.pb4.TabIndex = 4;
+            this.pb4.TabStop = false;
+            // 
+            // pb7
+            // 
+            this.pb7.Location = new System.Drawing.Point(186, 318);
+            this.pb7.Name = "pb7";
+            this.pb7.Size = new System.Drawing.Size(81, 105);
+            this.pb7.TabIndex = 3;
+            this.pb7.TabStop = false;
+            // 
+            // pb3
+            // 
+            this.pb3.Location = new System.Drawing.Point(343, 11);
+            this.pb3.Name = "pb3";
+            this.pb3.Size = new System.Drawing.Size(81, 105);
+            this.pb3.TabIndex = 2;
+            this.pb3.TabStop = false;
+            // 
+            // pb2
+            // 
+            this.pb2.Location = new System.Drawing.Point(186, 11);
+            this.pb2.Name = "pb2";
+            this.pb2.Size = new System.Drawing.Size(81, 105);
+            this.pb2.TabIndex = 1;
+            this.pb2.TabStop = false;
+            // 
+            // pb1
+            // 
+            this.pb1.Location = new System.Drawing.Point(40, 11);
+            this.pb1.Name = "pb1";
+            this.pb1.Size = new System.Drawing.Size(81, 105);
+            this.pb1.TabIndex = 0;
+            this.pb1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.label1.Font = new System.Drawing.Font("Arial", 18.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(5, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(453, 34);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "DANH SÁCH NHÂN VIÊN ĐANG LÀM";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
@@ -86,6 +199,40 @@ namespace FinalDBMS
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(593, 512);
             this.panel1.TabIndex = 6;
+            // 
+            // lbCheckin
+            // 
+            this.lbCheckin.BackColor = System.Drawing.Color.White;
+            this.lbCheckin.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCheckin.ForeColor = System.Drawing.Color.Black;
+            this.lbCheckin.Location = new System.Drawing.Point(10, 136);
+            this.lbCheckin.Name = "lbCheckin";
+            this.lbCheckin.Size = new System.Drawing.Size(344, 24);
+            this.lbCheckin.TabIndex = 1;
+            this.lbCheckin.Text = "You have been checked in. Have a nice day at work";
+            // 
+            // tbInfo
+            // 
+            this.tbInfo.BackColor = System.Drawing.Color.White;
+            this.tbInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbInfo.ForeColor = System.Drawing.Color.Black;
+            this.tbInfo.Location = new System.Drawing.Point(10, 32);
+            this.tbInfo.Multiline = true;
+            this.tbInfo.Name = "tbInfo";
+            this.tbInfo.Size = new System.Drawing.Size(336, 97);
+            this.tbInfo.TabIndex = 10;
+            this.tbInfo.Text = "ID:\r\nName:\r\nGender:\r\nPhone:\r\nIdentityNumber:\r\n";
+            // 
+            // dataGridViewTimeKeeping
+            // 
+            this.dataGridViewTimeKeeping.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTimeKeeping.Location = new System.Drawing.Point(10, 169);
+            this.dataGridViewTimeKeeping.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewTimeKeeping.Name = "dataGridViewTimeKeeping";
+            this.dataGridViewTimeKeeping.RowHeadersWidth = 62;
+            this.dataGridViewTimeKeeping.RowTemplate.Height = 28;
+            this.dataGridViewTimeKeeping.Size = new System.Drawing.Size(581, 341);
+            this.dataGridViewTimeKeeping.TabIndex = 9;
             // 
             // btnCheckOut
             // 
@@ -135,51 +282,68 @@ namespace FinalDBMS
             this.btnCheckIn.UseVisualStyleBackColor = false;
             this.btnCheckIn.Click += new System.EventHandler(this.btnCheckIn_Click);
             // 
-            // dataGridViewTimeKeeping
+            // lb1
             // 
-            this.dataGridViewTimeKeeping.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTimeKeeping.Location = new System.Drawing.Point(10, 169);
-            this.dataGridViewTimeKeeping.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridViewTimeKeeping.Name = "dataGridViewTimeKeeping";
-            this.dataGridViewTimeKeeping.RowHeadersWidth = 62;
-            this.dataGridViewTimeKeeping.RowTemplate.Height = 28;
-            this.dataGridViewTimeKeeping.Size = new System.Drawing.Size(581, 341);
-            this.dataGridViewTimeKeeping.TabIndex = 9;
+            this.lb1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb1.Location = new System.Drawing.Point(40, 119);
+            this.lb1.Name = "lb1";
+            this.lb1.Size = new System.Drawing.Size(81, 23);
+            this.lb1.TabIndex = 12;
+            this.lb1.Text = "label1";
             // 
-            // tbInfo
+            // lb2
             // 
-            this.tbInfo.BackColor = System.Drawing.Color.White;
-            this.tbInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbInfo.ForeColor = System.Drawing.Color.Black;
-            this.tbInfo.Location = new System.Drawing.Point(10, 32);
-            this.tbInfo.Multiline = true;
-            this.tbInfo.Name = "tbInfo";
-            this.tbInfo.Size = new System.Drawing.Size(336, 97);
-            this.tbInfo.TabIndex = 10;
-            this.tbInfo.Text = "ID:\r\nName:\r\nGender:\r\nPhone:\r\nIdentityNumber:\r\n";
+            this.lb2.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb2.Location = new System.Drawing.Point(186, 119);
+            this.lb2.Name = "lb2";
+            this.lb2.Size = new System.Drawing.Size(81, 23);
+            this.lb2.TabIndex = 13;
+            this.lb2.Text = "lb2";
             // 
-            // label1
+            // lb3
             // 
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
-            this.label1.Font = new System.Drawing.Font("Arial", 18.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(5, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(453, 34);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "DANH SÁCH NHÂN VIÊN ĐANG LÀM";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb3.Location = new System.Drawing.Point(343, 119);
+            this.lb3.Name = "lb3";
+            this.lb3.Size = new System.Drawing.Size(81, 23);
+            this.lb3.TabIndex = 14;
+            this.lb3.Text = "lb3";
             // 
-            // lbCheckin
+            // lb6
             // 
-            this.lbCheckin.BackColor = System.Drawing.Color.White;
-            this.lbCheckin.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCheckin.ForeColor = System.Drawing.Color.Black;
-            this.lbCheckin.Location = new System.Drawing.Point(10, 136);
-            this.lbCheckin.Name = "lbCheckin";
-            this.lbCheckin.Size = new System.Drawing.Size(344, 24);
-            this.lbCheckin.TabIndex = 1;
-            this.lbCheckin.Text = "You have been checked in. Have a nice day at work";
+            this.lb6.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb6.Location = new System.Drawing.Point(343, 274);
+            this.lb6.Name = "lb6";
+            this.lb6.Size = new System.Drawing.Size(81, 23);
+            this.lb6.TabIndex = 17;
+            this.lb6.Text = "lb6";
+            // 
+            // lb5
+            // 
+            this.lb5.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb5.Location = new System.Drawing.Point(186, 274);
+            this.lb5.Name = "lb5";
+            this.lb5.Size = new System.Drawing.Size(81, 23);
+            this.lb5.TabIndex = 16;
+            this.lb5.Text = "lb5";
+            // 
+            // lb4
+            // 
+            this.lb4.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb4.Location = new System.Drawing.Point(40, 274);
+            this.lb4.Name = "lb4";
+            this.lb4.Size = new System.Drawing.Size(81, 23);
+            this.lb4.TabIndex = 15;
+            this.lb4.Text = "lb4";
+            // 
+            // lb7
+            // 
+            this.lb7.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb7.Location = new System.Drawing.Point(186, 426);
+            this.lb7.Name = "lb7";
+            this.lb7.Size = new System.Drawing.Size(81, 23);
+            this.lb7.TabIndex = 18;
+            this.lb7.Text = "lb7";
             // 
             // CalendarFrm
             // 
@@ -193,7 +357,16 @@ namespace FinalDBMS
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CalendarFrm";
             this.Text = "CalendarFrm";
+            this.Load += new System.EventHandler(this.CalendarFrm_Load);
             this.panel2.ResumeLayout(false);
+            this.pnlPicture.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pb6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTimeKeeping)).EndInit();
@@ -215,5 +388,20 @@ namespace FinalDBMS
         private System.Windows.Forms.DataGridView dataGridViewTimeKeeping;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbCheckin;
+        private System.Windows.Forms.Panel pnlPicture;
+        private System.Windows.Forms.PictureBox pb7;
+        private System.Windows.Forms.PictureBox pb3;
+        private System.Windows.Forms.PictureBox pb2;
+        private System.Windows.Forms.PictureBox pb1;
+        private System.Windows.Forms.PictureBox pb6;
+        private System.Windows.Forms.PictureBox pb5;
+        private System.Windows.Forms.PictureBox pb4;
+        private System.Windows.Forms.Label lb1;
+        private System.Windows.Forms.Label lb3;
+        private System.Windows.Forms.Label lb2;
+        private System.Windows.Forms.Label lb6;
+        private System.Windows.Forms.Label lb5;
+        private System.Windows.Forms.Label lb4;
+        private System.Windows.Forms.Label lb7;
     }
 }

@@ -1,0 +1,17 @@
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.exe.config
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.exe
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\bin\Debug\FinalDBMS.pdb
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csprojAssemblyReference.cache
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.EmployeeForm.resources
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.CalendarFrm.resources
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.AddCustomerFrm.resources
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.LoginFrm.resources
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.MainFrm.resources
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.Properties.Resources.resources
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.RegisterEmployeeFrm.resources
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.SalaryFrm.resources
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.Timekeeping.resources
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csproj.GenerateResource.cache
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.csproj.CoreCompileInputs.cache
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.exe
+C:\Users\Admin-s\Desktop\FinalDBMS\FinalDBMS\FinalDBMS\obj\Debug\FinalDBMS.pdb
