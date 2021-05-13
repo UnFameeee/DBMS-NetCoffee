@@ -151,9 +151,6 @@ INSERT INTO WORK VALUES ('NV13', 2, 'NV1')	--LC
 --Test update
 UPDATE WORK SET ShiftManagerID = 'NV1' WHERE EmpID = 'NV1' and ShiftID = 1
 
-
-
-
 ------------------------------FUNCTION-----------------------------------------
 --Tìm ra nhân viên theo từ khoá đã cho
 DROP FUNCTION Func_SearchEmployeesWithName
