@@ -37,6 +37,7 @@ namespace FinalDBMS
             this.TimeKeepingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aCCOUNTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.qUANLYTHIÊTBIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,11 +47,12 @@ namespace FinalDBMS
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cUSTOMERToolStripMenuItem,
             this.eMPLOYEEToolStripMenuItem,
-            this.aCCOUNTToolStripMenuItem});
+            this.aCCOUNTToolStripMenuItem,
+            this.qUANLYTHIÊTBIToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1068, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 1, 0, 1);
+            this.menuStrip1.Size = new System.Drawing.Size(1424, 26);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -59,13 +61,13 @@ namespace FinalDBMS
             this.cUSTOMERToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addCustomerToolStripMenuItem});
             this.cUSTOMERToolStripMenuItem.Name = "cUSTOMERToolStripMenuItem";
-            this.cUSTOMERToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
+            this.cUSTOMERToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             this.cUSTOMERToolStripMenuItem.Text = "KHÁCH HÀNG";
             // 
             // addCustomerToolStripMenuItem
             // 
             this.addCustomerToolStripMenuItem.Name = "addCustomerToolStripMenuItem";
-            this.addCustomerToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.addCustomerToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.addCustomerToolStripMenuItem.Text = "Thêm Khách Hàng";
             this.addCustomerToolStripMenuItem.Click += new System.EventHandler(this.addCustomerToolStripMenuItem_Click);
             // 
@@ -75,7 +77,7 @@ namespace FinalDBMS
             this.InfoToolStripMenuItem,
             this.TimeKeepingToolStripMenuItem});
             this.eMPLOYEEToolStripMenuItem.Name = "eMPLOYEEToolStripMenuItem";
-            this.eMPLOYEEToolStripMenuItem.Size = new System.Drawing.Size(82, 22);
+            this.eMPLOYEEToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
             this.eMPLOYEEToolStripMenuItem.Text = "NHÂN VIÊN";
             // 
             // InfoToolStripMenuItem
@@ -95,7 +97,7 @@ namespace FinalDBMS
             // aCCOUNTToolStripMenuItem
             // 
             this.aCCOUNTToolStripMenuItem.Name = "aCCOUNTToolStripMenuItem";
-            this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
+            this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(100, 24);
             this.aCCOUNTToolStripMenuItem.Text = "TÀI KHOẢN";
             // 
             // pnlMain
@@ -106,15 +108,22 @@ namespace FinalDBMS
             this.pnlMain.Size = new System.Drawing.Size(1068, 561);
             this.pnlMain.TabIndex = 1;
             // 
+            // qUANLYTHIÊTBIToolStripMenuItem
+            // 
+            this.qUANLYTHIÊTBIToolStripMenuItem.Name = "qUANLYTHIÊTBIToolStripMenuItem";
+            this.qUANLYTHIÊTBIToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
+            this.qUANLYTHIÊTBIToolStripMenuItem.Text = "QUẢN LÝ THIẾT BỊ";
+            this.qUANLYTHIÊTBIToolStripMenuItem.Click += new System.EventHandler(this.qUANLYTHIÊTBIToolStripMenuItem_Click);
+            // 
             // MainFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1068, 585);
+            this.ClientSize = new System.Drawing.Size(1424, 720);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainFrm";
             this.Text = "QUẢN LÝ";
             this.menuStrip1.ResumeLayout(false);
@@ -134,5 +143,6 @@ namespace FinalDBMS
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.ToolStripMenuItem InfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TimeKeepingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem qUANLYTHIÊTBIToolStripMenuItem;
     }
 }
