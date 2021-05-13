@@ -19,6 +19,8 @@ namespace FinalDBMS
 
             //Application.Run(new Timekeeping());
 
+            //Application.Run(new MainFrm());
+            //Application.Run(new CalendarFrm());
             Application.Run(new MainFrm());
             //Application.Run(new CalendarFrm());
             //Application.Run(new EmpListFrm());
