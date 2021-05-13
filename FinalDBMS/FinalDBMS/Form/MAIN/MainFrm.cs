@@ -29,5 +29,12 @@ namespace FinalDBMS
             pnlMain.Controls.Add(frm);
             frm.Show();
         }
+
+        private void InfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EmpListFrm frm = new EmpListFrm() { TopLevel = false, TopMost = false };
+            pnlMain.Controls.Add(frm);
+            frm.Show();
+        }
     }
 }

@@ -33,8 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Guna.UI">
+      <HintPath>..\..\..\..\Downloads\Guna\Guna_UI_Framework_Ultimate_v2.0.0.1\Guna_UI_Framework_Ultimate_v2.0.0.1\Guna.UI-Framework-Lib-master\Guna.UI WinForms\.net 4.0\Guna.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,7 +51,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form\2.EMPLOYEE\EmpDetailFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\2.EMPLOYEE\EmpDetailFrm.Designer.cs">
+      <DependentUpon>EmpDetailFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\2.EMPLOYEE\AddEmpFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\2.EMPLOYEE\AddEmpFrm.Designer.cs">
+      <DependentUpon>AddEmpFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Calendar.cs" />
+    <Compile Include="Form\2.EMPLOYEE\Employee.cs" />
+    <Compile Include="Form\2.EMPLOYEE\EmpListFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\2.EMPLOYEE\EmpListFrm.Designer.cs">
+      <DependentUpon>EmpListFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\4.CALENDAR\CalendarFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,12 +78,6 @@
       <DependentUpon>CalendarFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\1.LOGIN\CustomerData.cs" />
-    <Compile Include="Form\2.EMPLOYEE\EmployeeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\2.EMPLOYEE\EmployeeForm.Designer.cs">
-      <DependentUpon>EmployeeForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form\MAIN\CUSTOMER\AddCustomerFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,8 +119,14 @@
     <Compile Include="Form\Salary\Timekeeping.Designer.cs">
       <DependentUpon>Timekeeping.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form\2.EMPLOYEE\EmployeeForm.resx">
-      <DependentUpon>EmployeeForm.cs</DependentUpon>
+    <EmbeddedResource Include="Form\2.EMPLOYEE\EmpDetailFrm.resx">
+      <DependentUpon>EmpDetailFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\2.EMPLOYEE\AddEmpFrm.resx">
+      <DependentUpon>AddEmpFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\2.EMPLOYEE\EmpListFrm.resx">
+      <DependentUpon>EmpListFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\4.CALENDAR\CalendarFrm.resx">
       <DependentUpon>CalendarFrm.cs</DependentUpon>
