@@ -29,5 +29,11 @@ namespace FinalDBMS
             pnlMain.Controls.Add(frm);
             frm.Show();
         }
+
+        private void qUANLYTHIÊTBIToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ManageDeviceForm frm = new ManageDeviceForm();
+            frm.Show();
+        }
     }
 }
