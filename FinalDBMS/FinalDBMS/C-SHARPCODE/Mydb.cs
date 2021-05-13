@@ -13,11 +13,11 @@ namespace FinalDBMS
         //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-7RGSHQT;Initial Catalog=DBMS_FinalProject;Integrated Security=True");              //--Dibu
 
         //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-3E7V855;Initial Catalog=DBMS_FinalProject;Integrated Security=True");              //--QT-laptop
-        SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-OQLFA92;Initial Catalog=DBMS_FinalProject;Integrated Security=True");              //--QT-PC
+        //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-OQLFA92;Initial Catalog=DBMS_FinalProject;Integrated Security=True");              //--QT-PC
 
         //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-26GDDIM\SQLEXPRESS;Initial Catalog=DBMS_FinalProject;Integrated Security=True");   //--2 dụ
 
-        //SqlConnection db = new SqlConnection(@"Data Source=.\;Initial Catalog=Payroll;Integrated Security=True");
+        SqlConnection db = new SqlConnection(@"Data Source=.\;Initial Catalog=Payroll;Integrated Security=True");                                     //Tien
         public SqlConnection getConnection
         {
             get { return db; }
