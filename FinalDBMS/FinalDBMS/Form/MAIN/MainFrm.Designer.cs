@@ -83,13 +83,14 @@ namespace FinalDBMS
             // InfoToolStripMenuItem
             // 
             this.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem";
-            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
-            this.InfoToolStripMenuItem.Text = "THÔNG TIN";
+            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.InfoToolStripMenuItem.Text = "Danh Sách";
+            this.InfoToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
             // 
             // TimeKeepingToolStripMenuItem
             // 
             this.TimeKeepingToolStripMenuItem.Name = "TimeKeepingToolStripMenuItem";
-            this.TimeKeepingToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.TimeKeepingToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.TimeKeepingToolStripMenuItem.Text = "CHẤM CÔNG";
             this.TimeKeepingToolStripMenuItem.Click += new System.EventHandler(this.TimeKeepingToolStripMenuItem_Click);
             // 
@@ -101,10 +102,10 @@ namespace FinalDBMS
             // 
             // pnlMain
             // 
-            this.pnlMain.Location = new System.Drawing.Point(4, 33);
-            this.pnlMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.Location = new System.Drawing.Point(0, 24);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1417, 684);
+            this.pnlMain.Size = new System.Drawing.Size(1068, 561);
             this.pnlMain.TabIndex = 1;
             // 
             // qUANLYTHIÊTBIToolStripMenuItem

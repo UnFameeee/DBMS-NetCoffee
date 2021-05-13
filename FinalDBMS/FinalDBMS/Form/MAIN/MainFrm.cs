@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,9 +30,10 @@ namespace FinalDBMS
             frm.Show();
         }
 
-        private void qUANLYTHIÊTBIToolStripMenuItem_Click(object sender, EventArgs e)
+        private void InfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ManageDeviceForm frm = new ManageDeviceForm();
+            EmpListFrm frm = new EmpListFrm() { TopLevel = false, TopMost = false };
+            pnlMain.Controls.Add(frm);
             frm.Show();
         }
     }
