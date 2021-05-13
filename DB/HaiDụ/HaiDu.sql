@@ -195,25 +195,24 @@ begin
 
 end
 
---ID nhân viên không được trùng lặp
-create trigger TG_EmpIDAlreadyExist on EMPLOYEE
+--Số điện thoại nhân viên phải từ 10 đến 11 chữ số
+drop trigger TG_FormatPhoneNumber
+create trigger TG_FormatPhoneNumber on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @CheckID nvarchar(100)
+declare @ID nvarchar(100), @Phone int
 begin
-	
 	--Lấy ra mã ID của nhân viên vừa nhập
 	select @ID = inserted.ID
 	from inserted
 
-	--Tìm xem ID có tồn tại chưa
-	select @CheckID = ID
+	--Lấy ra số CMND của ID vừa nhập
+	select @Phone = Phone
 	from EMPLOYEE
 	where EMPLOYEE.ID = @ID
 
-	if(len(@CheckID) != 0)
+	if(len(@Phone) <= 11 and len(@phone) >= 10)
 	begin
-		print('Employee ID has already exist!!!')
-		rollback			
+		print ('IdentityNumber must have more than 8 characters!!!')
+		rollback
 	end
-
 end
