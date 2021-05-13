@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,6 +26,13 @@ namespace FinalDBMS
         private void TimeKeepingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CalendarFrm frm = new CalendarFrm() { TopLevel = false, TopMost = false};
+            pnlMain.Controls.Add(frm);
+            frm.Show();
+        }
+
+        private void InfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EmpListFrm frm = new EmpListFrm() { TopLevel = false, TopMost = false };
             pnlMain.Controls.Add(frm);
             frm.Show();
         }
