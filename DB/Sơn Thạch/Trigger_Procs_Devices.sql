@@ -203,7 +203,7 @@ END
 SELECT DISTINCT TypeID from DEVICES
 
 USE DBMS_FinalProject 
- GO
+GO
     -- Turn recursive triggers OFF in the database. 
       ALTER DATABASE DBMS_FinalProject    
       SET RECURSIVE_TRIGGERS OFF 

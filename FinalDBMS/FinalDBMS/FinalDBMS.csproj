@@ -66,7 +66,6 @@
     <Compile Include="Form\2.EMPLOYEE\AddEmpFrm.Designer.cs">
       <DependentUpon>AddEmpFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Calendar.cs" />
     <Compile Include="Form\2.EMPLOYEE\Employee.cs" />
     <Compile Include="Form\2.EMPLOYEE\EmpListFrm.cs">
       <SubType>Form</SubType>
@@ -184,8 +183,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Form\Thang\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

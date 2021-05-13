@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,26 +15,57 @@ namespace FinalDBMS
         public MainFrm()
         {
             InitializeComponent();
+            loadForm();
+        }
+
+        CalendarFrm frmCalendar = new CalendarFrm() { TopLevel = false, TopMost = false };
+        AddCustomerFrm frmAddCustomer = new AddCustomerFrm() { TopLevel = false, TopMost = false };
+        EmpListFrm frmEmplistFrm = new EmpListFrm() { TopLevel = false, TopMost = false };
+        ManageDeviceForm frmManageDevice = new ManageDeviceForm() { TopLevel = false, TopMost = false };
+
+        void loadForm()
+        {
+            pnlMain.Controls.Add(frmAddCustomer);
+            pnlMain.Controls.Add(frmCalendar);
+            pnlMain.Controls.Add(frmEmplistFrm);
+            pnlMain.Controls.Add(frmManageDevice);
         }
 
         private void addCustomerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddCustomerFrm frm = new AddCustomerFrm();
-            frm.Show();
+            resetForm();
+            frmAddCustomer.Show();
         }
 
         private void TimeKeepingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CalendarFrm frm = new CalendarFrm() { TopLevel = false, TopMost = false};
-            pnlMain.Controls.Add(frm);
-            frm.Show();
+            resetForm();
+            frmCalendar.Show();
         }
 
         private void InfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EmpListFrm frm = new EmpListFrm() { TopLevel = false, TopMost = false };
-            pnlMain.Controls.Add(frm);
-            frm.Show();
+            resetForm();
+            frmEmplistFrm.Show();
         }
+        private void manageDeviceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            resetForm();
+            frmManageDevice.Show();
+        }
+
+        void resetForm()
+        {
+            //Thêm khách hàng
+            frmAddCustomer.Hide();
+            //Tính lương
+            frmCalendar.Hide();
+            //Thông tin nhân viên
+            frmEmplistFrm.Hide();
+            //Thông tin thiết bị
+            frmManageDevice.Hide();
+        }
+
+        
     }
 }
