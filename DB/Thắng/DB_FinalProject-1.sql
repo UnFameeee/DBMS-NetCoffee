@@ -68,29 +68,43 @@ INSERT INTO EMPLOYEE VALUES ('NV19', N'Lê Quang Định', N'Nam', '2001-5-25', 
 INSERT INTO EMPLOYEE VALUES ('NV20', N'Nguyễn Thanh Thị Minh', N'Nữ', '1999-6-18', 125497465,'079200021919','', '', 'QL', null)
 INSERT INTO EMPLOYEE VALUES ('NV21', N'Lê Thanh Như', N'Nữ', '2002-10-20', 465893721, '079200021910','', '', 'LC', null)
 
---*Tạo bảng QuảnLý (Nhân Viên được thành quản lý) (QT) 
---(Tao cũng không biết cái bảng này để làm cái gì, quên mất rồi)
-CREATE TABLE MANAGER 
+--Này là bảng giao thoa giữa ca làm và nhân viên
+CREATE TABLE WORK									--Ca làm (trong 1 ca làm thì có 1 ql, 4 nv, 3 lc)
 (
-	MNGID nvarchar(100) references EMPLOYEE(ID),										--ID quản lý
-	ShiftID int references WORKSHIFT(ShiftID),										--Ca làm việc 
-	PRIMARY KEY(MNGID, ShiftID)
+	EmpID nvarchar(100),
+	ShiftID int,
+	ShiftManagerID nvarchar(100),
+	PRIMARY KEY(EmpID, ShiftID)
 )
---Thêm 3 quản lý vào bảng này (NV14, NV20, NV5) (QT)
-INSERT INTO MANAGER VALUES ('NV5', 1)
-INSERT INTO MANAGER VALUES ('NV14', 2)
-INSERT INTO MANAGER VALUES ('NV20', 3)
+--ALTER TABLE WORK DROP CONSTRAINT FK_EmpIDandID
+ALTER TABLE WORK ADD CONSTRAINT FK_EmpIDandID FOREIGN KEY(EmpID) REFERENCES EMPLOYEE(ID)					--FK là FOREIGN KEY
 
+ALTER TABLE WORK ADD CONSTRAINT FK_ShiftIDandWorkShift FOREIGN KEY(ShiftID) REFERENCES WORKSHIFT(ShiftID)
 
---*Tạo bảng Làm Việc (QT)
-CREATE TABLE WORKS 
-(
-	ID nvarchar(100) references EMPLOYEE(ID),										--ID nhân viên làm việc
-	ShiftID int references WORKSHIFT(ShiftID),										--Ca làm việc
-	TotalTimeWork time																--Thời gian làm việc (Tao nghĩ này nên để int)
-	PRIMARY KEY(ID,ShiftID),
-)
---Chưa biết thêm gì
+--Ca 1
+INSERT INTO WORK VALUES ('NV5', 1, '')		--QL
+INSERT INTO WORK VALUES ('NV1', 1, 'NV5')	--LC
+INSERT INTO WORK VALUES ('NV2', 1, 'NV5')	--LC
+INSERT INTO WORK VALUES ('NV4', 1, 'NV5')	--NV
+INSERT INTO WORK VALUES ('NV6', 1, 'NV5')	--NV
+INSERT INTO WORK VALUES ('NV7', 1, 'NV5')	--NV
+INSERT INTO WORK VALUES ('NV8', 1, 'NV5')	--NV
+--Ca 2
+INSERT INTO WORK VALUES ('NV14', 2, '')		--QL
+INSERT INTO WORK VALUES ('NV3', 2, 'NV14')	--LC
+INSERT INTO WORK VALUES ('NV18', 2, 'NV14')	--LC
+INSERT INTO WORK VALUES ('NV9', 2, 'NV14')	--NV
+INSERT INTO WORK VALUES ('NV10', 2, 'NV14')	--NV
+INSERT INTO WORK VALUES ('NV11', 2, 'NV14')	--NV
+INSERT INTO WORK VALUES ('NV12', 2, 'NV14')	--NV
+--Ca 3
+INSERT INTO WORK VALUES ('NV20', 3, '')		--QL
+INSERT INTO WORK VALUES ('NV19', 3, 'NV20')	--LC
+INSERT INTO WORK VALUES ('NV21', 3, 'NV20')	--LC
+INSERT INTO WORK VALUES ('NV13', 3, 'NV20')	--NV
+INSERT INTO WORK VALUES ('NV15', 3, 'NV20')	--NV
+INSERT INTO WORK VALUES ('NV16', 3, 'NV20')	--NV
+INSERT INTO WORK VALUES ('NV17', 3, 'NV20')	--NV
 
 ------------------------------------------------------------------------------------------------------------------------
 --Loại Máy--
@@ -159,12 +173,12 @@ create table ACCOUNTCUSTOMER
 	StatusCustomer nvarchar(100),
 	AccMoney FLOAT ----------- mới thêm vào + đổi tiền từ float thành int
 )
-INSERT INTO ACCOUNTCUSTOMER Values('Van A','1',10,2,8,'KH1','MAY01',0)
-INSERT INTO ACCOUNTCUSTOMER Values('Van B','1',10,2,8,'KH2','MAY02',0)
-INSERT INTO ACCOUNTCUSTOMER Values('Van C','1',10,2,8,'KH3','MAY03',0)
-INSERT INTO ACCOUNTCUSTOMER Values('Van D','1',10,2,8,'KH4','MAY04',0)
-INSERT INTO ACCOUNTCUSTOMER Values('Van E','1',10,2,8,'KH5','MAY05',0)
-INSERT INTO ACCOUNTCUSTOMER Values('Van F','1',10,2,8,'KH6','MAY06',0)
+INSERT INTO ACCOUNTCUSTOMER Values('Van A','1',10,2,'KH1','MAY01', '',0)
+INSERT INTO ACCOUNTCUSTOMER Values('Van B','1',10,2,'KH2','MAY02', '',0)
+INSERT INTO ACCOUNTCUSTOMER Values('Van C','1',10,2,'KH3','MAY03', '',0)
+INSERT INTO ACCOUNTCUSTOMER Values('Van D','1',10,2,'KH4','MAY04', '',0)
+INSERT INTO ACCOUNTCUSTOMER Values('Van E','1',10,2,'KH5','MAY05', '',0)
+INSERT INTO ACCOUNTCUSTOMER Values('Van F','1',10,2,'KH6','MAY06', '',0)
 --Tài khoản nhân viên--
 CREATE TABLE ACCOUNTEMPLOYEE 
 (
@@ -173,5 +187,3 @@ CREATE TABLE ACCOUNTEMPLOYEE
 	Password nvarchar(1000),
 	TypeEmployee nvarchar(100)										--0 là nhân viên, 1 là quản lí
 )
-
- 

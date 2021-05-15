@@ -36,17 +36,20 @@ namespace FinalDBMS
             this.InfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TimeKeepingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aCCOUNTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.White;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cUSTOMERToolStripMenuItem,
             this.eMPLOYEEToolStripMenuItem,
-            this.aCCOUNTToolStripMenuItem});
+            this.aCCOUNTToolStripMenuItem,
+            this.manageDeviceToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
@@ -81,13 +84,14 @@ namespace FinalDBMS
             // InfoToolStripMenuItem
             // 
             this.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem";
-            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.InfoToolStripMenuItem.Text = "THÔNG TIN";
+            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.InfoToolStripMenuItem.Text = "Danh Sách";
+            this.InfoToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
             // 
             // TimeKeepingToolStripMenuItem
             // 
             this.TimeKeepingToolStripMenuItem.Name = "TimeKeepingToolStripMenuItem";
-            this.TimeKeepingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.TimeKeepingToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.TimeKeepingToolStripMenuItem.Text = "CHẤM CÔNG";
             this.TimeKeepingToolStripMenuItem.Click += new System.EventHandler(this.TimeKeepingToolStripMenuItem_Click);
             // 
@@ -97,11 +101,21 @@ namespace FinalDBMS
             this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
             this.aCCOUNTToolStripMenuItem.Text = "TÀI KHOẢN";
             // 
+            // manageDeviceToolStripMenuItem
+            // 
+            this.manageDeviceToolStripMenuItem.Name = "manageDeviceToolStripMenuItem";
+            this.manageDeviceToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.manageDeviceToolStripMenuItem.Text = "QUẢN LÝ THIẾT BỊ";
+            this.manageDeviceToolStripMenuItem.Click += new System.EventHandler(this.manageDeviceToolStripMenuItem_Click);
+            // 
             // pnlMain
             // 
-            this.pnlMain.Location = new System.Drawing.Point(3, 27);
+            this.pnlMain.BackColor = System.Drawing.Color.White;
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.Location = new System.Drawing.Point(0, 24);
+            this.pnlMain.Margin = new System.Windows.Forms.Padding(2);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1063, 556);
+            this.pnlMain.Size = new System.Drawing.Size(1068, 561);
             this.pnlMain.TabIndex = 1;
             // 
             // MainFrm
@@ -132,5 +146,6 @@ namespace FinalDBMS
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.ToolStripMenuItem InfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TimeKeepingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manageDeviceToolStripMenuItem;
     }
 }

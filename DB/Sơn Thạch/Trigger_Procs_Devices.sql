@@ -107,7 +107,7 @@ BEGIN
 END
 
 --Test Trigger
---Keyboard hiện tại của Vip là Razer Huntsman Mini Mercury còn Thường là Razer Blackwidow Lite
+--Keyboard hiện tại của Vip là Razer Huntsman Mini Mercurycòn Thường là Razer Blackwidow Lite
 --Trường hợp sai
 UPDATE DEVICETYPE  SET KeyBoard = 'Razer Huntsman Mini Mercury' WHERE TypeID = 'Thuong'
 
@@ -154,7 +154,7 @@ create table ACCOUNTCUSTOMER
 	PassWord nvarchar(100),
 	TimeAvailible int,												--dựa vào số tiền nạp và id máy để tính thời gian			
 	TimeUsed int,													--thời gian đã dùng
-	TimeRemain int,													--thời gian còn lại = thời gian có - thời gian đã dùng
+	TimeRemain int,												--thời gian còn lại = thời gian có - thời gian đã dùng
 	CustomerID nvarchar(100) references CUSTOMER(CustomerID),					
 	DeviceID nvarchar(100) references DEVICES(DeviceID),
 	StatusCustomer INT
@@ -169,16 +169,16 @@ INSERT INTO ACCOUNTCUSTOMER Values('Van F','1',10,2,8,'KH6','MAY06',0)
 
 --Stored-Procedure hiển thị thông tin của các khách hàng đang chơi máy Vip / Super Vip / Thuong
 Go
-CREATE PROC Show_InfoCustomer_GroupBy_TypeID(@TypeID nvarchar(100))
+CREATE PROC ShowInfoCustomerGroupByTypeID @TypeID nvarchar(100)
 as
 begin
-select a.UserName,a.PassWord,a.TimeAvailible,a.TimeUsed,a.TimeRemain,a.CustomerID,a.DeviceID,a.StatusCustomer
+select a.UserName,a.PassWord,a.TimeAvailible,a.TimeUsed,a.CustomerID,a.DeviceID,a.StatusCustomer
 from ACCOUNTCUSTOMER a, DEVICES d
 where a.DeviceID = d.DeviceID
 and d.TypeID = @TypeID
 end
-
-EXEC Show_InfoCustomer_GroupBy_TypeID 'Thuong'
+go
+EXEC ShowInfoCustomerGroupByTypeID 'Thuong'
 
 -- Trigger kiểm tra người dùng không được dùng máy đang bảo trì hoặc đang được sử dụng
 CREATE Trigger Check_Available_Computer ON ACCOUNTCUSTOMER
@@ -199,3 +199,97 @@ BEGIN
 	rollback
 	END
 END
+
+SELECT DISTINCT TypeID from DEVICES
+
+USE DBMS_FinalProject 
+GO
+    -- Turn recursive triggers OFF in the database. 
+      ALTER DATABASE DBMS_FinalProject    
+      SET RECURSIVE_TRIGGERS OFF 
+GO
+
+
+--Tìm ra nhân viên theo từ khoá đã cho
+DROP FUNCTION Func_SearchEmployeesWithName
+CREATE FUNCTION Func_SearchEmployeesWithName (@search_name nvarchar(100))
+RETURNS TABLE AS
+	RETURN SELECT * FROM dbo.EMPLOYEE
+		   WHERE FullName LIKE '%' + @search_name + '%'
+
+GO
+SELECT * FROM dbo.Func_SearchEmployeesWithName(N'Thành')
+
+
+drop function Func_CheckAvailableDevice
+GO
+CREATE FUNCTION Func_CheckAvailableDevices (@devid nvarchar(100))
+RETURNS table AS
+	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = 'Not in use'
+
+SELECT * FROM dbo.Func_CheckAvailableDevice('MAY03') Check01
+SELECT * FROM dbo.Func_CheckAvailableDevice('MAY01') Check01
+
+drop function Func_CheckDevicesFromUser
+go
+CREATE FUNCTION Func_CheckDevicesFromUser (@devid nvarchar(100))
+RETURNS table AS
+	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
+		FROM DEVICES d, ACCOUNTCUSTOMER a 
+		WHERE d.DeviceID = @devid 
+		and a.DeviceID = d.DeviceID
+		and DStatus = 'In use'
+drop function 
+CREATE FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
+RETURNS table AS
+	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
+		FROM DEVICES d, ACCOUNTCUSTOMER a 
+		WHERE d.DeviceID = @devid 
+		and a.DeviceID = d.DeviceID
+		and DStatus = 'Not in use'
+
+select * from Func_CheckDevicesFromUser('MAY02')
+
+
+ALTER PROC Insert_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
+AS
+BEGIN
+ INSERT INTO dbo.DEVICES
+ (
+ DeviceID,
+ TypeID,
+ DStatus
+ )
+
+ VALUES
+ (   @devid, 
+     @type, 
+     @status
+     )
+END;
+go
+EXEC Insert_Device 'MAY15','Thuong','Not in use'
+
+GO
+ALTER PROC DeleteDeviceByID (@devID nvarchar(100))
+AS
+BEGIN
+UPDATE  ACCOUNTCUSTOMER SET ACCOUNTCUSTOMER.DeviceID = null
+WHERE ACCOUNTCUSTOMER.DeviceID = @devID
+ DELETE FROM dbo.DEVICES
+ WHERE DEVICES.DeviceID = @devID
+END
+
+EXEC DeleteDeviceByID 'MAY06'
+
+go
+create PROC Edit_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
+AS
+BEGIN
+	UPDATE dbo.DEVICES
+	SET 
+		TypeID=@type,
+		DStatus=@status
+	WHERE DeviceID=@devid
+END
+go

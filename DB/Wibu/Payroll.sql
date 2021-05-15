@@ -9,7 +9,17 @@ CREATE TABLE JOB
 	CoefficientsSalary real,						--Hệ Số Lương (QL: x2, NV: x1, LC: x1.5)
 	JobDetail nvarchar(100)							--Chi tiết công việc: (QL: Quản Lý, NV: Nhân Viên, LC: Lao Công)
 )
-
+INSERT INTO dbo.JOB
+(
+    WorkID,
+    CoefficientsSalary,
+    JobDetail
+)
+VALUES
+(   N'1', -- WorkID - nvarchar(100)
+    0.0, -- CoefficientsSalary - real
+    N'1'  -- JobDetail - nvarchar(100)
+    )
 CREATE TABLE EMPLOYEE 
 (
 	IDEmployee nvarchar(100) PRIMARY KEY,			  --ID nhân viên									
@@ -22,21 +32,65 @@ CREATE TABLE EMPLOYEE
 	Email nvarchar(100),
 	WorkID nvarchar(100) references JOB(WorkID)	--MãCV
 )
-
+INSERT INTO dbo.EMPLOYEE
+(
+    IDEmployee,
+    FullName,
+    Gender,
+    Birthday,
+    Phone,
+    IdentityNumber,
+    StatusEmployee,
+    Email,
+    WorkID
+)
+VALUES
+(   N'1',       -- IDEmployee - nvarchar(100)
+    N'1',       -- FullName - nvarchar(100)
+    N'1',       -- Gender - nvarchar(10)
+    GETDATE(), -- Birthday - date
+    02121,         -- Phone - int
+    N'1',       -- IdentityNumber - nvarchar(100)
+    N'1',       -- StatusEmployee - nvarchar(100)
+    N'1',       -- Email - nvarchar(100)
+    N'1'        -- WorkID - nvarchar(100)
+    )
 CREATE TABLE WORKSHIFT
 (
-	ShiftID int PRIMARY KEY,						--Ca làm việc (1: 0h-8h // 2: 8h-16h // 3: 16h-0h)
+	ShiftID nvarchar(100) PRIMARY KEY,						--Ca làm việc (1: 0h-8h // 2: 8h-16h // 3: 16h-0h)
 	TimeBegin time not null,						--Thời gian bắt đầu
 	TimeEnd time not null							--Thời gian kết thúc (thêm 1 trigger ràng buộc tgian bắt đầu < tgian kết thúc)
 )
+INSERT INTO dbo.WORKSHIFT
+(
+    ShiftID,
+    TimeBegin,
+    TimeEnd
+)
+VALUES
+(   N'2',        -- ShiftID - nvarchar(100)
+    '23:15:00', -- TimeBegin - time
+    '00:15:00'  -- TimeEnd - time
+    )
 --*Tạo bảng Làm Việc (QT)
 CREATE TABLE WORKS 
 (
 	ID nvarchar(100) references EMPLOYEE(IDEmployee),									--ID nhân viên làm việc
-	ShiftID int references WORKSHIFT(ShiftID),											--Ca làm việc
-	TotalTimeWork time																	--Thời gian làm việc (Tao nghĩ này nên để int)
+	ShiftID nvarchar(100) references WORKSHIFT(ShiftID),											--Ca làm việc
+	TotalTimeWork time	DEFAULT N'00:00:00'																--Thời gian làm việc (Tao nghĩ này nên để int)
 	PRIMARY KEY(ID,ShiftID),
 )
+INSERT INTO dbo.WORKS
+(
+    ID,
+    ShiftID,
+    TotalTimeWork
+)
+VALUES
+(   N'1',       -- ID - nvarchar(100)
+    N'2',       -- ShiftID - nvarchar(100)
+    '16:12:30' -- TotalTimeWork - time
+    )
 CREATE TABLE TIMEKEEPING
 (
 	IDEmployee NVARCHAR(100),															--ID nhân viên
@@ -63,28 +117,28 @@ GO
 CREATE PROCEDURE USP_CheckIn @IDEmployee NVARCHAR(100)
 AS
 BEGIN
-	INSERT INTO dbo.TIMEKEEPING (IDEmployee, CheckIn) VALUES (@IDEmployee, GETDATE()) --Thêm vào bảng WORK
+	INSERT INTO dbo.TIMEKEEPING (IDEmployee, CheckIn) VALUES (@IDEmployee, GETDATE())					--Thêm vào bảng WORK
 END
 GO
 --PROCEDURE khi nhân viên check out update bảng WORK
 CREATE PROCEDURE USP_CheckOut @IDEmployee NVARCHAR(100)
 AS
 BEGIN
-	UPDATE TIMEKEEPING SET CheckOut = GETDATE() WHERE IDEmployee = @IDEmployee		--Thay đổi chỉnh sửa bảng WORK
+	UPDATE TIMEKEEPING SET CheckOut = GETDATE() WHERE IDEmployee = @IDEmployee AND CheckOut IS NULL		--Thay đổi chỉnh sửa bảng WORK
 END
 GO
 --PROCEDURE kiểm tra ID nhân viên có tồn tại hay không
 CREATE PROCEDURE USP_CheckIDEmployee @IDEmployee NVARCHAR(100)
 AS
 BEGIN
-	SELECT * FROM EMPLOYEE WHERE IDEmployee = @IDEmployee							--SELECT * để kiểm tra tồn tại của nhân viên
+	SELECT * FROM EMPLOYEE WHERE IDEmployee = @IDEmployee												--SELECT * để kiểm tra tồn tại của nhân viên
 END
 GO
 --PROCEDURE kiểm tra nhân viên có đang trong ca làm hay không
 CREATE PROCEDURE USP_CheckIDEmployeeWorking @IDEmployee NVARCHAR(100)
 AS
 BEGIN
-	SELECT * FROM TIMEKEEPING WHERE IDEmployee = @IDEmployee							--SELECT * để kiểm tra nhân viên có đi làm hay không
+	SELECT * FROM TIMEKEEPING WHERE IDEmployee = 1 AND CheckOut IS NULL					--SELECT * để kiểm tra nhân viên có đi làm hay không
 END
 GO
 --TRIGGER không cho nhân viên check in nếu chưa tới giờ đi làm
@@ -100,7 +154,7 @@ BEGIN
 	DECLARE @WorkShift INT
 	SELECT @WorkShift = ShiftID
 	FROM dbo.WORKSHIFT
-	WHERE dbo.WORKSHIFT.TimeBegin <= @iCheckIN
+	WHERE DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) = DATEPART(HOUR,@iCheckIn)				--Nếu trễ 1 tiếng so với ca làm thì không được check in
 	--Kiểm tra trong bảng ca có đúng ca làm của nhân viên đang check in không?
 	DECLARE @CountID INT
 	SELECT @CountID = COUNT(*)
@@ -156,8 +210,8 @@ AFTER UPDATE
 AS
 BEGIN
 	--Lấy ID, thời gian check in, thời gian check out của nhân viên
-	DECLARE @iIDEmployee NVARCHAR(100), @iCheckIN DATETIME, @iCheckOut DATETIME
-	SELECT @iIDEmployee = Inserted.IDEmployee, @iCheckIN = Inserted.CheckIn, @iCheckOut = Inserted.CheckOut
+	DECLARE @iIDEmployee NVARCHAR(100), @iCheckIn DATETIME, @iCheckOut DATETIME
+	SELECT @iIDEmployee = Inserted.IDEmployee, @iCheckIn = Inserted.CheckIn, @iCheckOut = Inserted.CheckOut
 	FROM Inserted
 	--Lấy số thưởng, phạt và số ca làm của nhân viên đó
 	DECLARE @iReward INT, @iFine INT, @iNumberofWorkShift INT	
@@ -176,9 +230,9 @@ BEGIN
 	WHERE @iEmployeeType = dbo.JOB.WorkID
 	--Lấy ca làm của nhân viên
 	DECLARE @ShiftID INT
-	SELECT @ShiftID = ShiftID
-	FROM dbo.WORKS
-	WHERE dbo.WORKS.ID = @iIDEmployee
+	SELECT @ShiftID = dbo.WORKSHIFT.ShiftID
+	FROM dbo.WORKSHIFT, dbo.WORKS
+	WHERE dbo.WORKS.ID = @iIDEmployee AND dbo.WORKSHIFT.ShiftID = dbo.WORKS.ShiftID AND DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) <= DATEPART(HOUR,@iCheckIn) AND DATEDIFF(HOUR,dbo.WORKSHIFT.TimeBegin, @iCheckIn) < 8
 	--Tính lương của nhân viên
 	DECLARE @Wages REAL
 	IF (@ShiftID = 1)															--Làm giờ ban đêm từ 0h đến 8h
