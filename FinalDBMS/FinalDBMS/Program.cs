@@ -19,7 +19,7 @@ namespace FinalDBMS
 
             //Application.Run(new Timekeeping());
 
-            Application.Run(new MainFrm());
+            Application.Run(new LoginFrm());
             //Application.Run(new CalendarFrm());
 
         }

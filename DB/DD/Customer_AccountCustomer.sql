@@ -13,21 +13,45 @@ create table CUSTOMER
 	MoneyCharged FLOAT																--số tiền nạp
 )
 
+CREATE TABLE DEVICETYPE
+(
+	TypeID nvarchar(100) PRIMARY KEY,
+	CPU nvarchar(100) NOT NULL,
+	RAM nvarchar(100) NOT NULL,
+	PowerSupply nvarchar(100) NOT NULL,
+	GraphicCard nvarchar(100) NOT NULL,
+	Mainboard nvarchar(100) NOT NULL,
+	DeviceCase nvarchar(100) NOT NULL,
+	Monitor nvarchar(100) NOT NULL,
+	Mouse nvarchar(100) NOT NULL,
+	KeyBoard nvarchar(100) NOT NULL
+)
+CREATE TABLE DEVICES
+(
+	DeviceID nvarchar(100) PRIMARY KEY,												--số máy
+	TypeID nvarchar(100) references DEVICETYPE(TypeID),								--loại máy (super vjp, vip, thường)
+	DStatus nvarchar(100)															--tình trạng máy (đang đc sử dụng, đang đc bảo trì,....)
+)
+
 --Tài khoản khách hàng--
 create table ACCOUNTCUSTOMER
 (
 	UserName nvarchar(100) PRIMARY KEY,
 	PassWord nvarchar(100),
-	TimeAvailible int,	--dựa vào số tiền nạp và id máy để tính thời gian			time tính theo giờ 
-	TimeUsed INT,		--thời gian đã dùng											
+	TimeAvailible DATETIME DEFAULT 0,	--dựa vào số tiền nạp và id máy để tính thời gian			time tính theo giờ 
+	TimeUsed DATETIME,		--thời gian đã dùng											
 	CustomerID nvarchar(100) references CUSTOMER(CustomerID),					
 	DeviceID nvarchar(100) references DEVICES(DeviceID),
 	AccMoney FLOAT, ----------- mới thêm vào + đổi tiền từ float thành int
 	StatusCustomer int
 )
-go
+---------------------------------------------------
+
+
+
 --***:Stored Procedure 
 --thêm mới khách hàng Cus
+go
 CREATE PROC Create_customer (@cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon int)
 AS
 BEGIN
@@ -47,6 +71,14 @@ BEGIN
      @mon  -- MoneyCharged - float
      )
 END;
+GO
+--vi du tao 1 khach hang moi
+EXECUTE dbo.Create_customer @cid = N'42', -- nvarchar(100)
+                            @ful = N'duy', -- nvarchar(100)
+                            @phn = N'3213', -- nvarchar(100)
+                            @icn = N'42145', -- nvarchar(50)
+                            @mon = 22220    -- int
+
 go
 --xoá một khách hàng Cus theo Cid
 GO
@@ -56,6 +88,10 @@ BEGIN
  DELETE FROM dbo.CUSTOMER
  WHERE CustomerID=@cid
 END;
+GO
+--vi du xoa khach hang
+EXECUTE dbo.deleteById_customer @cid = N'43' -- nvarchar(100)
+
 go
 --chỉnh sửa thông tin khách hàng Cus theo Cid
 go
@@ -70,6 +106,15 @@ BEGIN
 		MoneyCharged=@mon
 	WHERE CustomerID=@cid
 END
+GO
+--vi du edit thong tin khach hang
+EXECUTE dbo.EditInfo_customer @cid = N'42', -- nvarchar(100)
+                              @ful = N'duy duong', -- nvarchar(100)
+                              @phn = N'4123', -- nvarchar(100)
+                              @icn = N'44551', -- nvarchar(50)
+                              @mon = 550    -- int
+
+GO
 go
 --Khách hàng nạp tiền vào tài khoản Cus
 go
@@ -81,6 +126,40 @@ BEGIN
 		MoneyCharged=MoneyCharged+@mon
 	WHERE CUSTOMER.CustomerID=@cid
 END
+GO
+--vi du khach nap tien
+EXECUTE dbo.DepositBudget_customer @cid = N'42', -- nvarchar(100)
+                                   @mon = 1000  -- float
+
+
+GO
+-- tạo tài khoản AccCus
+go
+CREATE PROC Create_Accus (@un NVARCHAR(100),@pass NVARCHAR(100),@cid NVARCHAR(100))
+AS
+BEGIN
+	INSERT INTO dbo.ACCOUNTCUSTOMER
+	(
+	    UserName,
+	    PassWord,
+	    CustomerID,
+		AccMoney                  ---khi tao tai khoan moi thi so tien auto =0
+	)
+	VALUES
+	(   @un,       -- UserName - nvarchar(100)
+	    @pass,       -- PassWord - nvarchar(100)
+	    @cid,
+		0
+	    )
+
+
+END
+GO
+--vi du tao account moi
+dbo.Create_Accus @un = N'rante2',   -- nvarchar(100)
+                 @pass = N'123', -- nvarchar(100)
+                 @cid = N'42'   -- nvarchar(100)
+
 go
 --** Việc khách hàng nạp tiền vào Cus và Acus là 2 việc khác nhau vì 2 loại tiền này phục mục đích khác, 
 --tiền của Cus là tiền chung có thể để nạp tiền giờ chơi hay order đồ ăn
@@ -99,118 +178,134 @@ BEGIN
 
 	UPDATE dbo.CUSTOMER
 	SET
-	MoneyCharged=MoneyCharged-@mon
+		MoneyCharged=MoneyCharged-@mon
 	FROM dbo.CUSTOMER,dbo.ACCOUNTCUSTOMER
 	WHERE CUSTOMER.CustomerID=dbo.ACCOUNTCUSTOMER.CustomerID
 END
+GO
+--vi du 
+EXECUTE dbo.DepositBudget_Accountcustomer @cid = N'42', -- nvarchar(100)
+                                          @mon = 100000.0  -- float
+
+
 go
--- tạo tài khoản AccCus
-go
-CREATE PROC Create_Accus (@un NVARCHAR(100),@pass NVARCHAR(100),@cid NVARCHAR(100))
-AS
-BEGIN
-	INSERT INTO dbo.ACCOUNTCUSTOMER
-	(
-	    UserName,
-	    PassWord,
-	    CustomerID
-	)
-	VALUES
-	(   @un,       -- UserName - nvarchar(100)
-	    @pass,       -- PassWord - nvarchar(100)
-	    @cid
-	    )
-END
-go
+
 ---***Trigger
 --khi Cus đăng nhập vào máy để bắt đầu chơi (1 là đang sử dụng - 0 là không sử dụng) dibu
 go
-CREATE TRIGGER UserOnline_AccountCus ON dbo.ACCOUNTCUSTOMER
-FOR INSERT
+GO
+DECLARE @money INT;
+SET @money = 7500;
+DECLARE @sophut INT;
+SET @sophut = 1440*370 + 75--@money*60/5000 24*60-1?=23h59
+DECLARE @g Datetime;
+SET @G = FORMAT(DATEADD(MINUTE, @sophut, '1900-01-01 00:00:00'), 'dd/MM/yyyy hh:mm:ss tt')
+--lỡ người chơi nạp nhiều tiền tới mức là số giờ chơi tính theo ngày
+SELECT CONVERT(varchar, @g, 108) + ' ' + CONVERT(VARCHAR, YEAR(@G) - 1900)
++ '/' + CONVERT(VARCHAR, MONTH(@G)) + '/' + CONVERT(VARCHAR, DAY(@G))
+--vipppppp
+--hh:mi:ss yy/mm/dd
+GO
+CREATE OR ALTER TRIGGER UserOnline_AccountCus ON dbo.ACCOUNTCUSTOMER
+FOR INSERT,UPDATE
 AS
 BEGIN
-	DECLARE @did NVARCHAR(100),@st NVARCHAR(100),@cid NVARCHAR(100),@AccM INT, @deT NVARCHAR(100) 
-
-	SELECT @did=Inserted.DeviceID , @st=Inserted.StatusCustomer, @cid =Inserted.CustomerID
+	DECLARE @did NVARCHAR(100),@st INT,@cid NVARCHAR(100),@AccM FLOAT, @deT NVARCHAR(100),@Tavl DATETIME,@Tu DATETIME
+	SELECT @did=Inserted.DeviceID , @st=Inserted.StatusCustomer, @cid =Inserted.CustomerID,
+	@Tavl =Inserted.TimeAvailible,@AccM=Inserted.AccMoney,@Tu=Inserted.TimeUsed
 	FROM Inserted
-
 	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
-			SET DStatus=1
+			SET DStatus='1'
 			WHERE DeviceID=@did
 
 			SELECT @deT= dbo.DEVICES.TypeID
 			FROM dbo.DEVICES
 			WHERE dbo.DEVICES.DeviceID=@did
-
-			SELECT @AccM =AccMoney
-			FROM dbo.ACCOUNTCUSTOMER
-			WHERE dbo.ACCOUNTCUSTOMER.CustomerID=@cid
 			
-			DECLARE @temp int
+			DECLARE @tienmay FLOAT
 			IF(@deT =1)
-				SET @temp=5000
+				SET @tienmay=5000
 			ELSE IF(@deT =2)
-				SET @temp=7000
-			ELSE SET @temp=12000
-
+				SET @tienmay=7000
+			ELSE SET @tienmay=12000
+			DECLARE @minuteMoney INT = @AccM*60/@tienmay
+			SET @Tavl = FORMAT(DATEADD(MINUTE, @minuteMoney, @Tavl), 'dd/MM/yyyy hh:mm:ss tt')
 			UPDATE dbo.ACCOUNTCUSTOMER
-			SET 
-				TimeUsed =0,
-				TimeAvailible=CAST(AccMoney/@temp AS INT),
-				AccMoney=0
-				
+			SET	
+				AccMoney=0,
+				TimeAvailible=@Tavl,
+				TimeUsed=SYSDATETIME()
+			WHERE CustomerID=@cid
 		END
-end
+END
 GO
 --khi Cus logout khỏi máy
-go
-CREATE TRIGGER UserOffline_AccountCus ON dbo.ACCOUNTCUSTOMER
-FOR INSERT
+GO
+CREATE OR ALTER PROC Userlogout_AccountCus (@cid NVARCHAR(100),@did NVARCHAR(100))
 AS
 BEGIN
-	DECLARE @did NVARCHAR(100),@st NVARCHAR(100),@cid NVARCHAR(100),@AccM INT, @deT NVARCHAR(100),@Tu INT ,@Tavl int
 
-	SELECT @did=Inserted.DeviceID , @st=Inserted.StatusCustomer, @cid =Inserted.CustomerID
-	FROM Inserted
+	UPDATE dbo.DEVICES
+	SET
+		DStatus='0'
+	WHERE DeviceID=@did
 
-	IF(@st = 0 AND @did IS NULL)
-		BEGIN
-			UPDATE dbo.DEVICES
-			SET DStatus=0
-			WHERE DeviceID=@did
+	DECLARE @tienmay FLOAT
 
-			SELECT @deT= dbo.DEVICES.TypeID
-			FROM dbo.DEVICES
-			WHERE dbo.DEVICES.DeviceID=@did
+	SELECT @tienmay=TypeID
+	FROM dbo.DEVICES
+	WHERE DeviceID=@did
 
-			SELECT @AccM =AccMoney
-			FROM dbo.ACCOUNTCUSTOMER
-			WHERE dbo.ACCOUNTCUSTOMER.CustomerID=@cid
-			
-			DECLARE @temp int
-			IF(@deT =1)
-				SET @temp=5000
-			ELSE IF(@deT =2)
-				SET @temp=7000
-			ELSE SET @temp=12000
-			
-			SELECT @Tavl =TimeAvailible,@Tu=TimeUsed
-			FROM dbo.ACCOUNTCUSTOMER
-			WHERE dbo.ACCOUNTCUSTOMER.CustomerID=@cid
+	DECLARE @Tavl DATETIME,@Tu DATETIME
+	SELECT @Tavl=TimeAvailible,@Tu=TimeUsed
+	FROM dbo.ACCOUNTCUSTOMER
+	WHERE CustomerID=@cid
 
-			UPDATE dbo.ACCOUNTCUSTOMER
-			SET 
-				AccMoney=(@Tavl -@Tu) *@temp,
-				TimeAvailible=0,
-				TimeUsed=0
-		END
-end
+	IF(@tienmay =1)
+		SET @tienmay=5000
+	ELSE IF(@tienmay =2)
+		SET @tienmay=7000
+	ELSE SET @tienmay=12000
+
+	UPDATE dbo.ACCOUNTCUSTOMER
+	SET	
+		AccMoney=ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1),
+		TimeAvailible=0,
+		TimeUsed=NULL,
+		DeviceID=NULL,
+		StatusCustomer=0
+	WHERE CustomerID=@cid
+END
+--vi du
+EXECUTE dbo.Userlogout_AccountCus @cid = N'42', -- nvarchar(100)
+                                  @did = N'69'  -- nvarchar(100)
+GO	
+CREATE OR ALTER PROC AccCusActualTimeAvl(@cid NVARCHAR(100))
+AS
+BEGIN
+	 DECLARE @Tavl DATETIME
+	 SELECT @Tavl=TimeAvailible
+	 FROM dbo.ACCOUNTCUSTOMER
+	 WHERE CustomerID =@cid
+
+	 UPDATE dbo.ACCOUNTCUSTOMER
+	 SET
+		ActualTimeAvl=(CONVERT(varchar, @Tavl, 108) + ' ' + CONVERT(VARCHAR, DAY(@Tavl)-1)) + 'ngay ' 
+		+CONVERT(VARCHAR, MONTH(@Tavl)-1) +'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
+	 WHERE CustomerID =@cid
+END
 GO
+SELECT SYSDATETIME()
+--vi du
+EXECUTE dbo.AccCusActualTimeAvl @cid = N'2' -- nvarchar(100)
+
+		
+
 --Khi tạo tài khoản cho Cus mà không nhập đủ thông tin 
 GO
-CREATE TRIGGER InvalidInsert_Customer ON dbo.CUSTOMER
+CREATE OR ALTER TRIGGER InvalidInsert_Customer ON dbo.CUSTOMER
 FOR INSERT
 AS
 BEGIN
@@ -218,33 +313,32 @@ BEGIN
     
 	SELECT @cid=Inserted.CustomerID,@ful=Inserted.FullName,@phn=Inserted.PhoneNumber,@icn=Inserted.IdentityCardNumber,@mon=Inserted.MoneyCharged
 	FROM Inserted
-
-	IF(LEN(@cid)=0) 
+	BEGIN TRANSACTION
+	IF(LEN(@cid)=0  OR @cid IS NULL) 
 		BEGIN
 			PRINT 'Please Enter Customer ID'
 			ROLLBACK 
 		END
-	IF EXISTS (SELECT * FROM dbo.CUSTOMER WHERE dbo.CUSTOMER.CustomerID=@cid) 
+	DECLARE @count INT 
+	SELECT @count=COUNT(*) FROM dbo.CUSTOMER WHERE dbo.CUSTOMER.CustomerID=@cid
+	IF(@count>1)
 		BEGIN
 		   PRINT 'Customer id đã tồn tại vui lòng nhập id khác'
-		   ROLLBACK
 		END
 	
-	IF(LEN(@ful)=0) 
+	IF(LEN(@ful)=0 OR @ful IS NULL) 
 		BEGIN
 			PRINT 'Please Enter Customer Full name'
-			ROLLBACK 
 		END
 
-	IF(LEN(@phn)=0) 
+	IF(LEN(@phn)=0  OR @phn IS NULL) 
 		BEGIN
 			PRINT 'Please Enter Customer Phone number'
-			ROLLBACK 
 		END
 
-	IF(LEN(@icn) <> 8) 
+	IF(LEN(@icn) <> 8 OR @icn IS NULL) 
 		BEGIN
 			PRINT 'Please Enter a valid Customer Identical card number'
-			ROLLBACK 
 		END
+		ROLLBACK
 END
