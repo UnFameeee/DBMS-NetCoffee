@@ -149,7 +149,6 @@ CREATE TABLE ACCOUNTEMPLOYEE
 
 
 --Số CMND phải có hơn 8 kí tự và nhỏ hơn 13 kí tự (9 <= CMND <= 12)
-drop trigger TG_FormatIdentityNumber
 create trigger TG_FormatIdentityNumber on EMPLOYEE
 for insert, update as
 declare @ID nvarchar(100), @Identity nvarchar(100)
@@ -163,14 +162,12 @@ begin
 	from EMPLOYEE
 	where EMPLOYEE.ID = @ID
 
-	if(len(@Identity) <= 12 and len(@Identity) >= 9)
+	if(len(@Identity) > 12 and len(@Identity) < 9)
 	begin
 		print ('IdentityNumber must have more than 8 characters!!!')
 		rollback
 	end
-end
-
-
+end;
 
 --Nhân viên phải ít nhất ĐỦ 18 tuổi
 create trigger TG_EmpAtLeast18YO on EMPLOYEE
@@ -187,19 +184,17 @@ begin
 	from EMPLOYEE
 	where EMPLOYEE.ID = @ID
 
-	if(datediff(dd,@Bdate,getdate()) != 0)
+	if(datediff(dd,@Bdate,getdate()) = 0)
 	begin
 		print('Employee has to be 18 year old!!!')
 		rollback
 	end
-
-end
+end;
 
 --Số điện thoại nhân viên phải từ 10 đến 11 chữ số
-drop trigger TG_FormatPhoneNumber
 create trigger TG_FormatPhoneNumber on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Phone int
+declare @ID nvarchar(100), @Phone NVARCHAR(100)
 begin
 	--Lấy ra mã ID của nhân viên vừa nhập
 	select @ID = inserted.ID
@@ -210,9 +205,9 @@ begin
 	from EMPLOYEE
 	where EMPLOYEE.ID = @ID
 
-	if(len(@Phone) <= 11 and len(@phone) >= 10)
+	if(len(@Phone) > 11 and len(@phone) < 10)
 	begin
 		print ('IdentityNumber must have more than 8 characters!!!')
 		rollback
 	end
-end
+end;

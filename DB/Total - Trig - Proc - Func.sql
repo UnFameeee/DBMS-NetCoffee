@@ -403,7 +403,7 @@ begin
 	from EMPLOYEE
 	where EMPLOYEE.ID = @ID
 
-	if(len(@Identity) <= 12 and len(@Identity) >= 9)
+	if(len(@Identity) > 12 and len(@Identity) < 9)
 	begin
 		print ('IdentityNumber must have more than 8 characters!!!')
 		rollback
@@ -425,7 +425,7 @@ begin
 	from EMPLOYEE
 	where EMPLOYEE.ID = @ID
 
-	if(datediff(dd,@Bdate,getdate()) != 0)
+	if(datediff(dd,@Bdate,getdate()) = 0)
 	begin
 		print('Employee has to be 18 year old!!!')
 		rollback
@@ -446,7 +446,7 @@ begin
 	from EMPLOYEE
 	where EMPLOYEE.ID = @ID
 
-	if(len(@Phone) <= 11 and len(@phone) >= 10)
+	if(len(@Phone) > 11 and len(@phone) < 10)
 	begin
 		print ('IdentityNumber must have more than 8 characters!!!')
 		rollback
