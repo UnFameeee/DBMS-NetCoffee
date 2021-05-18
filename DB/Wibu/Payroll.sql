@@ -73,24 +73,13 @@ VALUES
     '00:15:00'  -- TimeEnd - time
     )
 --*Tạo bảng Làm Việc (QT)
-CREATE TABLE WORKS 
+CREATE TABLE WORK 
 (
-	ID nvarchar(100) references EMPLOYEE(ID),									--ID nhân viên làm việc
+	EmpID nvarchar(100) references EMPLOYEE(ID),									--ID nhân viên làm việc
 	ShiftID nvarchar(100) references WORKSHIFT(ShiftID),											--Ca làm việc
-	TotalTimeWork time	DEFAULT N'00:00:00'																--Thời gian làm việc (Tao nghĩ này nên để int)
-	PRIMARY KEY(ID,ShiftID),
+	ShiftMangerID NVARCHAR(100)													
+	PRIMARY KEY(EmpID,ShiftID),
 )
-INSERT INTO dbo.WORKS
-(
-    ID,
-    ShiftID,
-    TotalTimeWork
-)
-VALUES
-(   N'1',       -- ID - nvarchar(100)
-    N'2',       -- ShiftID - nvarchar(100)
-    '16:12:30' -- TotalTimeWork - time
-    )
 CREATE TABLE TIMEKEEPING
 (
 	IDEmployee NVARCHAR(100),															--ID nhân viên
@@ -119,7 +108,7 @@ BEGIN
 	SELECT * FROM SALARY
 END
 GO
---PROCEDURE đưa toàn bộ điểm danh
+--PROCEDURE show toàn bộ điểm danh
 CREATE PROCEDURE USP_ShowFullTimeKeeping 
 AS
 BEGIN
@@ -171,8 +160,8 @@ BEGIN
 	--Kiểm tra trong bảng ca có đúng ca làm của nhân viên đang check in không?
 	DECLARE @CountID INT
 	SELECT @CountID = COUNT(*)
-	FROM dbo.WORKS
-	WHERE @WorkShift = dbo.WORKS.ShiftID AND @iIDEmployee = dbo.WORKS.ID
+	FROM dbo.WORK
+	WHERE @WorkShift = dbo.WORK.ShiftID AND @iIDEmployee = dbo.WORK.EmpID
 	--Kiểm tra ca làm của nhân viên
 	IF (@CountID < 1)
 	BEGIN
@@ -244,8 +233,8 @@ BEGIN
 	--Lấy ca làm của nhân viên
 	DECLARE @ShiftID INT
 	SELECT @ShiftID = dbo.WORKSHIFT.ShiftID
-	FROM dbo.WORKSHIFT, dbo.WORKS
-	WHERE dbo.WORKS.ID = @iIDEmployee AND dbo.WORKSHIFT.ShiftID = dbo.WORKS.ShiftID AND DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) <= DATEPART(HOUR,@iCheckIn) AND DATEDIFF(HOUR,dbo.WORKSHIFT.TimeBegin, @iCheckIn) < 8
+	FROM dbo.WORKSHIFT, dbo.WORK
+	WHERE dbo.WORK.EmpID = @iIDEmployee AND dbo.WORKSHIFT.ShiftID = dbo.WORK.ShiftID AND DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) <= DATEPART(HOUR,@iCheckIn) AND DATEDIFF(HOUR,dbo.WORKSHIFT.TimeBegin, @iCheckIn) < 8
 	--Tính lương của nhân viên
 	DECLARE @Wages REAL
 	IF (@ShiftID = 1)															--Làm giờ ban đêm từ 0h đến 8h
