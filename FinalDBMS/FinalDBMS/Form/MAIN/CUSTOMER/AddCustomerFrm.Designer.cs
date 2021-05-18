@@ -257,7 +257,7 @@ namespace FinalDBMS
             this.buttonNaptien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNaptien.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonNaptien.ForeColor = System.Drawing.Color.White;
-            this.buttonNaptien.Location = new System.Drawing.Point(1122, 525);
+            this.buttonNaptien.Location = new System.Drawing.Point(1263, 475);
             this.buttonNaptien.Name = "buttonNaptien";
             this.buttonNaptien.Size = new System.Drawing.Size(164, 51);
             this.buttonNaptien.TabIndex = 15;
@@ -271,9 +271,9 @@ namespace FinalDBMS
             this.buttonCreateAcc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCreateAcc.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCreateAcc.ForeColor = System.Drawing.Color.White;
-            this.buttonCreateAcc.Location = new System.Drawing.Point(854, 525);
+            this.buttonCreateAcc.Location = new System.Drawing.Point(854, 475);
             this.buttonCreateAcc.Name = "buttonCreateAcc";
-            this.buttonCreateAcc.Size = new System.Drawing.Size(226, 51);
+            this.buttonCreateAcc.Size = new System.Drawing.Size(176, 51);
             this.buttonCreateAcc.TabIndex = 16;
             this.buttonCreateAcc.Text = "Tạo tài khoản";
             this.buttonCreateAcc.UseVisualStyleBackColor = false;
@@ -285,9 +285,9 @@ namespace FinalDBMS
             this.buttonDoimatkhau.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDoimatkhau.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDoimatkhau.ForeColor = System.Drawing.Color.White;
-            this.buttonDoimatkhau.Location = new System.Drawing.Point(1312, 525);
+            this.buttonDoimatkhau.Location = new System.Drawing.Point(1046, 475);
             this.buttonDoimatkhau.Name = "buttonDoimatkhau";
-            this.buttonDoimatkhau.Size = new System.Drawing.Size(247, 51);
+            this.buttonDoimatkhau.Size = new System.Drawing.Size(202, 51);
             this.buttonDoimatkhau.TabIndex = 17;
             this.buttonDoimatkhau.Text = "Đổi mật khẩu";
             this.buttonDoimatkhau.UseVisualStyleBackColor = false;
