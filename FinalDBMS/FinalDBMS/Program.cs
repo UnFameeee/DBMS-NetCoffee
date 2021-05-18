@@ -18,7 +18,7 @@ namespace FinalDBMS
             Application.SetCompatibleTextRenderingDefault(false);
 
             //Application.Run(new LoginFrm());
-            Application.Run(new MainFrm());
+            Application.Run(new AddCustomerFrm());
         }
     }
 }
