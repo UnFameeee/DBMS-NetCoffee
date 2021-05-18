@@ -87,16 +87,15 @@ namespace FinalDBMS
 
         private void CalendarFrm_Load(object sender, EventArgs e)
         {
-            /*atrixPic = new List<PictureBox>();       //Hình 
-            MatrixName = new List<Label>();           //Tên
+            MatrixPic = new List<PictureBox>();      //Hình 
+            MatrixName = new List<Label>();          //Tên
             MatrixPic.Add(pb1); MatrixPic.Add(pb2); MatrixPic.Add(pb3); MatrixPic.Add(pb4); MatrixPic.Add(pb5); MatrixPic.Add(pb6); MatrixPic.Add(pb7);
             MatrixName.Add(lb1); MatrixName.Add(lb2); MatrixName.Add(lb3); MatrixName.Add(lb4); MatrixName.Add(lb5); MatrixName.Add(lb6); MatrixName.Add(lb7);
             for (int i = 0; i < 7; ++i)
                 MatrixName[i].Visible = false;
             for (int j = 0; j < 7; ++j)
-                MatrixEmpID.Add("");*/
+                MatrixEmpID.Add("");
             dataGridViewTimeKeeping.DataSource = salary.ShowTimeKeeping();
-
         }
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -179,11 +178,11 @@ namespace FinalDBMS
             if(operation == "Load")
             {
                 DataTable table = cld.takeInfoForCalendar(EmpID);
-                tbInfo.Text = "ID: " + table.Rows[0][0].ToString()
-                            + "\nFullname: " + table.Rows[0][1].ToString()
-                            + "\nGender: " + table.Rows[0][2].ToString()
-                            + "\nPhone: " + table.Rows[0][3].ToString()
-                            + "\nIdentityNumber: " + table.Rows[0][4].ToString();
+                tbInfo.Text = "ID Nhân viên: " + table.Rows[0][0].ToString()
+                            + "\nHọ Tên: " + table.Rows[0][1].ToString()
+                            + "\nGiới tính: " + table.Rows[0][2].ToString()
+                            + "\nĐiện thoại: " + table.Rows[0][3].ToString()
+                            + "\nCMND: " + table.Rows[0][4].ToString();
             }
             else if(operation == "Unload")
             {

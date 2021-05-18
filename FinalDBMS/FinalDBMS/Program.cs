@@ -17,14 +17,8 @@ namespace FinalDBMS
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //Application.Run(new Timekeeping());
-
             //Application.Run(new LoginFrm());
-            //Application.Run(new MainFrm());
-            //Application.Run(new CalendarFrm());
             Application.Run(new MainFrm());
-            //Application.Run(new CalendarFrm());
-            //Application.Run(new EmpListFrm());
         }
     }
 }

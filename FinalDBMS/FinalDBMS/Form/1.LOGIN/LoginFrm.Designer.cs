@@ -30,6 +30,7 @@ namespace FinalDBMS
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginFrm));
             this.comboBoxTypeuser = new System.Windows.Forms.ComboBox();
             this.jOBBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonRegister = new System.Windows.Forms.Button();
@@ -46,9 +47,10 @@ namespace FinalDBMS
             this.comboBoxTypeuser.DataSource = this.jOBBindingSource;
             this.comboBoxTypeuser.DisplayMember = "JobDetail";
             this.comboBoxTypeuser.FormattingEnabled = true;
-            this.comboBoxTypeuser.Location = new System.Drawing.Point(56, 249);
+            this.comboBoxTypeuser.Location = new System.Drawing.Point(37, 162);
+            this.comboBoxTypeuser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBoxTypeuser.Name = "comboBoxTypeuser";
-            this.comboBoxTypeuser.Size = new System.Drawing.Size(121, 28);
+            this.comboBoxTypeuser.Size = new System.Drawing.Size(82, 21);
             this.comboBoxTypeuser.TabIndex = 3;
             this.comboBoxTypeuser.ValueMember = "WorkID";
             // 
@@ -61,9 +63,10 @@ namespace FinalDBMS
             this.buttonRegister.BackColor = System.Drawing.Color.IndianRed;
             this.buttonRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRegister.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonRegister.Location = new System.Drawing.Point(56, 340);
+            this.buttonRegister.Location = new System.Drawing.Point(37, 221);
+            this.buttonRegister.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(198, 38);
+            this.buttonRegister.Size = new System.Drawing.Size(132, 25);
             this.buttonRegister.TabIndex = 5;
             this.buttonRegister.Text = "Đăng ký";
             this.buttonRegister.UseVisualStyleBackColor = false;
@@ -74,9 +77,10 @@ namespace FinalDBMS
             this.buttonLogin.BackColor = System.Drawing.Color.DarkTurquoise;
             this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLogin.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonLogin.Location = new System.Drawing.Point(56, 295);
+            this.buttonLogin.Location = new System.Drawing.Point(37, 192);
+            this.buttonLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(276, 38);
+            this.buttonLogin.Size = new System.Drawing.Size(184, 25);
             this.buttonLogin.TabIndex = 4;
             this.buttonLogin.Text = "Đăng nhập";
             this.buttonLogin.UseVisualStyleBackColor = false;
@@ -87,9 +91,10 @@ namespace FinalDBMS
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.label1.Location = new System.Drawing.Point(92, 43);
+            this.label1.Location = new System.Drawing.Point(68, 28);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(177, 42);
+            this.label1.Size = new System.Drawing.Size(119, 29);
             this.label1.TabIndex = 10;
             this.label1.Text = "Đăng Nhập";
             // 
@@ -97,9 +102,10 @@ namespace FinalDBMS
             // 
             this.textBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPassword.ForeColor = System.Drawing.Color.SlateGray;
-            this.textBoxPassword.Location = new System.Drawing.Point(56, 206);
+            this.textBoxPassword.Location = new System.Drawing.Point(37, 134);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(276, 28);
+            this.textBoxPassword.Size = new System.Drawing.Size(185, 21);
             this.textBoxPassword.TabIndex = 2;
             this.textBoxPassword.Text = "Password";
             this.textBoxPassword.UseSystemPasswordChar = true;
@@ -109,9 +115,10 @@ namespace FinalDBMS
             // 
             this.textBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxUsername.ForeColor = System.Drawing.Color.SlateGray;
-            this.textBoxUsername.Location = new System.Drawing.Point(56, 120);
+            this.textBoxUsername.Location = new System.Drawing.Point(37, 78);
+            this.textBoxUsername.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.Size = new System.Drawing.Size(276, 28);
+            this.textBoxUsername.Size = new System.Drawing.Size(185, 21);
             this.textBoxUsername.TabIndex = 0;
             this.textBoxUsername.Text = "Tài khoản";
             this.textBoxUsername.DoubleClick += new System.EventHandler(this.textBoxUsername_DoubleClick);
@@ -120,18 +127,19 @@ namespace FinalDBMS
             // 
             this.textBoxID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxID.ForeColor = System.Drawing.Color.SlateGray;
-            this.textBoxID.Location = new System.Drawing.Point(56, 163);
+            this.textBoxID.Location = new System.Drawing.Point(37, 106);
+            this.textBoxID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxID.Name = "textBoxID";
-            this.textBoxID.Size = new System.Drawing.Size(276, 28);
+            this.textBoxID.Size = new System.Drawing.Size(185, 21);
             this.textBoxID.TabIndex = 2;
             this.textBoxID.Text = "ID";
             this.textBoxID.DoubleClick += new System.EventHandler(this.textBoxID_DoubleClick);
             // 
             // LoginFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 449);
+            this.ClientSize = new System.Drawing.Size(253, 292);
             this.Controls.Add(this.textBoxID);
             this.Controls.Add(this.comboBoxTypeuser);
             this.Controls.Add(this.buttonRegister);
@@ -139,6 +147,8 @@ namespace FinalDBMS
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxUsername);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "LoginFrm";
             this.Text = "Đăng Nhập";
             this.Load += new System.EventHandler(this.LoginFrm_Load);

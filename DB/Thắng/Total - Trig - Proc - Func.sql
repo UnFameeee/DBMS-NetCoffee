@@ -21,17 +21,9 @@ BEGIN
 	END
 END;
 
---Test Trigger
---TH Sai
---UPDATE DEVICETYPE  SET CPU = 'Core i3' WHERE TypeID = 'Super Vip'
---UPDATE DEVICETYPE  SET CPU = 'Core i5' WHERE TypeID = 'Super Vip'
---TH Đúng
---UPDATE DEVICETYPE  SET CPU = 'Core i9' WHERE TypeID = 'Super Vip'
-
 --2.Khi sửa lại máy Vip thì Keyboard của máy Thường không được trùng với máy Vip 
 CREATE TRIGGER Add_Device_Keyboard_Condition ON DEVICETYPE
 AFTER INSERT, UPDATE AS
---declare @TypeID_Vip nvarchar(100), @TypeID_Thuong nvarchar(100),
 declare 
 		@Keyboard_Vip_Default nvarchar(100), 
 		@Keyboard_Vip_Input nvarchar(100), 
@@ -62,10 +54,6 @@ BEGIN
 	rollback
 	END
 END;
---Test Trigger
---Keyboard hiện tại của Vip là Razer Huntsman Mini Mercurycòn Thường là Razer Blackwidow Lite
---Trường hợp sai
---UPDATE DEVICETYPE  SET KeyBoard = 'Razer Huntsman Mini Mercury' WHERE TypeID = 'Thuong'
 
 --3. Ram phải luôn bắt buộc là DDR4, DDR3, DDR2
 CREATE TRIGGER Add_Device_RAM_condition ON DEVICETYPE
@@ -84,6 +72,7 @@ BEGIN
 	rollback
 	END
 END;
+
 --4. Trigger kiểm tra người dùng không được dùng máy đang bảo trì hoặc đang được sử dụng
 CREATE Trigger Check_Available_Computer ON ACCOUNTCUSTOMER
 AFTER INSERT, UPDATE 
@@ -103,11 +92,306 @@ BEGIN
 	rollback
 	END
 END;
+----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
+--1. TRIGGER không cho nhân viên check in nếu chưa tới giờ đi làm
+CREATE TRIGGER UTG_WorkShiftCheckIn ON dbo.TIMEKEEPING
+AFTER INSERT
+AS
+BEGIN
+	--Lấy id nhân viên và thời gian check in của nhân viên đó
+	DECLARE @iIDEmployee NVARCHAR(100), @iCheckIN DATETIME
+	SELECT @iIDEmployee = Inserted.IDEmployee, @iCheckIN = Inserted.CheckIn
+	FROM Inserted
+	--Lấy ca làm của nhân viên
+	DECLARE @WorkShift INT
+	SELECT @WorkShift = ShiftID
+	FROM dbo.WORKSHIFT
+	WHERE DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) = DATEPART(HOUR,@iCheckIn)				--Nếu trễ 1 tiếng so với ca làm thì không được check in
+	--Kiểm tra trong bảng ca có đúng ca làm của nhân viên đang check in không?
+	DECLARE @CountID INT
+	SELECT @CountID = COUNT(*)
+	FROM dbo.WORKS
+	WHERE @WorkShift = dbo.WORKS.ShiftID AND @iIDEmployee = dbo.WORKS.ID
+	--Kiểm tra ca làm của nhân viên
+	IF (@CountID < 1)
+	BEGIN
+		PRINT 'Chua toi ca lam nhan vien khong the check in'
+		ROLLBACK
+	END
+END
+GO
 
---SELECT DISTINCT TypeID from DEVICES
+--2. TRIGGER thay đổi thưởng phạt khi check out tan làm sớm hoặc muộn để tính tiền thưởng phạt
+CREATE TRIGGER UTG_RewardFineCheckOut ON dbo.TIMEKEEPING
+AFTER UPDATE
+AS
+BEGIN
+	--Lấy ID và thời gian check out trừ thời gian check in để kiểm tra xem có vượt quá thời gian làm hoặc thiếu so với thời gian làm của 1 ca
+	DECLARE @iIDEmployee NVARCHAR(100), @Minute INT
+	SELECT @iIDEmployee = IDEmployee, @Minute = DATEDIFF(MINUTE, CheckIn, CheckOut)
+	FROM  Inserted
+	--Lấy số ca làm và thời gian tháng năm của nhân viên trong bảng lương
+	DECLARE @iNumberofWorkShift INT,  @iMonthWork INT, @iYearWork INT
+	SELECT @iNumberofWorkShift= NumberofWorkShift, @iMonthWork = MonthWork, @iYearWork = YearWork
+	FROM dbo.SALARY
+	WHERE IDEmployee = @iIDEmployee
+	--Nếu thời gian làm không đủ thì cứ mỗi 15 phút sẽ tính vào tiền phạt và ngược lại thời gian hơn trong ca làm cứ mỗi 15 phút sẽ được tính vào tiền thưởng
+	DECLARE @Reward REAL, @Fine REAL 
+	IF (@Minute >= 480)
+	BEGIN
+		SET @Reward = @Minute % 15
+		SET @Fine = 0
+	END
+	ELSE IF (@Minute < 480)
+	BEGIN
+		SET @Fine = @Minute % 15
+		SET @Reward = 0
+	END
+	--Nếu số ca làm được hơn trên 30 và số thời gian làm của buỗi đó hơn 8 tiếng thì tiền thưởng sẽ được nhân thêm 1.1
+	IF (@iNumberofWorkShift >= 30 AND @Minute >= 480)
+		SET @Reward = @Reward * 1.1
+	--Cập nhật thay đổi thưởng phạt ở bảng tiền lương
+	UPDATE dbo.SALARY
+	SET Reward = Reward + @Reward / 60, Fine = Fine + @Fine / 60
+	WHERE @iIDEmployee = IDEmployee AND @iMonthWork = MonthWork AND @iYearWork = YearWork
+END
+GO
+
+--3. TRIGGER cập nhật thay đổi bảng SALARY khi nhân viên check out
+CREATE TRIGGER UTG_SalaryCheckOut ON dbo.TIMEKEEPING
+AFTER UPDATE
+AS
+BEGIN
+	--Lấy ID, thời gian check in, thời gian check out của nhân viên
+	DECLARE @iIDEmployee NVARCHAR(100), @iCheckIn DATETIME, @iCheckOut DATETIME
+	SELECT @iIDEmployee = Inserted.IDEmployee, @iCheckIn = Inserted.CheckIn, @iCheckOut = Inserted.CheckOut
+	FROM Inserted
+	--Lấy số thưởng, phạt và số ca làm của nhân viên đó
+	DECLARE @iReward INT, @iFine INT, @iNumberofWorkShift INT	
+	SELECT @iReward = Reward, @iFine = Fine, @iNumberofWorkShift = NumberofWorkShift
+	FROM dbo.SALARY
+	WHERE @iIDEmployee = dbo.SALARY.IDEmployee AND MONTH(@iCheckOut) = MonthWork AND YEAR(@iCheckOut) = YearWork
+	--Lấy chức vụ của nhân viên
+	DECLARE @iEmployeeType INT
+	SELECT @iEmployeeType = WorkID
+	FROM dbo.EMPLOYEE 
+	WHERE @iIDEmployee = dbo.EMPLOYEE.IDEmployee	
+	--Lấy hệ số của nhân viên dựa trên loại của nhân viên
+	DECLARE @CoefficientsSalary REAL
+	SELECT @CoefficientsSalary = CoefficientsSalary
+	FROM dbo.JOB
+	WHERE @iEmployeeType = dbo.JOB.WorkID
+	--Lấy ca làm của nhân viên
+	DECLARE @ShiftID INT
+	SELECT @ShiftID = dbo.WORKSHIFT.ShiftID
+	FROM dbo.WORKSHIFT, dbo.WORKS
+	WHERE dbo.WORKS.ID = @iIDEmployee AND dbo.WORKSHIFT.ShiftID = dbo.WORKS.ShiftID AND DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) <= DATEPART(HOUR,@iCheckIn) AND DATEDIFF(HOUR,dbo.WORKSHIFT.TimeBegin, @iCheckIn) < 8
+	--Tính lương của nhân viên
+	DECLARE @Wages REAL
+	IF (@ShiftID = 1)															--Làm giờ ban đêm từ 0h đến 8h
+		SET @Wages = 8 * @CoefficientsSalary * 20000 * 1.5
+	ELSE																		--Những giờ khác 0h đến 8h
+		SET @Wages = 8 * @CoefficientsSalary * 20000
+
+	DECLARE @SalarybyPosition INT
+	SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 30000							--Set tiền lương
+	--Cập nhật thay đổi lương nhân viên
+	UPDATE dbo.SALARY
+	SET SalaryEmployee = @SalarybyPosition
+	WHERE dbo.SALARY.IDEmployee = @iIDEmployee AND dbo.SALARY.MonthWork = MONTH(@iCheckOut) AND dbo.SALARY.YearWork = YEAR(@iCheckOut)
+END
+GO
+
+--4. Thay đổi số ca làm nhân viên khi nhân viên check in
+CREATE TRIGGER UTG_SalaryCheckIn ON dbo.TIMEKEEPING
+AFTER INSERT
+AS
+BEGIN
+	--Lấy lương nhân viên check in và thời gian check in của nhân viên
+	DECLARE @iIDEmployee NVARCHAR(100), @iCheckIN DATETIME
+	SELECT @iIDEmployee = Inserted.IDEmployee, @iCheckIN = Inserted.CheckIn
+	FROM Inserted
+	--Kiểm tra xem tháng năm mà nhân viên check in có bảng lương chưa 
+	DECLARE @CheckIDSalary INT
+	SELECT @CheckIDSalary = COUNT(*)
+	FROM dbo.SALARY
+	WHERE @iIDEmployee = dbo.SALARY.IDEmployee AND MONTH(@iCheckIn) = MonthWork AND YEAR(@iCheckIn) = YearWork
+	--Nếu nhân viên chưa có trong bảng lương thì thêm vào tháng năm đó
+	IF (@CheckIDSalary < 1)	
+		INSERT INTO dbo.SALARY
+		(
+		    IDEmployee,
+		    MonthWork,
+		    YearWork,
+		    SalaryEmployee
+		)
+		VALUES
+		(   @iIDEmployee,																				-- IDEmployee - nvarchar(100)
+		    MONTH(@iCheckIn),																			-- MonthWork - int
+		    YEAR(@iCheckIn),																			-- YearWork - int
+		    0																							-- SalaryEmployee - real
+		)
+	--Cập nhật số ca làm của nhân viên
+	UPDATE dbo.SALARY
+	SET NumberofWorkShift = NumberofWorkShift + 1
+	WHERE @iIDEmployee = IDEmployee AND MONTH(@iCheckIn) = MonthWork AND YEAR(@iCheckIn) = YearWork
+END
+
+----------------------------------------------------------------------Dương Duy------------------------------------------------------------------------------------
+--1. khi Cus đăng nhập vào máy để bắt đầu chơi (1 là đang sử dụng - 0 là không sử dụng) dibu
+go
+GO
+DECLARE @money INT;
+SET @money = 7500;
+DECLARE @sophut INT;
+SET @sophut = 1440*370 + 75--@money*60/5000 24*60-1?=23h59
+DECLARE @g Datetime;
+SET @G = FORMAT(DATEADD(MINUTE, @sophut, '1900-01-01 00:00:00'), 'dd/MM/yyyy hh:mm:ss tt')
+--lỡ người chơi nạp nhiều tiền tới mức là số giờ chơi tính theo ngày
+SELECT CONVERT(varchar, @g, 108) + ' ' + CONVERT(VARCHAR, YEAR(@G) - 1900)
++ '/' + CONVERT(VARCHAR, MONTH(@G)) + '/' + CONVERT(VARCHAR, DAY(@G))
+--vipppppp
+--hh:mi:ss yy/mm/dd
+GO
+CREATE OR ALTER TRIGGER UserOnline_AccountCus ON dbo.ACCOUNTCUSTOMER
+FOR INSERT,UPDATE
+AS
+BEGIN
+	DECLARE @did NVARCHAR(100),@st INT,@cid NVARCHAR(100),@AccM FLOAT, @deT NVARCHAR(100),@Tavl DATETIME,@Tu DATETIME
+	SELECT @did=Inserted.DeviceID , @st=Inserted.StatusCustomer, @cid =Inserted.CustomerID,
+	@Tavl =Inserted.TimeAvailible,@AccM=Inserted.AccMoney,@Tu=Inserted.TimeUsed
+	FROM Inserted
+	IF(@st = 1 AND @did IS NOT NULL)
+		BEGIN
+			UPDATE dbo.DEVICES
+			SET DStatus='1'
+			WHERE DeviceID=@did
+
+			SELECT @deT= dbo.DEVICES.TypeID
+			FROM dbo.DEVICES
+			WHERE dbo.DEVICES.DeviceID=@did
+			
+			DECLARE @tienmay FLOAT
+			IF(@deT =1)
+				SET @tienmay=5000
+			ELSE IF(@deT =2)
+				SET @tienmay=7000
+			ELSE SET @tienmay=12000
+			DECLARE @minuteMoney INT = @AccM*60/@tienmay
+			SET @Tavl = FORMAT(DATEADD(MINUTE, @minuteMoney, @Tavl), 'dd/MM/yyyy hh:mm:ss tt')
+			UPDATE dbo.ACCOUNTCUSTOMER
+			SET	
+				AccMoney=0,
+				TimeAvailible=@Tavl,
+				TimeUsed=SYSDATETIME()
+			WHERE CustomerID=@cid
+		END
+END
+GO
+
+--2. khi Cus logout khỏi máy
+GO
+CREATE OR ALTER PROC Userlogout_AccountCus (@cid NVARCHAR(100),@did NVARCHAR(100))
+AS
+BEGIN
+
+	UPDATE dbo.DEVICES
+	SET
+		DStatus='0'
+	WHERE DeviceID=@did
+
+	DECLARE @tienmay FLOAT
+
+	SELECT @tienmay=TypeID
+	FROM dbo.DEVICES
+	WHERE DeviceID=@did
+
+	DECLARE @Tavl DATETIME,@Tu DATETIME
+	SELECT @Tavl=TimeAvailible,@Tu=TimeUsed
+	FROM dbo.ACCOUNTCUSTOMER
+	WHERE CustomerID=@cid
+
+	IF(@tienmay =1)
+		SET @tienmay=5000
+	ELSE IF(@tienmay =2)
+		SET @tienmay=7000
+	ELSE SET @tienmay=12000
+
+	UPDATE dbo.ACCOUNTCUSTOMER
+	SET	
+		AccMoney=ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1),
+		TimeAvailible=0,
+		TimeUsed=NULL,
+		DeviceID=NULL,
+		StatusCustomer=0
+	WHERE CustomerID=@cid
+END
+
+------????????????
+CREATE OR ALTER PROC AccCusActualTimeAvl(@cid NVARCHAR(100))
+AS
+BEGIN
+	 DECLARE @Tavl DATETIME
+	 SELECT @Tavl=TimeAvailible
+	 FROM dbo.ACCOUNTCUSTOMER
+	 WHERE CustomerID =@cid
+
+	 UPDATE dbo.ACCOUNTCUSTOMER
+	 SET
+		ActualTimeAvl=(CONVERT(varchar, @Tavl, 108) + ' ' + CONVERT(VARCHAR, DAY(@Tavl)-1)) + 'ngay ' 
+		+CONVERT(VARCHAR, MONTH(@Tavl)-1) +'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
+	 WHERE CustomerID =@cid
+END
+
+--3. Khi tạo tài khoản cho Cus mà không nhập đủ thông tin 
+GO
+CREATE OR ALTER TRIGGER InvalidInsert_Customer ON dbo.CUSTOMER
+FOR INSERT
+AS
+BEGIN
+	DECLARE @cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon INT
+    
+	SELECT @cid=Inserted.CustomerID,@ful=Inserted.FullName,@phn=Inserted.PhoneNumber,@icn=Inserted.IdentityCardNumber,@mon=Inserted.MoneyCharged
+	FROM Inserted
+	BEGIN TRANSACTION
+	IF(LEN(@cid)=0  OR @cid IS NULL) 
+		BEGIN
+			PRINT 'Please Enter Customer ID'
+			ROLLBACK 
+		END
+	DECLARE @count INT 
+	SELECT @count=COUNT(*) FROM dbo.CUSTOMER WHERE dbo.CUSTOMER.CustomerID=@cid
+	IF(@count>1)
+		BEGIN
+		   PRINT 'Customer id đã tồn tại vui lòng nhập id khác'
+		END
+	
+	IF(LEN(@ful)=0 OR @ful IS NULL) 
+		BEGIN
+			PRINT 'Please Enter Customer Full name'
+		END
+
+	IF(LEN(@phn)=0  OR @phn IS NULL) 
+		BEGIN
+			PRINT 'Please Enter Customer Phone number'
+		END
+
+	IF(LEN(@icn) <> 8 OR @icn IS NULL) 
+		BEGIN
+			PRINT 'Please Enter a valid Customer Identical card number'
+		END
+		ROLLBACK
+END
+
+
+
+
+
+
+
+
 ----------------------------------------------------------------------Hoàng Vũ------------------------------------------------------------------------------------
 --Số CMND phải có hơn 8 kí tự và nhỏ hơn 13 kí tự (9 <= CMND <= 12)
---drop trigger TG_FormatIdentityNumber
 create trigger TG_FormatIdentityNumber on EMPLOYEE
 for insert, update as
 declare @ID nvarchar(100), @Identity nvarchar(100)
@@ -151,7 +435,6 @@ begin
 end;
 
 --Số điện thoại nhân viên phải từ 10 đến 11 chữ số
---drop trigger TG_FormatPhoneNumber
 create trigger TG_FormatPhoneNumber on EMPLOYEE
 for insert, update as
 declare @ID nvarchar(100), @Phone int
@@ -187,8 +470,7 @@ from ACCOUNTCUSTOMER a, DEVICES d
 where a.DeviceID = d.DeviceID
 and d.TypeID = @TypeID
 end;
---go
---EXEC ShowInfoCustomerGroupByTypeID 'Thuong'
+
 --2.
 CREATE PROC Insert_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
 AS
@@ -228,35 +510,163 @@ BEGIN
 	WHERE DeviceID=@devid
 END;
 go
+----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
+--PROCEDURE khi nhân viên check in thêm vào bảng WORK
+CREATE PROCEDURE USP_CheckIn @IDEmployee NVARCHAR(100)
+AS
+BEGIN
+	INSERT INTO dbo.TIMEKEEPING (IDEmployee, CheckIn) VALUES (@IDEmployee, GETDATE())					--Thêm vào bảng WORK
+END
+GO
+
+--PROCEDURE khi nhân viên check out update bảng WORK
+CREATE PROCEDURE USP_CheckOut @IDEmployee NVARCHAR(100)
+AS
+BEGIN
+	UPDATE TIMEKEEPING SET CheckOut = GETDATE() WHERE IDEmployee = @IDEmployee AND CheckOut IS NULL		--Thay đổi chỉnh sửa bảng WORK
+END
+GO
+
+--PROCEDURE kiểm tra ID nhân viên có tồn tại hay không
+CREATE PROCEDURE USP_CheckIDEmployee @IDEmployee NVARCHAR(100)
+AS
+BEGIN
+	SELECT * FROM EMPLOYEE WHERE IDEmployee = @IDEmployee												--SELECT * để kiểm tra tồn tại của nhân viên
+END
+GO
+
+--PROCEDURE kiểm tra nhân viên có đang trong ca làm hay không
+CREATE PROCEDURE USP_CheckIDEmployeeWorking @IDEmployee NVARCHAR(100)
+AS
+BEGIN
+	SELECT * FROM TIMEKEEPING WHERE IDEmployee = 1 AND CheckOut IS NULL					--SELECT * để kiểm tra nhân viên có đi làm hay không
+END
+GO
+----------------------------------------------------------------------Dương Duy------------------------------------------------------------------------------------
+--1. thêm mới khách hàng Cus
+go
+CREATE PROC Create_customer (@cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon int)
+AS
+BEGIN
+ INSERT INTO dbo.CUSTOMER
+ (
+     CustomerID,
+     FullName,
+     PhoneNumber,
+     IdentityCardNumber,
+     MoneyCharged
+ )
+ VALUES
+ (   @cid, -- CustomerID - nvarchar(100)
+     @ful, -- FullName - nvarchar(100)
+     @phn,   -- PhoneNumber - int
+     @icn,   -- IdentityCardNumber - int
+     @mon  -- MoneyCharged - float
+     )
+END;
+GO
+
+--2. xoá một khách hàng Cus theo Cid
+GO
+CREATE PROC deleteById_customer (@cid nvarchar(100))
+AS
+BEGIN
+ DELETE FROM dbo.CUSTOMER
+ WHERE CustomerID=@cid
+END;
+GO
+
+--3. chỉnh sửa thông tin khách hàng Cus theo Cid
+go
+CREATE PROC EditInfo_customer(@cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon int)
+AS
+BEGIN
+	UPDATE dbo.CUSTOMER
+	SET 
+		FullName=@ful,
+		PhoneNumber=@phn,
+		IdentityCardNumber=@icn,
+		MoneyCharged=@mon
+	WHERE CustomerID=@cid
+END
+GO
+
+--4. Khách hàng nạp tiền vào tài khoản Cus
+go
+CREATE PROC DepositBudget_customer(@cid nvarchar(100),@mon float)
+AS
+BEGIN
+	UPDATE dbo.CUSTOMER
+	SET 
+		MoneyCharged=MoneyCharged+@mon
+	WHERE CUSTOMER.CustomerID=@cid
+END
+GO
+
+--5. tạo tài khoản AccCus
+go
+CREATE PROC Create_Accus (@un NVARCHAR(100),@pass NVARCHAR(100),@cid NVARCHAR(100))
+AS
+BEGIN
+	INSERT INTO dbo.ACCOUNTCUSTOMER
+	(
+	    UserName,
+	    PassWord,
+	    CustomerID,
+		AccMoney                  ---khi tao tai khoan moi thi so tien auto =0
+	)
+	VALUES
+	(   @un,       -- UserName - nvarchar(100)
+	    @pass,       -- PassWord - nvarchar(100)
+	    @cid,
+		0
+	    )
+END
+--** Việc khách hàng nạp tiền vào Cus và Acus là 2 việc khác nhau vì 2 loại tiền này phục mục đích khác, 
+--tiền của Cus là tiền chung có thể để nạp tiền giờ chơi hay order đồ ăn
+--việc phân biệt này giúp cho việc tính toán số giờ chơi còn lại trong Acus trực quan hơn
+
+--5. Khách hàng nạp tiền vào Account
+go
+CREATE PROC DepositBudget_Accountcustomer(@cid nvarchar(100),@mon float)
+AS
+BEGIN
+	UPDATE dbo.ACCOUNTCUSTOMER
+	SET 
+	     AccMoney=AccMoney+@mon                    ---------- cột Accmoney mới thêm vào AccountCustomer để phân biệt với bên Customer
+	FROM dbo.CUSTOMER,dbo.ACCOUNTCUSTOMER
+	WHERE CUSTOMER.CustomerID=dbo.ACCOUNTCUSTOMER.CustomerID
+
+	UPDATE dbo.CUSTOMER
+	SET
+		MoneyCharged=MoneyCharged-@mon
+	FROM dbo.CUSTOMER,dbo.ACCOUNTCUSTOMER
+	WHERE CUSTOMER.CustomerID=dbo.ACCOUNTCUSTOMER.CustomerID
+END
+GO
 
 ----------------------------------------------------------------------FUNCTION------------------------------------------------------------------------------------
 ----------------------------------------------------------------------Thắng------------------------------------------------------------------------------------
 --Tìm ra nhân viên theo từ khoá đã cho
---DROP FUNCTION Func_SearchEmployeesWithName
 CREATE FUNCTION Func_SearchEmployeesWithName (@search_name nvarchar(100))
 RETURNS TABLE AS
 	RETURN SELECT * FROM dbo.EMPLOYEE
 		   WHERE FullName LIKE '%' + @search_name + '%'
 GO
---SELECT * FROM dbo.Func_SearchEmployeesWithName(N'Thành')					--chạy function
 
 --Tìm ra hình ảnh nhân viên lúc điểm danh xong bằng EmpID (CalendarFrm)
---DROP FUNCTION Func_TakePicWhenCheckin
 CREATE FUNCTION Func_TakePicWhenCheckin (@EmpID varchar(100))
 RETURNS TABLE AS
 	RETURN SELECT Picture, FullName
 		   FROM EMPLOYEE
 	       WHERE EMPLOYEE.ID = @EmpID;
---SELECT * FROM dbo.Func_TakePicWhenCheckin('NV1')
 
 --Tìm ra thông tin của nhân viên lúc điểm danh xong bằng EmpID (CalendarFrm)
---DROP FUNCTION Func_TakeInfoWhenCheckin
 CREATE FUNCTION Func_TakeInfoWhenCheckin (@EmpID varchar(100))
 RETURNS TABLE AS
 	RETURN SELECT Id, FullName, Gender, Phone, IdentityNumber
 		   FROM EMPLOYEE
 	       WHERE EMPLOYEE.ID = @EmpID;
---SELECT * FROM dbo.Func_TakeInfoWhenCheckin('NV1')
 
 
 

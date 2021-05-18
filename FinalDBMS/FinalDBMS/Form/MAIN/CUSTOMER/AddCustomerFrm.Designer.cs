@@ -43,7 +43,6 @@ namespace FinalDBMS
             this.buttonThem = new System.Windows.Forms.Button();
             this.buttonXoa = new System.Windows.Forms.Button();
             this.buttonSua = new System.Windows.Forms.Button();
-            this.buttonThoat = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCus)).BeginInit();
@@ -109,7 +108,7 @@ namespace FinalDBMS
             // 
             this.textBoxID.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxID.Location = new System.Drawing.Point(120, 13);
-            this.textBoxID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxID.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxID.Name = "textBoxID";
             this.textBoxID.Size = new System.Drawing.Size(140, 29);
             this.textBoxID.TabIndex = 0;
@@ -118,7 +117,7 @@ namespace FinalDBMS
             // 
             this.textBoxHoten.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxHoten.Location = new System.Drawing.Point(120, 61);
-            this.textBoxHoten.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxHoten.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxHoten.Name = "textBoxHoten";
             this.textBoxHoten.Size = new System.Drawing.Size(139, 29);
             this.textBoxHoten.TabIndex = 1;
@@ -127,7 +126,7 @@ namespace FinalDBMS
             // 
             this.textBoxCmnd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCmnd.Location = new System.Drawing.Point(456, 61);
-            this.textBoxCmnd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxCmnd.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxCmnd.Name = "textBoxCmnd";
             this.textBoxCmnd.Size = new System.Drawing.Size(157, 29);
             this.textBoxCmnd.TabIndex = 3;
@@ -136,7 +135,7 @@ namespace FinalDBMS
             // 
             this.textBoxPhone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPhone.Location = new System.Drawing.Point(456, 13);
-            this.textBoxPhone.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxPhone.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPhone.Name = "textBoxPhone";
             this.textBoxPhone.Size = new System.Drawing.Size(157, 29);
             this.textBoxPhone.TabIndex = 2;
@@ -145,7 +144,7 @@ namespace FinalDBMS
             // 
             this.textBoxMoney.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxMoney.Location = new System.Drawing.Point(783, 45);
-            this.textBoxMoney.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxMoney.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxMoney.Name = "textBoxMoney";
             this.textBoxMoney.Size = new System.Drawing.Size(164, 29);
             this.textBoxMoney.TabIndex = 4;
@@ -154,61 +153,58 @@ namespace FinalDBMS
             // 
             this.dataGridViewCus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCus.Location = new System.Drawing.Point(38, 152);
-            this.dataGridViewCus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridViewCus.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewCus.Name = "dataGridViewCus";
             this.dataGridViewCus.RowHeadersWidth = 62;
             this.dataGridViewCus.RowTemplate.Height = 28;
-            this.dataGridViewCus.Size = new System.Drawing.Size(993, 351);
+            this.dataGridViewCus.Size = new System.Drawing.Size(993, 361);
             this.dataGridViewCus.TabIndex = 10;
             this.dataGridViewCus.DoubleClick += new System.EventHandler(this.dataGridViewCus_DoubleClick);
             // 
             // buttonThem
             // 
-            this.buttonThem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonThem.Location = new System.Drawing.Point(123, 507);
-            this.buttonThem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.buttonThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonThem.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonThem.ForeColor = System.Drawing.Color.White;
+            this.buttonThem.Location = new System.Drawing.Point(122, 517);
+            this.buttonThem.Margin = new System.Windows.Forms.Padding(2);
             this.buttonThem.Name = "buttonThem";
             this.buttonThem.Size = new System.Drawing.Size(109, 33);
             this.buttonThem.TabIndex = 5;
             this.buttonThem.Text = "Thêm";
-            this.buttonThem.UseVisualStyleBackColor = true;
+            this.buttonThem.UseVisualStyleBackColor = false;
             this.buttonThem.Click += new System.EventHandler(this.buttonThem_Click);
             // 
             // buttonXoa
             // 
-            this.buttonXoa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonXoa.Location = new System.Drawing.Point(469, 507);
-            this.buttonXoa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.buttonXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonXoa.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonXoa.ForeColor = System.Drawing.Color.White;
+            this.buttonXoa.Location = new System.Drawing.Point(468, 517);
+            this.buttonXoa.Margin = new System.Windows.Forms.Padding(2);
             this.buttonXoa.Name = "buttonXoa";
             this.buttonXoa.Size = new System.Drawing.Size(109, 33);
             this.buttonXoa.TabIndex = 6;
             this.buttonXoa.Text = "Xoá";
-            this.buttonXoa.UseVisualStyleBackColor = true;
+            this.buttonXoa.UseVisualStyleBackColor = false;
             this.buttonXoa.Click += new System.EventHandler(this.buttonXoa_Click);
             // 
             // buttonSua
             // 
-            this.buttonSua.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSua.Location = new System.Drawing.Point(822, 507);
-            this.buttonSua.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.buttonSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSua.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSua.ForeColor = System.Drawing.Color.White;
+            this.buttonSua.Location = new System.Drawing.Point(821, 517);
+            this.buttonSua.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSua.Name = "buttonSua";
             this.buttonSua.Size = new System.Drawing.Size(109, 33);
             this.buttonSua.TabIndex = 7;
             this.buttonSua.Text = "Sửa";
-            this.buttonSua.UseVisualStyleBackColor = true;
+            this.buttonSua.UseVisualStyleBackColor = false;
             this.buttonSua.Click += new System.EventHandler(this.buttonSua_Click);
-            // 
-            // buttonThoat
-            // 
-            this.buttonThoat.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonThoat.Location = new System.Drawing.Point(992, 7);
-            this.buttonThoat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.buttonThoat.Name = "buttonThoat";
-            this.buttonThoat.Size = new System.Drawing.Size(65, 34);
-            this.buttonThoat.TabIndex = 8;
-            this.buttonThoat.Text = "Thoát";
-            this.buttonThoat.UseVisualStyleBackColor = true;
-            this.buttonThoat.Click += new System.EventHandler(this.buttonThoat_Click);
             // 
             // label6
             // 
@@ -247,13 +243,12 @@ namespace FinalDBMS
             this.ClientSize = new System.Drawing.Size(1068, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.buttonThoat);
             this.Controls.Add(this.buttonSua);
             this.Controls.Add(this.buttonXoa);
             this.Controls.Add(this.buttonThem);
             this.Controls.Add(this.dataGridViewCus);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AddCustomerFrm";
             this.Text = "AddCustomerFrm";
             this.Load += new System.EventHandler(this.AddCustomerFrm_Load);
@@ -280,7 +275,6 @@ namespace FinalDBMS
         private System.Windows.Forms.Button buttonThem;
         private System.Windows.Forms.Button buttonXoa;
         private System.Windows.Forms.Button buttonSua;
-        private System.Windows.Forms.Button buttonThoat;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel1;
     }
