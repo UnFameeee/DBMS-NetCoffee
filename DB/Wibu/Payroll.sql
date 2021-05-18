@@ -22,7 +22,7 @@ VALUES
     )
 CREATE TABLE EMPLOYEE 
 (
-	IDEmployee nvarchar(100) PRIMARY KEY,			  --ID nhân viên									
+	ID nvarchar(100) PRIMARY KEY,			  --ID nhân viên									
 	FullName nvarchar(100) not null,				    --Họ Tên
 	Gender nvarchar(10),							          --Giới tính
 	Birthday date,									            --Ngày sinh
@@ -34,7 +34,7 @@ CREATE TABLE EMPLOYEE
 )
 INSERT INTO dbo.EMPLOYEE
 (
-    IDEmployee,
+    ID,
     FullName,
     Gender,
     Birthday,
@@ -75,7 +75,7 @@ VALUES
 --*Tạo bảng Làm Việc (QT)
 CREATE TABLE WORKS 
 (
-	ID nvarchar(100) references EMPLOYEE(IDEmployee),									--ID nhân viên làm việc
+	ID nvarchar(100) references EMPLOYEE(ID),									--ID nhân viên làm việc
 	ShiftID nvarchar(100) references WORKSHIFT(ShiftID),											--Ca làm việc
 	TotalTimeWork time	DEFAULT N'00:00:00'																--Thời gian làm việc (Tao nghĩ này nên để int)
 	PRIMARY KEY(ID,ShiftID),
@@ -96,13 +96,13 @@ CREATE TABLE TIMEKEEPING
 	IDEmployee NVARCHAR(100),															--ID nhân viên
 	CheckIn DATETIME,																	--Thời gian check in
 	CheckOut DATETIME																	--Thời gian check out
-	FOREIGN KEY (IDEmployee) REFERENCES dbo.EMPLOYEE(IDEmployee)
+	FOREIGN KEY (IDEmployee) REFERENCES dbo.EMPLOYEE(ID)
 	PRIMARY KEY (IDEmployee, CheckIn)
 )
 --Tạo bảng lương nhân viên
 CREATE TABLE SALARY
 (
-	IDEmployee NVARCHAR(100),															--ID nhân viên
+	IDEmployee NVARCHAR(100) REFERENCES dbo.EMPLOYEE(ID),															--ID nhân viên
 	MonthWork INT,																		--Tháng của lương
 	YearWork INT,																		--Năm của lương
 	Reward REAL DEFAULT 0,																--Thưởng	
@@ -144,7 +144,7 @@ GO
 CREATE PROCEDURE USP_CheckIDEmployee @IDEmployee NVARCHAR(100)
 AS
 BEGIN
-	SELECT * FROM EMPLOYEE WHERE IDEmployee = @IDEmployee												--SELECT * để kiểm tra tồn tại của nhân viên
+	SELECT * FROM EMPLOYEE WHERE ID = @IDEmployee												--SELECT * để kiểm tra tồn tại của nhân viên
 END
 GO
 --PROCEDURE kiểm tra nhân viên có đang trong ca làm hay không
@@ -235,7 +235,7 @@ BEGIN
 	DECLARE @iEmployeeType INT
 	SELECT @iEmployeeType = WorkID
 	FROM dbo.EMPLOYEE 
-	WHERE @iIDEmployee = dbo.EMPLOYEE.IDEmployee	
+	WHERE @iIDEmployee = dbo.EMPLOYEE.ID	
 	--Lấy hệ số của nhân viên dựa trên loại của nhân viên
 	DECLARE @CoefficientsSalary REAL
 	SELECT @CoefficientsSalary = CoefficientsSalary
