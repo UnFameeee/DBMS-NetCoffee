@@ -125,10 +125,10 @@ CREATE TABLE SALARY
 	Fine REAL DEFAULT 0,																--Phạt
 	NumberofWorkShift INT DEFAULT 0,													--Số ca làm
 	SalaryEmployee REAL DEFAULT 0,														--Lương nhân viên
+	FOREIGN KEY (IDEmployee) REFERENCES dbo.EMPLOYEE(ID),
 	PRIMARY KEY (IDEmployee, MonthWork, YearWork)
 )
 GO
-
 ------------------------------------------------------------------------------------------------------------------------
 --Loại Máy--
 CREATE TABLE DEVICETYPE
