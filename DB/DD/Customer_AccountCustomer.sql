@@ -42,8 +42,9 @@ create table ACCOUNTCUSTOMER
 	TimeUsed DATETIME,		--thời gian đã dùng											
 	CustomerID nvarchar(100) references CUSTOMER(CustomerID),					
 	DeviceID nvarchar(100) references DEVICES(DeviceID),
-	AccMoney FLOAT, ----------- mới thêm vào + đổi tiền từ float thành int
-	StatusCustomer int
+	StatusCustomer int,
+	AccMoney FLOAT ----------- mới thêm vào + đổi tiền từ float thành int
+	
 )
 ---------------------------------------------------
 

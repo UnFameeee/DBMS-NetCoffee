@@ -106,6 +106,29 @@ INSERT INTO WORK VALUES ('NV15', 3, 'NV20')	--NV
 INSERT INTO WORK VALUES ('NV16', 3, 'NV20')	--NV
 INSERT INTO WORK VALUES ('NV17', 3, 'NV20')	--NV
 
+------Checkin
+CREATE TABLE TIMEKEEPING
+(
+	IDEmployee NVARCHAR(100),															--ID nhân viên
+	CheckIn DATETIME,																	--Thời gian check in
+	CheckOut DATETIME																	--Thời gian check out
+	FOREIGN KEY (IDEmployee) REFERENCES dbo.EMPLOYEE(IDEmployee)
+	PRIMARY KEY (IDEmployee, CheckIn)
+)
+--Tạo bảng lương nhân viên
+CREATE TABLE SALARY
+(
+	IDEmployee NVARCHAR(100),															--ID nhân viên
+	MonthWork INT,																		--Tháng của lương
+	YearWork INT,																		--Năm của lương
+	Reward REAL DEFAULT 0,																--Thưởng	
+	Fine REAL DEFAULT 0,																--Phạt
+	NumberofWorkShift INT DEFAULT 0,													--Số ca làm
+	SalaryEmployee REAL DEFAULT 0,														--Lương nhân viên
+	PRIMARY KEY (IDEmployee, MonthWork, YearWork)
+)
+GO
+
 ------------------------------------------------------------------------------------------------------------------------
 --Loại Máy--
 CREATE TABLE DEVICETYPE

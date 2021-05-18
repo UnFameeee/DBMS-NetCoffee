@@ -144,11 +144,6 @@ namespace FinalDBMS
             else return true;
         }
 
-        private void buttonThoat_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void dataGridViewCus_DoubleClick(object sender, EventArgs e)
         {
             textBoxID.Text = dataGridViewCus.CurrentRow.Cells[0].Value.ToString();
