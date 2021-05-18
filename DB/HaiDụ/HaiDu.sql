@@ -38,34 +38,35 @@ CREATE TABLE EMPLOYEE
 	FullName nvarchar(100) not null,				--Họ Tên
 	Gender nvarchar(10),							--Giới tính
 	Birthday date,									--Ngày sinh
-	Phone int,										--SĐT
+	Phone NVARCHAR(100),								--SĐT
 	IdentityNumber nvarchar(100) not null,			--số CMND
 	StatusEmployee nvarchar(100),					--Work / not Work (wibu)
 	Email nvarchar(100),
-	WorkID nvarchar(100) references JOB(WorkID)		--MãCV
+	WorkID nvarchar(100) references JOB(WorkID),	--MãCV
+	Picture image									--Hình ảnh nhân viên
 )
 --Thêm 3 quản lý, 12 nhân viên, 6 lao công (QT)
-INSERT INTO EMPLOYEE VALUES ('NV1', N'Lê Thị Hai', N'Nữ', '2000-10-20', 123456789, '079200001910', '', '', 'LC')
-INSERT INTO EMPLOYEE VALUES ('NV2', N'Đặng Văn Đôn', N'Nam', '1999-9-22', 123456987, '079200001911','', '', 'LC')
-INSERT INTO EMPLOYEE VALUES ('NV3', N'Thành Nam', N'Nam', '2000-10-23', 123654987,'079200001912','', '', 'LC')
-INSERT INTO EMPLOYEE VALUES ('NV4', N'Nguyễn Thành Hải', N'Nam', '1989-3-26', 789456123, '079200001913','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV5', N'Lê Thanh Tú', N'Nam', '1990-3-29', 987654321, '079200001914','', '', 'QL')
-INSERT INTO EMPLOYEE VALUES ('NV6', N'Lê Thị Hải Tú', N'Nữ', '1995-2-19', 456789123, '079200001915','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV7', N'Nguyễn Sơn Tùng', N'Nam', '1996-2-11', 753421869, '079200001916','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV8', N'Lê Thành Kim', N'Nam', '1997-7-15', 428675391, '079200001917','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV9', N'Nguyễn Văn Lễ', N'Nam', '1998-8-18', 428695137, '079200001918','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV10', N'Nguyễn Hải Thanh', N'Nam', '1985-10-1', 753916824, '079200001919','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV11', N'Nguyễn Thị Diễm', N'Nữ', '1991-11-2', 425896731, '079200011910','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV12', N'Nguyễn Văn Khanh', N'Nam', '1992-12-9', 142589763, '079200011911','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV13', N'Nguyễn Thành Long', N'Nam', '1993-11-6', 132658974, '079200011912','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV14', N'Lê Thành Lễ', N'Nam', '1994-12-24', 465987321, '079200011913','', '', 'QL')
-INSERT INTO EMPLOYEE VALUES ('NV15', N'Nguyễn Sơn Thạch', N'Nam', '1995-4-27', 156248937, '079200011914','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV16', N'Đăng Thị Kim Thu', N'Nữ', '1996-5-20', 321658974, '079200011915','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV17', N'Huỳnh Xuân Phong', N'Nam', '1997-8-14', 865392147, '079200011916','', '', 'NV')
-INSERT INTO EMPLOYEE VALUES ('NV18', N'Nguyễn Thiện Thuật', N'Nam', '1998-9-15', 486957321, '079200011917','', '', 'LC')
-INSERT INTO EMPLOYEE VALUES ('NV19', N'Lê Quang Định', N'Nam', '2001-5-25', 456829731, '079200011918','', '', 'LC')
-INSERT INTO EMPLOYEE VALUES ('NV20', N'Nguyễn Thanh Thị Minh', N'Nữ', '1999-6-18', 125497465,'079200021919','', '', 'QL')
-INSERT INTO EMPLOYEE VALUES ('NV21', N'Lê Thanh Như', N'Nữ', '2002-10-20', 465893721, '079200021910','', '', 'LC')
+INSERT INTO EMPLOYEE VALUES ('NV1', N'Lê Thị Hai', N'Nữ', '2000-10-20', '123456789', '079200001910', '', '', 'LC', null)
+INSERT INTO EMPLOYEE VALUES ('NV2', N'Đặng Văn Đôn', N'Nam', '1999-9-22', '123456987', '079200001911','', '', 'LC', null)
+INSERT INTO EMPLOYEE VALUES ('NV3', N'Thành Nam', N'Nam', '2000-10-23', '123654987','079200001912','', '', 'LC', null)
+INSERT INTO EMPLOYEE VALUES ('NV4', N'Nguyễn Thành Hải', N'Nam', '1989-3-26', '789456123', '079200001913','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV5', N'Lê Thanh Tú', N'Nam', '1990-3-29', '987654321', '079200001914','', '', 'QL', null)
+INSERT INTO EMPLOYEE VALUES ('NV6', N'Lê Thị Hải Tú', N'Nữ', '1995-2-19', '456789123', '079200001915','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV7', N'Nguyễn Sơn Tùng', N'Nam', '1996-2-11', '753421869', '079200001916','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV8', N'Lê Thành Kim', N'Nam', '1997-7-15', '428675391', '079200001917','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV9', N'Nguyễn Văn Lễ', N'Nam', '1998-8-18', '428695137', '079200001918','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV10', N'Nguyễn Hải Thanh', N'Nam', '1985-10-1', '753916824', '079200001919','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV11', N'Nguyễn Thị Diễm', N'Nữ', '1991-11-2', '425896731', '079200011910','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV12', N'Nguyễn Văn Khanh', N'Nam', '1992-12-9', '142589763', '079200011911','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV13', N'Nguyễn Thành Long', N'Nam', '1993-11-6', '132658974', '079200011912','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV14', N'Lê Thành Lễ', N'Nam', '1994-12-24', '465987321', '079200011913','', '', 'QL', null)
+INSERT INTO EMPLOYEE VALUES ('NV15', N'Nguyễn Sơn Thạch', N'Nam', '1995-4-27', '156248937', '079200011914','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV16', N'Đăng Thị Kim Thu', N'Nữ', '1996-5-20', '321658974', '079200011915','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV17', N'Huỳnh Xuân Phong', N'Nam', '1997-8-14', '865392147', '079200011916','', '', 'NV', null)
+INSERT INTO EMPLOYEE VALUES ('NV18', N'Nguyễn Thiện Thuật', N'Nam', '1998-9-15', '486957321', '079200011917','', '', 'LC', null)
+INSERT INTO EMPLOYEE VALUES ('NV19', N'Lê Quang Định', N'Nam', '2001-5-25', '456829731', '079200011918','', '', 'LC', null)
+INSERT INTO EMPLOYEE VALUES ('NV20', N'Nguyễn Thanh Thị Minh', N'Nữ', '1999-6-18', '125497465','079200021919','', '', 'QL', null)
+INSERT INTO EMPLOYEE VALUES ('NV21', N'Lê Thanh Như', N'Nữ', '2002-10-20', '465893721', '079200021910','', '', 'LC', null)
 
 --*Tạo bảng QuảnLý (Nhân Viên được thành quản lý) (QT) 
 --(Tao cũng không biết cái bảng này để làm cái gì, quên mất rồi)
@@ -149,65 +150,55 @@ CREATE TABLE ACCOUNTEMPLOYEE
 
 
 --Số CMND phải có hơn 8 kí tự và nhỏ hơn 13 kí tự (9 <= CMND <= 12)
+drop trigger TG_FormatIdentityNumber
 create trigger TG_FormatIdentityNumber on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Identity nvarchar(100)
+declare @Identity nvarchar(100)
 begin
-	--Lấy ra mã ID của nhân viên vừa nhập
-	select @ID = inserted.ID
+
+	--Lấy ra IdentityNumber của nhân viên vừa nhập
+	select @Identity = inserted.IdentityNumber
 	from inserted
 
-	--Lấy ra số CMND của ID vừa nhập
-	select @Identity = IdentityNumber
-	from EMPLOYEE
-	where EMPLOYEE.ID = @ID
-
-	if(len(@Identity) > 12 and len(@Identity) < 9)
+	if(len(@Identity) > 12 or len(@Identity) < 9)
 	begin
-		print ('IdentityNumber must have more than 8 characters!!!')
+		print ('IdentityNumber must have more than 8 and less than 13 characters!!!')
 		rollback
 	end
 end;
 
 --Nhân viên phải ít nhất ĐỦ 18 tuổi
+drop trigger TG_EmpAtLeast18YO
 create trigger TG_EmpAtLeast18YO on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Bdate date
+declare @Bdate date
 begin
 	
-	--Lấy ra mã ID của nhân viên vừa nhập
-	select @ID = inserted.ID
+	--Lấy ra Birthday của nhân viên vừa nhập
+	select @Bdate = inserted.Birthday
 	from inserted
 
-	--Lấy ra ngày sinh nhật của ID vừa nhập
-	select @Bdate = Birthday
-	from EMPLOYEE
-	where EMPLOYEE.ID = @ID
-
-	if(datediff(dd,@Bdate,getdate()) = 0)
+	if(datediff(yy,@Bdate,getdate()) < 18)
 	begin
 		print('Employee has to be 18 year old!!!')
 		rollback
 	end
 end;
 
---Số điện thoại nhân viên phải từ 10 đến 11 chữ số
+--Số điện thoại nhân viên phải từ 9 đến 11 chữ số
+drop trigger TG_FormatPhoneNumber
 create trigger TG_FormatPhoneNumber on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Phone NVARCHAR(100)
+declare @Phone NVARCHAR(100)
 begin
-	--Lấy ra mã ID của nhân viên vừa nhập
-	select @ID = inserted.ID
+
+	--Lấy ra Phone của nhân viên vừa nhập
+	select @Phone = inserted.Phone
 	from inserted
 
-	--Lấy ra số CMND của ID vừa nhập
-	select @Phone = Phone
-	from EMPLOYEE
-	where EMPLOYEE.ID = @ID
-
-	if(len(@Phone) > 11 and len(@phone) < 10)
+	if(len(@Phone) > 10 or len(@phone) < 9)
 	begin
-		print ('IdentityNumber must have more than 8 characters!!!')
+		print ('Phone Number must have more than 8 and less than 11 characters!!!')
 		rollback
 	end
 end;

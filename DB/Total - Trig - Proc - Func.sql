@@ -389,66 +389,61 @@ END
 
 
 ----------------------------------------------------------------------Hoàng Vũ------------------------------------------------------------------------------------
+
 --Số CMND phải có hơn 8 kí tự và nhỏ hơn 13 kí tự (9 <= CMND <= 12)
+drop trigger TG_FormatIdentityNumber
 create trigger TG_FormatIdentityNumber on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Identity nvarchar(100)
+declare @Identity nvarchar(100)
 begin
-	--Lấy ra mã ID của nhân viên vừa nhập
-	select @ID = inserted.ID
+
+	--Lấy ra IdentityNumber của nhân viên vừa nhập
+	select @Identity = inserted.IdentityNumber
 	from inserted
 
-	--Lấy ra số CMND của ID vừa nhập
-	select @Identity = IdentityNumber
-	from EMPLOYEE
-	where EMPLOYEE.ID = @ID
-
-	if(len(@Identity) > 12 and len(@Identity) < 9)
+	if(len(@Identity) > 12 or len(@Identity) < 9)
 	begin
-		print ('IdentityNumber must have more than 8 characters!!!')
+		print ('IdentityNumber must have more than 8 and less than 13 characters!!!')
 		rollback
 	end
 end;
 
+
+
 --Nhân viên phải ít nhất ĐỦ 18 tuổi
+drop trigger TG_EmpAtLeast18YO
 create trigger TG_EmpAtLeast18YO on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Bdate date
+declare @Bdate date
 begin
 	
-	--Lấy ra mã ID của nhân viên vừa nhập
-	select @ID = inserted.ID
+	--Lấy ra Birthday của nhân viên vừa nhập
+	select @Bdate = inserted.Birthday
 	from inserted
 
-	--Lấy ra ngày sinh nhật của ID vừa nhập
-	select @Bdate = Birthday
-	from EMPLOYEE
-	where EMPLOYEE.ID = @ID
-
-	if(datediff(dd,@Bdate,getdate()) = 0)
+	if(datediff(yy,@Bdate,getdate()) < 18)
 	begin
 		print('Employee has to be 18 year old!!!')
 		rollback
 	end
 end;
 
---Số điện thoại nhân viên phải từ 10 đến 11 chữ số
+
+
+--Số điện thoại nhân viên phải từ 9 đến 11 chữ số
+drop trigger TG_FormatPhoneNumber
 create trigger TG_FormatPhoneNumber on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Phone NVARCHAR(100)
+declare @Phone NVARCHAR(100)
 begin
-	--Lấy ra mã ID của nhân viên vừa nhập
-	select @ID = inserted.ID
+
+	--Lấy ra Phone của nhân viên vừa nhập
+	select @Phone = inserted.Phone
 	from inserted
 
-	--Lấy ra số CMND của ID vừa nhập
-	select @Phone = Phone
-	from EMPLOYEE
-	where EMPLOYEE.ID = @ID
-
-	if(len(@Phone) > 11 and len(@phone) < 10)
+	if(len(@Phone) > 10 or len(@phone) < 9)
 	begin
-		print ('IdentityNumber must have more than 8 characters!!!')
+		print ('Phone Number must have more than 8 and less than 11 characters!!!')
 		rollback
 	end
 end;
