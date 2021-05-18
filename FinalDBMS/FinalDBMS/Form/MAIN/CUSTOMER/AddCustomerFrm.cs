@@ -35,7 +35,7 @@ namespace FinalDBMS
                 {
                     if (Cus.AddCustomer(id, hoten, cmnd, sdt, tien))
                     {
-                        MessageBox.Show("Khách hàng mới đẫ được thêm vào", "Thêm khách", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Khách hàng mới đã được thêm vào", "Thêm khách", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         reloadDatagridview();
                     }
                     else
@@ -184,6 +184,7 @@ namespace FinalDBMS
                 buttonCreateAcc.Enabled = true;
                 buttonDoimatkhau.Enabled = false;
                 buttonNaptien.Enabled = false;
+                
             }    
         }
 
@@ -215,6 +216,7 @@ namespace FinalDBMS
             textBoxCmnd.Text = "";
             textBoxPhone.Text = "";
             textBoxMoney.Text = "";
+            reloadDatagridview();
         }
 
         private void buttonNaptien_Click(object sender, EventArgs e)

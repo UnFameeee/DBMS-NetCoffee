@@ -128,10 +128,10 @@
     <Compile Include="Form\3.DEVICE\ManageDeviceForm.Designer.cs">
       <DependentUpon>ManageDeviceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NapTienFrm.cs">
+    <Compile Include="Form\MAIN\CUSTOMER\NapTienFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NapTienFrm.Designer.cs">
+    <Compile Include="Form\MAIN\CUSTOMER\NapTienFrm.Designer.cs">
       <DependentUpon>NapTienFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -176,7 +176,7 @@
     <EmbeddedResource Include="Form\MAIN\MainFrm.resx">
       <DependentUpon>MainFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NapTienFrm.resx">
+    <EmbeddedResource Include="Form\MAIN\CUSTOMER\NapTienFrm.resx">
       <DependentUpon>NapTienFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
