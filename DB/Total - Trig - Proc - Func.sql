@@ -435,7 +435,7 @@ end;
 --Số điện thoại nhân viên phải từ 10 đến 11 chữ số
 create trigger TG_FormatPhoneNumber on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Phone int
+declare @ID nvarchar(100), @Phone NVARCHAR(100)
 begin
 	--Lấy ra mã ID của nhân viên vừa nhập
 	select @ID = inserted.ID
