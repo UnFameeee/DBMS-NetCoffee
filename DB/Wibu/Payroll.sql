@@ -112,7 +112,20 @@ CREATE TABLE SALARY
 	PRIMARY KEY (IDEmployee, MonthWork, YearWork)
 )
 GO
-
+--PROCEDURE show tiền lương
+CREATE PROCEDURE USP_ShowSalary
+AS
+BEGIN
+	SELECT * FROM SALARY
+END
+GO
+--PROCEDURE đưa toàn bộ điểm danh
+CREATE PROCEDURE USP_ShowFullTimeKeeping 
+AS
+BEGIN
+	SELECT * FROM TIMEKEEPING
+END
+GO
 --PROCEDURE khi nhân viên check in thêm vào bảng WORK
 CREATE PROCEDURE USP_CheckIn @IDEmployee NVARCHAR(100)
 AS
