@@ -112,7 +112,7 @@ CREATE TABLE TIMEKEEPING
 	IDEmployee NVARCHAR(100),															--ID nhân viên
 	CheckIn DATETIME,																	--Thời gian check in
 	CheckOut DATETIME																	--Thời gian check out
-	FOREIGN KEY (IDEmployee) REFERENCES dbo.EMPLOYEE(IDEmployee)
+	FOREIGN KEY (IDEmployee) REFERENCES dbo.EMPLOYEE(ID)
 	PRIMARY KEY (IDEmployee, CheckIn)
 )
 --Tạo bảng lương nhân viên
