@@ -434,13 +434,13 @@ END
 GO
 
 --4. 
-create or ALTER PROC Edit_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
+create or ALTER PROC Edit_Device (@devid nvarchar(100),@type nvarchar(100))
 AS
 BEGIN
 	UPDATE dbo.DEVICES
 	SET 
-		TypeID=@type,
-		DStatus=@status
+		TypeID=@type
+		--DStatus=@status
 	WHERE DeviceID=@devid
 END
 go
@@ -481,6 +481,8 @@ WHERE ACCOUNTCUSTOMER.DeviceID = @devid
 UPDATE DEVICES
 SET DStatus = N'Chưa sử dụng'
 WHERE DeviceID = @devid
+UPDATE ACCOUNTCUSTOMER
+SET DeviceID = NULL;
 END;
 GO
 
@@ -525,6 +527,22 @@ SET DStatus = N'Chưa sử dụng'
 WHERE DeviceID = @devid
 END;
 GO
+
+
+--11.
+GO
+CREATE OR ALTER PROCEDURE FormatStatus
+as 
+BEGIN
+UPDATE DEVICES
+SET
+DStatus = N'Chưa sử dụng'
+WHERE DStatus = N'Đang sử dụng'
+AND DeviceID not in
+(select DEVICES.DeviceID from DEVICES, ACCOUNTCUSTOMER Where DEVICES.DeviceID = ACCOUNTCUSTOMER.DeviceID)
+END
+go
+EXEC FormatStatus
 
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --PROCEDURE show tiền lương
@@ -736,16 +754,16 @@ RETURNS table AS
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID
-		and DStatus != 'Chưa sử dụng';
+		--and DStatus != 'Chưa sử dụng';
 GO
-CREATE or ALTER FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
-RETURNS table AS
-	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
-		FROM DEVICES d, ACCOUNTCUSTOMER a 
-		WHERE d.DeviceID = @devid 
-		and a.DeviceID = d.DeviceID
-		and DStatus = 'Chưa sử dụng';
-GO
+--CREATE or ALTER FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
+--RETURNS table AS
+--	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
+--		FROM DEVICES d, ACCOUNTCUSTOMER a 
+--		WHERE d.DeviceID = @devid 
+--		and a.DeviceID = d.DeviceID
+--		and DStatus = 'Chưa sử dụng';
+--GO
 
 
 
