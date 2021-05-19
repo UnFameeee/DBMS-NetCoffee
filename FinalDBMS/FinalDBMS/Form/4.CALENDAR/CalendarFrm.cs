@@ -134,38 +134,44 @@ namespace FinalDBMS
 
         void deletePicture(string EmpID)
         {
-           for(int i = 0; i < 7; ++i)
-           {
-               if(EmpID == MatrixEmpID[i])
-               {
-                   MatrixPic[i].Image = null;
-                   MatrixName[i].Text = "";
-                   MatrixName[i].Visible = false;
-                   MatrixEmpID[i] = "";
-                   count--;
-                   break;
-               }
-           }
-           
-           rearrange();
+            for (int i = 0; i < 7; ++i)
+            {
+                if (EmpID == MatrixEmpID[i])
+                {
+                    MatrixPic[i].Image = null;
+                    MatrixName[i].Text = "";
+                    MatrixName[i].Visible = false;
+                    MatrixEmpID[i] = "";
+                    count--;
+                    break;
+                }
+            }
+            if(count != 0)
+            {
+                rearrange();
+            }
         }
 
         void rearrange()
         {
-           for (int i = 0; i < 6; ++i)
-           {
-               if(MatrixEmpID[i] == "")
-               {
-                   //Chức năng giống hàm swap
-                   MatrixPic[i].Image = MatrixPic[i + 1].Image;
-                   MatrixName[i].Text = MatrixName[i + 1].Text;
-                   MatrixEmpID[i] = MatrixEmpID[i + 1];
+            for (int i = 0; i < count; ++i)
+            {
+                if (MatrixEmpID[i] == "")
+                {
+                    //Chức năng giống hàm swap
+                    MatrixPic[i].Image = MatrixPic[i + 1].Image;
+                    MatrixName[i].Text = MatrixName[i + 1].Text;
+                    MatrixEmpID[i] = MatrixEmpID[i + 1];
 
-                   MatrixPic[i + 1].Image = null;
-                   MatrixName[i + 1].Text = "";
-                   MatrixEmpID[i + 1] = "";
-               }
-           }
+                    MatrixPic[i + 1].Image = null;
+                    MatrixName[i + 1].Text = "";
+                    MatrixEmpID[i + 1] = "";
+
+
+                    MatrixName[i].Visible = true;
+                    MatrixName[i + 1].Visible = false;
+                }
+            }
         }
 
         void loadPicEmpWorking()
