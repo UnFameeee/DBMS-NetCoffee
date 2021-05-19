@@ -40,7 +40,6 @@ namespace FinalDBMS
             this.label8 = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.tbEmpID = new System.Windows.Forms.TextBox();
-            this.tbGender = new System.Windows.Forms.TextBox();
             this.tbStatus = new System.Windows.Forms.TextBox();
             this.tbPhone = new System.Windows.Forms.TextBox();
             this.tbMail = new System.Windows.Forms.TextBox();
@@ -55,6 +54,7 @@ namespace FinalDBMS
             this.panel1 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.cbboxGender = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ptbEmp)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -158,23 +158,13 @@ namespace FinalDBMS
             this.tbEmpID.TabIndex = 11;
             this.tbEmpID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tbGender
-            // 
-            this.tbGender.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbGender.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbGender.Location = new System.Drawing.Point(318, 176);
-            this.tbGender.Name = "tbGender";
-            this.tbGender.Size = new System.Drawing.Size(90, 25);
-            this.tbGender.TabIndex = 12;
-            this.tbGender.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // tbStatus
             // 
             this.tbStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbStatus.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbStatus.Location = new System.Drawing.Point(320, 105);
             this.tbStatus.Name = "tbStatus";
-            this.tbStatus.Size = new System.Drawing.Size(88, 25);
+            this.tbStatus.Size = new System.Drawing.Size(90, 25);
             this.tbStatus.TabIndex = 13;
             this.tbStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -292,6 +282,7 @@ namespace FinalDBMS
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbboxGender);
             this.panel1.Controls.Add(this.tbPhone);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cbboxWorkID);
@@ -306,7 +297,6 @@ namespace FinalDBMS
             this.panel1.Controls.Add(this.tbIdentity);
             this.panel1.Controls.Add(this.tbEmpID);
             this.panel1.Controls.Add(this.tbMail);
-            this.panel1.Controls.Add(this.tbGender);
             this.panel1.Controls.Add(this.tbStatus);
             this.panel1.Location = new System.Drawing.Point(287, 107);
             this.panel1.Name = "panel1";
@@ -334,6 +324,18 @@ namespace FinalDBMS
             this.label7.Size = new System.Drawing.Size(36, 21);
             this.label7.TabIndex = 28;
             this.label7.Text = "Tên:";
+            // 
+            // cbboxGender
+            // 
+            this.cbboxGender.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbboxGender.FormattingEnabled = true;
+            this.cbboxGender.Items.AddRange(new object[] {
+            "Nam",
+            "Nữ"});
+            this.cbboxGender.Location = new System.Drawing.Point(320, 191);
+            this.cbboxGender.Name = "cbboxGender";
+            this.cbboxGender.Size = new System.Drawing.Size(90, 25);
+            this.cbboxGender.TabIndex = 25;
             // 
             // EmpDetailFrm
             // 
@@ -376,7 +378,6 @@ namespace FinalDBMS
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.TextBox tbEmpID;
-        private System.Windows.Forms.TextBox tbGender;
         private System.Windows.Forms.TextBox tbStatus;
         private System.Windows.Forms.TextBox tbPhone;
         private System.Windows.Forms.TextBox tbMail;
@@ -391,5 +392,6 @@ namespace FinalDBMS
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox cbboxGender;
     }
 }

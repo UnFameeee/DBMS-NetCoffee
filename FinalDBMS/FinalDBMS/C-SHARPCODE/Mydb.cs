@@ -11,7 +11,7 @@ namespace FinalDBMS
     class Mydb
     {
         //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-7RGSHQT;Initial Catalog=DBMS_FinalProject;Integrated Security=True");              //--Dibu
-        SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-7RGSHQT;Initial Catalog=DBMS_FinalProjectBackup;Integrated Security=True");  //TEST DIBU
+        //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-7RGSHQT;Initial Catalog=DBMS_FiNALBackup;Integrated Security=True");  //TEST DIBU
 
         //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-3E7V855;Initial Catalog=DBMS_FinalProject;Integrated Security=True");              //--QT-laptop
        // SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-OQLFA92;Initial Catalog=DBMS_FinalProject;Integrated Security=True");              //--QT-PC
