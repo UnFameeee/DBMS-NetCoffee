@@ -39,7 +39,8 @@ namespace FinalDBMS
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 32);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.label1.Location = new System.Drawing.Point(11, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 17);
@@ -48,17 +49,19 @@ namespace FinalDBMS
             // 
             // textBoxNaptien
             // 
-            this.textBoxNaptien.Location = new System.Drawing.Point(149, 33);
-            this.textBoxNaptien.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxNaptien.Location = new System.Drawing.Point(14, 28);
+            this.textBoxNaptien.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxNaptien.Name = "textBoxNaptien";
-            this.textBoxNaptien.Size = new System.Drawing.Size(146, 20);
+            this.textBoxNaptien.Size = new System.Drawing.Size(303, 20);
             this.textBoxNaptien.TabIndex = 1;
             // 
             // buttonNaptien
             // 
+            this.buttonNaptien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNaptien.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonNaptien.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.buttonNaptien.Location = new System.Drawing.Point(76, 79);
-            this.buttonNaptien.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonNaptien.Margin = new System.Windows.Forms.Padding(2);
             this.buttonNaptien.Name = "buttonNaptien";
             this.buttonNaptien.Size = new System.Drawing.Size(176, 34);
             this.buttonNaptien.TabIndex = 2;
@@ -70,12 +73,13 @@ namespace FinalDBMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(328, 129);
             this.Controls.Add(this.buttonNaptien);
             this.Controls.Add(this.textBoxNaptien);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NapTienFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NapTienFrm";

@@ -92,6 +92,11 @@ namespace FinalDBMS
             loadPicEmpWorking();
 
             dataGridViewTimeKeeping.DataSource = salary.ShowTimeKeeping();
+            dataGridViewTimeKeeping.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewTimeKeeping.AllowUserToAddRows = false;
+            dataGridViewTimeKeeping.AllowUserToResizeRows = false;
+            dataGridViewTimeKeeping.AllowUserToOrderColumns = false;
+            dataGridViewTimeKeeping.AllowUserToResizeColumns = false;
         }
         private void btnExit_Click(object sender, EventArgs e)
         {

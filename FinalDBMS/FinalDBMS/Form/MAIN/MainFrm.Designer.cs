@@ -36,10 +36,10 @@ namespace FinalDBMS
             this.eMPLOYEEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TimeKeepingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SalaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aCCOUNTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
-            this.SalaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,8 +49,8 @@ namespace FinalDBMS
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cUSTOMERToolStripMenuItem,
-            this.eMPLOYEEToolStripMenuItem,
             this.manageDeviceToolStripMenuItem,
+            this.eMPLOYEEToolStripMenuItem,
             this.aCCOUNTToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -99,6 +99,13 @@ namespace FinalDBMS
             this.TimeKeepingToolStripMenuItem.Text = "CHẤM CÔNG";
             this.TimeKeepingToolStripMenuItem.Click += new System.EventHandler(this.TimeKeepingToolStripMenuItem_Click);
             // 
+            // SalaryToolStripMenuItem
+            // 
+            this.SalaryToolStripMenuItem.Name = "SalaryToolStripMenuItem";
+            this.SalaryToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.SalaryToolStripMenuItem.Text = "LƯƠNG";
+            this.SalaryToolStripMenuItem.Click += new System.EventHandler(this.SalaryToolStripMenuItem_Click);
+            // 
             // manageDeviceToolStripMenuItem
             // 
             this.manageDeviceToolStripMenuItem.Name = "manageDeviceToolStripMenuItem";
@@ -122,13 +129,6 @@ namespace FinalDBMS
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1068, 561);
             this.pnlMain.TabIndex = 1;
-            // 
-            // SalaryToolStripMenuItem
-            // 
-            this.SalaryToolStripMenuItem.Name = "SalaryToolStripMenuItem";
-            this.SalaryToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.SalaryToolStripMenuItem.Text = "LƯƠNG";
-            this.SalaryToolStripMenuItem.Click += new System.EventHandler(this.SalaryToolStripMenuItem_Click);
             // 
             // MainFrm
             // 

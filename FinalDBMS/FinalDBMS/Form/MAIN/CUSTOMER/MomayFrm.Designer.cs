@@ -38,17 +38,18 @@ namespace FinalDBMS
             // comboBoxChonmay
             // 
             this.comboBoxChonmay.FormattingEnabled = true;
-            this.comboBoxChonmay.Location = new System.Drawing.Point(81, 25);
-            this.comboBoxChonmay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxChonmay.Location = new System.Drawing.Point(11, 25);
+            this.comboBoxChonmay.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxChonmay.Name = "comboBoxChonmay";
-            this.comboBoxChonmay.Size = new System.Drawing.Size(135, 21);
+            this.comboBoxChonmay.Size = new System.Drawing.Size(265, 21);
             this.comboBoxChonmay.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 26);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.label1.Location = new System.Drawing.Point(11, 8);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 15);
@@ -57,26 +58,30 @@ namespace FinalDBMS
             // 
             // buttonMomay
             // 
+            this.buttonMomay.BackColor = System.Drawing.Color.White;
+            this.buttonMomay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMomay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonMomay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.buttonMomay.Location = new System.Drawing.Point(76, 64);
-            this.buttonMomay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonMomay.Margin = new System.Windows.Forms.Padding(2);
             this.buttonMomay.Name = "buttonMomay";
             this.buttonMomay.Size = new System.Drawing.Size(139, 32);
             this.buttonMomay.TabIndex = 2;
             this.buttonMomay.Text = "Mở máy";
-            this.buttonMomay.UseVisualStyleBackColor = true;
+            this.buttonMomay.UseVisualStyleBackColor = false;
             this.buttonMomay.Click += new System.EventHandler(this.buttonMomay_Click);
             // 
             // MomayFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(287, 109);
             this.Controls.Add(this.buttonMomay);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxChonmay);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MomayFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mở máy ";

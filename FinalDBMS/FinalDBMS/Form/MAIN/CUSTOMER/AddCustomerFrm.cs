@@ -208,7 +208,6 @@ namespace FinalDBMS
             RegisterAccountCus frm = new RegisterAccountCus("Tạo tài khoản");
             string cid = textBoxID.Text;
             frm.textBoxCusID.Text = cid;
-            frm.labeltitle.Text = "Tạo tài khoản cho khách";
             frm.buttonCreate.Text = "Tạo tài khoản";
             frm.Show();
         }
@@ -219,7 +218,6 @@ namespace FinalDBMS
             string cid = textBoxID.Text;
             frm.textBoxCusID.Text = cid;
             frm.textBoxUsername.Text = dataGridViewCusAccount.CurrentRow.Cells[0].Value.ToString();
-            frm.labeltitle.Text = "Đổi mật khẩu tài khoản";
             frm.buttonCreate.Text = "Đổi mật khẩu";
             frm.Show();
         }
