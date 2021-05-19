@@ -74,7 +74,8 @@ BEGIN
 END;
 
 --4. Trigger kiểm tra người dùng không được dùng máy đang bảo trì hoặc đang được sử dụng
-CREATE Trigger Check_Available_Computer ON ACCOUNTCUSTOMER
+
+CREATE or Alter Trigger Check_Available_Computer ON ACCOUNTCUSTOMER
 AFTER INSERT, UPDATE 
 AS
 declare @DeviceID nvarchar(100),@de nvarchar(100)
@@ -86,9 +87,9 @@ BEGIN
 	FROM DEVICES
 	where DeviceID = @DeviceID
 
-	if (@de != 'Not in use')
+	if (@de != N'Chưa sử dụng')
 	BEGIN
-	PRINT 'This computer is in use or in repair !!!'
+	PRINT N'Máy này đang được sử dụng hoặc đang bảo trì!!!'
 	rollback
 	END
 END;
@@ -235,23 +236,25 @@ BEGIN
 	SET NumberofWorkShift = NumberofWorkShift + 1
 	WHERE @iIDEmployee = IDEmployee AND MONTH(@iCheckIn) = MonthWork AND YEAR(@iCheckIn) = YearWork
 END
-
+GO
 ----------------------------------------------------------------------Dương Duy------------------------------------------------------------------------------------
 --1. khi Cus đăng nhập vào máy để bắt đầu chơi (1 là đang sử dụng - 0 là không sử dụng) dibu
-go
-GO
+Go
 DECLARE @money INT;
 SET @money = 7500;
 DECLARE @sophut INT;
 SET @sophut = 1440*370 + 75--@money*60/5000 24*60-1?=23h59
 DECLARE @g Datetime;
 SET @G = FORMAT(DATEADD(MINUTE, @sophut, '1900-01-01 00:00:00'), 'dd/MM/yyyy hh:mm:ss tt')
---lỡ người chơi nạp nhiều tiền tới mức là số giờ chơi tính theo ngày
-SELECT CONVERT(varchar, @g, 108) + ' ' + CONVERT(VARCHAR, YEAR(@G) - 1900)
-+ '/' + CONVERT(VARCHAR, MONTH(@G)) + '/' + CONVERT(VARCHAR, DAY(@G))
---vipppppp
---hh:mi:ss yy/mm/dd
 GO
+
+----lỡ người chơi nạp nhiều tiền tới mức là số giờ chơi tính theo ngày
+--SELECT CONVERT(varchar, @g, 108) + ' ' + CONVERT(VARCHAR, YEAR(@G) - 1900)
+--+ '/' + CONVERT(VARCHAR, MONTH(@G)) + '/' + CONVERT(VARCHAR, DAY(@G))
+----vipppppp
+----hh:mi:ss yy/mm/dd
+
+
 CREATE OR ALTER TRIGGER UserOnline_AccountCus ON dbo.ACCOUNTCUSTOMER
 FOR INSERT,UPDATE
 AS
@@ -392,8 +395,7 @@ END
 ----------------------------------------------------------------------Hoàng Vũ------------------------------------------------------------------------------------
 
 --Số CMND phải có hơn 8 kí tự và nhỏ hơn 13 kí tự (9 <= CMND <= 12)
-drop trigger TG_FormatIdentityNumber
-create trigger TG_FormatIdentityNumber on EMPLOYEE
+create or alter trigger TG_FormatIdentityNumber on EMPLOYEE
 for insert, update as
 declare @Identity nvarchar(100)
 begin
@@ -412,8 +414,7 @@ end;
 
 
 --Nhân viên phải ít nhất ĐỦ 18 tuổi
-drop trigger TG_EmpAtLeast18YO
-create trigger TG_EmpAtLeast18YO on EMPLOYEE
+create  or alter  trigger TG_EmpAtLeast18YO on EMPLOYEE
 for insert, update as
 declare @Bdate date
 begin
@@ -432,8 +433,7 @@ end;
 
 
 --Số điện thoại nhân viên phải từ 9 đến 11 chữ số
-drop trigger TG_FormatPhoneNumber
-create trigger TG_FormatPhoneNumber on EMPLOYEE
+create  or alter  trigger TG_FormatPhoneNumber on EMPLOYEE
 for insert, update as
 declare @Phone NVARCHAR(100)
 begin
@@ -456,7 +456,7 @@ end;
 ----------------------------------------------------------------------Phước Đăng------------------------------------------------------------------------------------
 --1. Stored-Procedure hiển thị thông tin của các khách hàng đang chơi máy Vip / Super Vip / Thuong
 Go
-CREATE PROC ShowInfoCustomerGroupByTypeID @TypeID nvarchar(100)
+CREATE or ALTER PROC ShowInfoCustomerGroupByTypeID @TypeID nvarchar(100)
 as
 begin
 select a.UserName,a.PassWord,a.TimeAvailible,a.TimeUsed,a.CustomerID,a.DeviceID,a.StatusCustomer
@@ -466,7 +466,7 @@ and d.TypeID = @TypeID
 end;
 
 --2.
-CREATE PROC Insert_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
+CREATE or ALTER PROC Insert_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
 AS
 BEGIN
  INSERT INTO dbo.DEVICES
@@ -484,7 +484,7 @@ BEGIN
 END;
 
 --3. 
-CREATE PROC DeleteDeviceByID (@devID nvarchar(100))
+CREATE or ALTER PROC DeleteDeviceByID (@devID nvarchar(100))
 AS
 BEGIN
 UPDATE  ACCOUNTCUSTOMER SET ACCOUNTCUSTOMER.DeviceID = null
@@ -494,7 +494,7 @@ WHERE ACCOUNTCUSTOMER.DeviceID = @devID
 END;
 
 --4. 
-create PROC Edit_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
+create or ALTER PROC Edit_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
 AS
 BEGIN
 	UPDATE dbo.DEVICES
@@ -519,7 +519,7 @@ end;
 
 --6. Chỉnh sửa trạng thái máy thành đã sử dụng
 GO
-CREATE PROCEDURE UpdateStatus @devid nvarchar(MAX)
+CREATE or ALTER PROCEDURE UpdateStatus @devid nvarchar(MAX)
 as 
 begin
 update DEVICES
@@ -530,7 +530,7 @@ end
 
 --7. Dừng cấp quyền sử dụng
 GO
-CREATE PROCEDURE StopPlaying @devid nvarchar(MAX)
+CREATE or ALTER PROCEDURE StopPlaying @devid nvarchar(MAX)
 
 AS
 BEGIN
@@ -545,7 +545,7 @@ WHERE DeviceID = @devid
 END;
 
 --8. Cấp quyền sử dụng
-CREATE PROCEDURE StartPlaying @devid nvarchar(MAX)
+CREATE or ALTER PROCEDURE StartPlaying @devid nvarchar(MAX)
 
 AS
 BEGIN
@@ -560,7 +560,7 @@ WHERE DeviceID = @devid
 END;
 
 --9. Bắt đầu bảo trì
-CREATE PROCEDURE StartRepairing @devid nvarchar(MAX)
+CREATE or ALTER PROCEDURE StartRepairing @devid nvarchar(MAX)
 
 AS
 BEGIN
@@ -575,7 +575,7 @@ WHERE DeviceID = @devid
 END;
 
 --10. Dừng bảo trì
-CREATE PROCEDURE StopRepairing @devid nvarchar(MAX)
+CREATE or ALTER PROCEDURE StopRepairing @devid nvarchar(MAX)
 AS
 BEGIN
 UPDATE DEVICES
@@ -585,42 +585,42 @@ END;
 
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --PROCEDURE show tiền lương
-CREATE PROCEDURE USP_ShowSalary
+CREATE or ALTER PROCEDURE USP_ShowSalary
 AS
 BEGIN
 	SELECT * FROM SALARY											
 END
 GO
 --PROCEDURE show toàn bộ điểm danh
-CREATE PROCEDURE USP_ShowFullTimeKeeping 
+CREATE or ALTER PROCEDURE USP_ShowFullTimeKeeping 
 AS
 BEGIN
 	SELECT * FROM TIMEKEEPING
 END
 GO
 --PROCEDURE khi nhân viên check in thêm vào bảng WORK
-CREATE PROCEDURE USP_CheckIn @IDEmployee NVARCHAR(100)
+CREATE or ALTER PROCEDURE USP_CheckIn @IDEmployee NVARCHAR(100)
 AS
 BEGIN
 	INSERT INTO dbo.TIMEKEEPING (IDEmployee, CheckIn) VALUES (@IDEmployee, GETDATE())					--Thêm vào bảng WORK
 END
 GO
 --PROCEDURE khi nhân viên check out update bảng WORK
-CREATE PROCEDURE USP_CheckOut @IDEmployee NVARCHAR(100)
+CREATE or ALTER PROCEDURE USP_CheckOut @IDEmployee NVARCHAR(100)
 AS
 BEGIN
 	UPDATE TIMEKEEPING SET CheckOut = GETDATE() WHERE IDEmployee = @IDEmployee AND CheckOut IS NULL		--Thay đổi chỉnh sửa bảng WORK
 END
 GO
 --PROCEDURE kiểm tra ID nhân viên có tồn tại hay không
-CREATE PROCEDURE USP_CheckIDEmployee @IDEmployee NVARCHAR(100)
+CREATE or ALTER PROCEDURE USP_CheckIDEmployee @IDEmployee NVARCHAR(100)
 AS
 BEGIN
 	SELECT * FROM EMPLOYEE WHERE ID = @IDEmployee												--SELECT * để kiểm tra tồn tại của nhân viên
 END
 GO
 --PROCEDURE kiểm tra nhân viên có đang trong ca làm hay không
-CREATE PROCEDURE USP_CheckIDEmployeeWorking @IDEmployee NVARCHAR(100)
+CREATE or ALTER PROCEDURE USP_CheckIDEmployeeWorking @IDEmployee NVARCHAR(100)
 AS
 BEGIN
 	SELECT * FROM TIMEKEEPING WHERE IDEmployee = 1 AND CheckOut IS NULL					--SELECT * để kiểm tra nhân viên có đi làm hay không
@@ -629,7 +629,7 @@ GO
 ----------------------------------------------------------------------Dương Duy------------------------------------------------------------------------------------
 --1. thêm mới khách hàng Cus
 go
-CREATE PROC Create_customer (@cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon int)
+CREATE or ALTER PROC Create_customer (@cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon int)
 AS
 BEGIN
  INSERT INTO dbo.CUSTOMER
@@ -652,7 +652,7 @@ GO
 
 --2. xoá một khách hàng Cus theo Cid
 GO
-CREATE PROC deleteById_customer (@cid nvarchar(100))
+CREATE or ALTER PROC deleteById_customer (@cid nvarchar(100))
 AS
 BEGIN
  DELETE FROM dbo.CUSTOMER
@@ -662,7 +662,7 @@ GO
 
 --3. chỉnh sửa thông tin khách hàng Cus theo Cid
 go
-CREATE PROC EditInfo_customer(@cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon int)
+CREATE or ALTER PROC EditInfo_customer(@cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon int)
 AS
 BEGIN
 	UPDATE dbo.CUSTOMER
@@ -677,7 +677,7 @@ GO
 
 --4. Khách hàng nạp tiền vào tài khoản Cus
 go
-CREATE PROC DepositBudget_customer(@cid nvarchar(100),@mon float)
+CREATE or ALTER PROC DepositBudget_customer(@cid nvarchar(100),@mon float)
 AS
 BEGIN
 	UPDATE dbo.CUSTOMER
@@ -689,7 +689,7 @@ GO
 
 --5. tạo tài khoản AccCus
 go
-CREATE PROC Create_Accus (@un NVARCHAR(100),@pass NVARCHAR(100),@cid NVARCHAR(100))
+CREATE or ALTER PROC Create_Accus (@un NVARCHAR(100),@pass NVARCHAR(100),@cid NVARCHAR(100))
 AS
 BEGIN
 	INSERT INTO dbo.ACCOUNTCUSTOMER
@@ -712,7 +712,7 @@ END
 
 --5. Khách hàng nạp tiền vào Account
 go
-CREATE PROC DepositBudget_Accountcustomer(@cid nvarchar(100),@mon float)
+CREATE or ALTER PROC DepositBudget_Accountcustomer(@cid nvarchar(100),@mon float)
 AS
 BEGIN
 	UPDATE dbo.ACCOUNTCUSTOMER
@@ -732,21 +732,21 @@ GO
 ----------------------------------------------------------------------FUNCTION------------------------------------------------------------------------------------
 ----------------------------------------------------------------------Thắng------------------------------------------------------------------------------------
 --Tìm ra nhân viên theo từ khoá đã cho
-CREATE FUNCTION Func_SearchEmployeesWithName (@search_name nvarchar(100))
+CREATE or ALTER FUNCTION Func_SearchEmployeesWithName (@search_name nvarchar(100))
 RETURNS TABLE AS
 	RETURN SELECT * FROM dbo.EMPLOYEE
 		   WHERE FullName LIKE '%' + @search_name + '%'
 GO
 
 --Tìm ra hình ảnh nhân viên lúc điểm danh xong bằng EmpID (CalendarFrm)
-CREATE FUNCTION Func_TakePicWhenCheckin (@EmpID varchar(100))
+CREATE or ALTER FUNCTION Func_TakePicWhenCheckin (@EmpID varchar(100))
 RETURNS TABLE AS
 	RETURN SELECT Picture, FullName
 		   FROM EMPLOYEE
 	       WHERE EMPLOYEE.ID = @EmpID;
 
 --Tìm ra thông tin của nhân viên lúc điểm danh xong bằng EmpID (CalendarFrm)
-CREATE FUNCTION Func_TakeInfoWhenCheckin (@EmpID varchar(100))
+CREATE or ALTER FUNCTION Func_TakeInfoWhenCheckin (@EmpID varchar(100))
 RETURNS TABLE AS
 	RETURN SELECT Id, FullName, Gender, Phone, IdentityNumber
 		   FROM EMPLOYEE
@@ -758,21 +758,21 @@ RETURNS TABLE AS
 
 ----------------------------------------------------------------------Phước Đăng-----------------------------------------------------------------------------------
 --1.
-CREATE FUNCTION Func_CheckAvailableDevices (@devid nvarchar(100))
+CREATE or ALTER FUNCTION Func_CheckAvailableDevices (@devid nvarchar(100))
 RETURNS table AS
 	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = 'Chưa sử dụng';
 
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY03') Check01
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY01') Check01
 --3.
-ALTER FUNCTION Func_CheckDevicesFromUser (@devid nvarchar(100))
+CREATE or ALTER FUNCTION Func_CheckDevicesFromUser (@devid nvarchar(100))
 RETURNS table AS
 	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID
 		and DStatus != 'Chưa sử dụng';
-CREATE FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
+CREATE or ALTER FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
 RETURNS table AS
 	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
 		FROM DEVICES d, ACCOUNTCUSTOMER a 

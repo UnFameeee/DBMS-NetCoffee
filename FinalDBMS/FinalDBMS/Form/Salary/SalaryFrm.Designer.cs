@@ -29,6 +29,7 @@ namespace FinalDBMS
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SalaryFrm));
             this.dataGridViewShow = new System.Windows.Forms.DataGridView();
             this.btnShow = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShow)).BeginInit();
@@ -37,31 +38,36 @@ namespace FinalDBMS
             // dataGridViewShow
             // 
             this.dataGridViewShow.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewShow.Location = new System.Drawing.Point(13, 13);
+            this.dataGridViewShow.Location = new System.Drawing.Point(9, 8);
+            this.dataGridViewShow.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridViewShow.Name = "dataGridViewShow";
             this.dataGridViewShow.RowHeadersWidth = 62;
             this.dataGridViewShow.RowTemplate.Height = 28;
-            this.dataGridViewShow.Size = new System.Drawing.Size(775, 359);
+            this.dataGridViewShow.Size = new System.Drawing.Size(517, 233);
             this.dataGridViewShow.TabIndex = 0;
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(294, 379);
+            this.btnShow.Location = new System.Drawing.Point(196, 246);
+            this.btnShow.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(192, 59);
+            this.btnShow.Size = new System.Drawing.Size(128, 38);
             this.btnShow.TabIndex = 1;
             this.btnShow.Text = "Show";
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
-            // Salary
+            // SalaryFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(533, 292);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.dataGridViewShow);
-            this.Name = "Salary";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Name = "SalaryFrm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Salary";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShow)).EndInit();
             this.ResumeLayout(false);

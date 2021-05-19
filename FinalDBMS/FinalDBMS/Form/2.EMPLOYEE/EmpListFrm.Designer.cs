@@ -60,10 +60,9 @@ namespace FinalDBMS
             // 
             this.pnData.Controls.Add(this.dgvEmp);
             this.pnData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnData.Location = new System.Drawing.Point(0, 113);
-            this.pnData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnData.Location = new System.Drawing.Point(0, 92);
             this.pnData.Name = "pnData";
-            this.pnData.Size = new System.Drawing.Size(1417, 514);
+            this.pnData.Size = new System.Drawing.Size(1063, 418);
             this.pnData.TabIndex = 2;
             // 
             // dgvEmp
@@ -86,14 +85,13 @@ namespace FinalDBMS
             this.dgvEmp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvEmp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvEmp.Location = new System.Drawing.Point(0, 0);
-            this.dgvEmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvEmp.Name = "dgvEmp";
             this.dgvEmp.ReadOnly = true;
             this.dgvEmp.RowHeadersWidth = 25;
             this.dgvEmp.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dgvEmp.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvEmp.Size = new System.Drawing.Size(1417, 514);
+            this.dgvEmp.Size = new System.Drawing.Size(1063, 418);
             this.dgvEmp.TabIndex = 0;
             this.dgvEmp.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmp_CellContentClick);
             // 
@@ -103,10 +101,9 @@ namespace FinalDBMS
             this.btnDetail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetail.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetail.ForeColor = System.Drawing.Color.White;
-            this.btnDetail.Location = new System.Drawing.Point(32, 7);
-            this.btnDetail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDetail.Location = new System.Drawing.Point(24, 6);
             this.btnDetail.Name = "btnDetail";
-            this.btnDetail.Size = new System.Drawing.Size(109, 39);
+            this.btnDetail.Size = new System.Drawing.Size(82, 32);
             this.btnDetail.TabIndex = 0;
             this.btnDetail.Text = "Chi tiết";
             this.btnDetail.UseVisualStyleBackColor = false;
@@ -118,10 +115,9 @@ namespace FinalDBMS
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(172, 7);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAdd.Location = new System.Drawing.Point(129, 6);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(119, 39);
+            this.btnAdd.Size = new System.Drawing.Size(89, 32);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Thêm mới";
             this.btnAdd.UseVisualStyleBackColor = false;
@@ -131,10 +127,9 @@ namespace FinalDBMS
             // 
             this.lbToTal.AutoSize = true;
             this.lbToTal.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbToTal.Location = new System.Drawing.Point(1137, 15);
-            this.lbToTal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbToTal.Location = new System.Drawing.Point(853, 12);
             this.lbToTal.Name = "lbToTal";
-            this.lbToTal.Size = new System.Drawing.Size(149, 25);
+            this.lbToTal.Size = new System.Drawing.Size(120, 20);
             this.lbToTal.TabIndex = 4;
             this.lbToTal.Text = "Tổng nhân viên:";
             // 
@@ -144,10 +139,9 @@ namespace FinalDBMS
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.Location = new System.Drawing.Point(321, 7);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh.Location = new System.Drawing.Point(241, 6);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(109, 39);
+            this.btnRefresh.Size = new System.Drawing.Size(82, 32);
             this.btnRefresh.TabIndex = 5;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = false;
@@ -161,20 +155,18 @@ namespace FinalDBMS
             this.pbButton.Controls.Add(this.btnAdd);
             this.pbButton.Controls.Add(this.btnDetail);
             this.pbButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pbButton.Location = new System.Drawing.Point(0, 627);
-            this.pbButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbButton.Location = new System.Drawing.Point(0, 510);
             this.pbButton.Name = "pbButton";
-            this.pbButton.Size = new System.Drawing.Size(1417, 57);
+            this.pbButton.Size = new System.Drawing.Size(1063, 46);
             this.pbButton.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 64);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 52);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 30);
+            this.label1.Size = new System.Drawing.Size(92, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "Tìm kiếm:";
             // 
@@ -182,10 +174,9 @@ namespace FinalDBMS
             // 
             this.lbMale.AutoSize = true;
             this.lbMale.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbMale.Location = new System.Drawing.Point(271, 12);
-            this.lbMale.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbMale.Location = new System.Drawing.Point(203, 10);
             this.lbMale.Name = "lbMale";
-            this.lbMale.Size = new System.Drawing.Size(54, 25);
+            this.lbMale.Size = new System.Drawing.Size(42, 20);
             this.lbMale.TabIndex = 2;
             this.lbMale.Text = "Nam";
             // 
@@ -193,10 +184,9 @@ namespace FinalDBMS
             // 
             this.lbFemale.AutoSize = true;
             this.lbFemale.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFemale.Location = new System.Drawing.Point(59, 12);
-            this.lbFemale.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbFemale.Location = new System.Drawing.Point(44, 10);
             this.lbFemale.Name = "lbFemale";
-            this.lbFemale.Size = new System.Drawing.Size(39, 25);
+            this.lbFemale.Size = new System.Drawing.Size(30, 20);
             this.lbFemale.TabIndex = 3;
             this.lbFemale.Text = "Nữ";
             // 
@@ -209,10 +199,9 @@ namespace FinalDBMS
             this.btnFemale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFemale.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFemale.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.btnFemale.Location = new System.Drawing.Point(11, 4);
-            this.btnFemale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFemale.Location = new System.Drawing.Point(8, 3);
             this.btnFemale.Name = "btnFemale";
-            this.btnFemale.Size = new System.Drawing.Size(40, 37);
+            this.btnFemale.Size = new System.Drawing.Size(30, 30);
             this.btnFemale.TabIndex = 5;
             this.btnFemale.UseVisualStyleBackColor = false;
             this.btnFemale.Click += new System.EventHandler(this.btnFemale_Click);
@@ -226,10 +215,9 @@ namespace FinalDBMS
             this.btnMale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMale.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.btnMale.Location = new System.Drawing.Point(223, 6);
-            this.btnMale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMale.Location = new System.Drawing.Point(167, 5);
             this.btnMale.Name = "btnMale";
-            this.btnMale.Size = new System.Drawing.Size(40, 37);
+            this.btnMale.Size = new System.Drawing.Size(30, 30);
             this.btnMale.TabIndex = 6;
             this.btnMale.UseVisualStyleBackColor = false;
             this.btnMale.Click += new System.EventHandler(this.btnMale_Click);
@@ -243,10 +231,9 @@ namespace FinalDBMS
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.btnSearch.Location = new System.Drawing.Point(828, 64);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSearch.Location = new System.Drawing.Point(621, 52);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(39, 31);
+            this.btnSearch.Size = new System.Drawing.Size(29, 25);
             this.btnSearch.TabIndex = 7;
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -254,10 +241,9 @@ namespace FinalDBMS
             // tbSearch
             // 
             this.tbSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSearch.Location = new System.Drawing.Point(137, 62);
-            this.tbSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbSearch.Location = new System.Drawing.Point(103, 50);
             this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(681, 34);
+            this.tbSearch.Size = new System.Drawing.Size(512, 29);
             this.tbSearch.TabIndex = 8;
             // 
             // pnTop
@@ -270,9 +256,8 @@ namespace FinalDBMS
             this.pnTop.Controls.Add(this.label1);
             this.pnTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnTop.Location = new System.Drawing.Point(0, 0);
-            this.pnTop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnTop.Name = "pnTop";
-            this.pnTop.Size = new System.Drawing.Size(1417, 113);
+            this.pnTop.Size = new System.Drawing.Size(1063, 92);
             this.pnTop.TabIndex = 0;
             // 
             // label2
@@ -280,10 +265,9 @@ namespace FinalDBMS
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.label2.Font = new System.Drawing.Font("Arial", 18.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(500, 6);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(375, 5);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(439, 42);
+            this.label2.Size = new System.Drawing.Size(329, 34);
             this.label2.TabIndex = 10;
             this.label2.Text = "DANH SÁCH NHÂN VIÊN";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -294,22 +278,20 @@ namespace FinalDBMS
             this.panel1.Controls.Add(this.lbMale);
             this.panel1.Controls.Add(this.lbFemale);
             this.panel1.Controls.Add(this.btnFemale);
-            this.panel1.Location = new System.Drawing.Point(920, 58);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Location = new System.Drawing.Point(690, 47);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(335, 48);
+            this.panel1.Size = new System.Drawing.Size(251, 39);
             this.panel1.TabIndex = 9;
             // 
             // EmpListFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1417, 684);
+            this.ClientSize = new System.Drawing.Size(1063, 556);
             this.Controls.Add(this.pnData);
             this.Controls.Add(this.pbButton);
             this.Controls.Add(this.pnTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "EmpListFrm";
             this.Text = "EmpListFrm";
             this.Load += new System.EventHandler(this.EmpListFrm_Load);
