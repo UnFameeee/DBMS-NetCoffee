@@ -223,5 +223,10 @@ namespace FinalDBMS
             NapTienFrm frm = new NapTienFrm(accid,tiencus);
             frm.Show();
         }
+
+        private void buttonMomay_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

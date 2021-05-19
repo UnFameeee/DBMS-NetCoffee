@@ -20,7 +20,7 @@ namespace FinalDBMS
             command.Parameters.Add("@id", SqlDbType.NVarChar).Value = accid;
             command.Parameters.Add("@money", SqlDbType.Real).Value = tiennap;
             db.Openconnection();
-            if (command.ExecuteNonQuery() == 2)
+            if (command.ExecuteNonQuery() !=0)
             {
                 return true;
             }
@@ -100,7 +100,7 @@ namespace FinalDBMS
         public DataTable LoadDataAccCusById(string cid)
         {
             SqlCommand command = new SqlCommand("select username as 'Tên tài khoản', password as 'Mật khẩu',Actualtimeavl as'Thời gian sử dụng còn lại', " +
-                "Timeavailible,timeused,customerid as 'Mã khách',deviceid as 'Mã máy sử dụng',Accmoney as 'Số tiền', " +
+                "Timeavailible,timeused as 'Thời gian bắt đầu sử dụng' ,customerid as 'Mã khách',deviceid as 'Mã máy sử dụng',Accmoney as 'Số tiền', " +
                 "statuscustomer as 'Trạng thái' from Accountcustomer where customerid=@cid", db.getConnection);
             command.Parameters.Add("cid", SqlDbType.NVarChar).Value = cid;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
