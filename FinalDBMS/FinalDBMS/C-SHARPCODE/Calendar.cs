@@ -14,8 +14,8 @@ namespace FinalDBMS
 
         public DataTable takePic(string EmpID)
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Func_TakePicWhenCheckin('@EmpID')", db.getConnection);
-            cmd.Parameters.Add("@EmpID", SqlDbType.VarChar).Value = EmpID;
+            SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Func_TakePicWhenCheckin('" + @EmpID + "')", db.getConnection);
+            cmd.Parameters.Add("@EmpID", SqlDbType.NVarChar).Value = EmpID;
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable table = new DataTable();
             adapter.Fill(table);
@@ -24,8 +24,17 @@ namespace FinalDBMS
 
         public DataTable takeInfoForCalendar(string EmpID)
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Func_TakeInfoWhenCheckin('@EmpID')", db.getConnection);
-            cmd.Parameters.Add("@EmpID", SqlDbType.VarChar).Value = EmpID;
+            SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Func_TakeInfoWhenCheckin('" + @EmpID + "')", db.getConnection);
+            cmd.Parameters.Add("@EmpID", SqlDbType.NVarChar).Value = EmpID;
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            return table;
+        }
+
+        public DataTable takeEmpWorking()
+        {
+            SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Func_CheckEmpWorking()", db.getConnection);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable table = new DataTable();
             adapter.Fill(table);

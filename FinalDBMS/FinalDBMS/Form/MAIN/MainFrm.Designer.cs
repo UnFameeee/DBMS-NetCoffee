@@ -107,7 +107,7 @@ namespace FinalDBMS
             // 
             this.aCCOUNTToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.aCCOUNTToolStripMenuItem.Name = "aCCOUNTToolStripMenuItem";
-            this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(120, 29);
+            this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
             this.aCCOUNTToolStripMenuItem.Text = "TÀI KHOẢN";
             // 
             // pnlMain
