@@ -12,7 +12,24 @@ create table CUSTOMER
 	IdentityCardNumber NVARCHAR(100),												--số CMND
 	MoneyCharged FLOAT																--số tiền nạp
 )
+SELECT SYSDATETIME()
 
+INSERT INTO dbo.ACCOUNTCUSTOMER
+( UserName,
+    PassWord,
+    CustomerID,
+    DeviceID,
+    StatusCustomer,
+    AccMoney
+)VALUES
+(   N'van f',       -- UserName - nvarchar(100)
+    N'1',       -- PassWord - nvarchar(100)-
+    N'kh6',       -- CustomerID - nvarchar(100)
+    N'may06',       -- DeviceID - nvarchar(100)
+    0,         -- StatusCustomer - int
+    0.0      -- AccMoney - float
+    )
+iNSERT INTO ACCOUNTCUSTOMER Values('Van F','1','2021-04-19 12:00:00','','KH6','MAY06', 0, '',0)
 CREATE TABLE DEVICETYPE
 (
 	TypeID nvarchar(100) PRIMARY KEY,
@@ -221,7 +238,7 @@ BEGIN
 	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
-			SET DStatus='1'
+			SET DStatus='Đang sử dụng'
 			WHERE DeviceID=@did
 
 			SELECT @deT= dbo.DEVICES.TypeID
@@ -229,11 +246,12 @@ BEGIN
 			WHERE dbo.DEVICES.DeviceID=@did
 			
 			DECLARE @tienmay FLOAT
-			IF(@deT =1)
-				SET @tienmay=5000
-			ELSE IF(@deT =2)
+			IF(@deT =N'Vip')
 				SET @tienmay=7000
-			ELSE SET @tienmay=12000
+			ELSE IF(@deT =N'Super Vip')
+				SET @tienmay=12000
+			ELSE SET @tienmay=5000
+
 			DECLARE @minuteMoney INT = @AccM*60/@tienmay
 			SET @Tavl = FORMAT(DATEADD(MINUTE, @minuteMoney, @Tavl), 'dd/MM/yyyy hh:mm:ss tt')
 			UPDATE dbo.ACCOUNTCUSTOMER
@@ -253,12 +271,12 @@ BEGIN
 
 	UPDATE dbo.DEVICES
 	SET
-		DStatus='0'
+		DStatus='Chưa sử dụng'
 	WHERE DeviceID=@did
 
-	DECLARE @tienmay FLOAT
+	DECLARE @tienmay FLOAT,@kieumay NVARCHAR(50)
 
-	SELECT @tienmay=TypeID
+	SELECT @kieumay=TypeID
 	FROM dbo.DEVICES
 	WHERE DeviceID=@did
 
@@ -267,15 +285,15 @@ BEGIN
 	FROM dbo.ACCOUNTCUSTOMER
 	WHERE CustomerID=@cid
 
-	IF(@tienmay =1)
-		SET @tienmay=5000
-	ELSE IF(@tienmay =2)
+	IF(@kieumay =N'Vip')
 		SET @tienmay=7000
-	ELSE SET @tienmay=12000
+	ELSE IF(@kieumay =N'Super Vip')
+		SET @tienmay=12000
+	ELSE SET @tienmay=5000
 
 	UPDATE dbo.ACCOUNTCUSTOMER
 	SET	
-		AccMoney=AccMoney+CAST(float,ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1)),
+		AccMoney=AccMoney+CAST(ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1) as float),
 		TimeAvailible=0,
 		TimeUsed=NULL,
 		DeviceID=NULL,
@@ -283,8 +301,8 @@ BEGIN
 	WHERE CustomerID=@cid
 END
 --vi du
-EXECUTE dbo.Userlogout_AccountCus @cid = N'02', -- nvarchar(100)
-                                  @did = N'3'  -- nvarchar(100)
+EXECUTE dbo.Userlogout_AccountCus @cid = N'42', -- nvarchar(100)
+                                  @did = N'1'  -- nvarchar(100)
 GO	
 CREATE OR ALTER PROC AccCusActualTimeAvl(@cid NVARCHAR(100))
 AS
