@@ -1,4 +1,5 @@
-﻿USE DBMS_FinalProject
+﻿--CREATE DATABASE DBMS_FiNALBackup
+USE DBMS_FinalProject
 GO
 ----------------------------------------------------------------------TRIGGER------------------------------------------------------------------------------------
 ----------------------------------------------------------------------Phước Đăng------------------------------------------------------------------------------------
@@ -317,7 +318,7 @@ BEGIN
 
 	UPDATE dbo.ACCOUNTCUSTOMER
 	SET	
-		AccMoney=ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1),
+		AccMoney=AccMoney+CAST(ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1) as float),
 		TimeAvailible=0,
 		TimeUsed=NULL,
 		DeviceID=NULL,
@@ -325,7 +326,7 @@ BEGIN
 	WHERE CustomerID=@cid
 END
 
-------????????????
+------Thời gian sử dụng thực tế của khách
 CREATE OR ALTER PROC AccCusActualTimeAvl(@cid NVARCHAR(100))
 AS
 BEGIN
@@ -340,52 +341,6 @@ BEGIN
 		+CONVERT(VARCHAR, MONTH(@Tavl)-1) +'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
 	 WHERE CustomerID =@cid
 END
-
---3. Khi tạo tài khoản cho Cus mà không nhập đủ thông tin 
-GO
-CREATE OR ALTER TRIGGER InvalidInsert_Customer ON dbo.CUSTOMER
-FOR INSERT
-AS
-BEGIN
-	DECLARE @cid nvarchar(100),@ful nvarchar(100),@phn nvarchar(100),@icn nvarchar(50),@mon INT
-    
-	SELECT @cid=Inserted.CustomerID,@ful=Inserted.FullName,@phn=Inserted.PhoneNumber,@icn=Inserted.IdentityCardNumber,@mon=Inserted.MoneyCharged
-	FROM Inserted
-	BEGIN TRANSACTION
-	IF(LEN(@cid)=0  OR @cid IS NULL) 
-		BEGIN
-			PRINT 'Please Enter Customer ID'
-			ROLLBACK 
-		END
-	DECLARE @count INT 
-	SELECT @count=COUNT(*) FROM dbo.CUSTOMER WHERE dbo.CUSTOMER.CustomerID=@cid
-	IF(@count>1)
-		BEGIN
-		   PRINT 'Customer id đã tồn tại vui lòng nhập id khác'
-		END
-	
-	IF(LEN(@ful)=0 OR @ful IS NULL) 
-		BEGIN
-			PRINT 'Please Enter Customer Full name'
-		END
-
-	IF(LEN(@phn)=0  OR @phn IS NULL) 
-		BEGIN
-			PRINT 'Please Enter Customer Phone number'
-		END
-
-	IF(LEN(@icn) <> 8 OR @icn IS NULL) 
-		BEGIN
-			PRINT 'Please Enter a valid Customer Identical card number'
-		END
-		ROLLBACK
-END
-
-
-
-
-
-
 
 
 ----------------------------------------------------------------------Hoàng Vũ------------------------------------------------------------------------------------
@@ -637,7 +592,7 @@ END
 
 --5. Khách hàng nạp tiền vào Account
 go
-CREATE PROC DepositBudget_Accountcustomer(@cid nvarchar(100),@mon float)
+CREATE OR ALTER PROC DepositBudget_Accountcustomer(@cid nvarchar(100),@mon float)
 AS
 BEGIN
 	UPDATE dbo.ACCOUNTCUSTOMER
@@ -645,12 +600,14 @@ BEGIN
 	     AccMoney=AccMoney+@mon                    ---------- cột Accmoney mới thêm vào AccountCustomer để phân biệt với bên Customer
 	FROM dbo.CUSTOMER,dbo.ACCOUNTCUSTOMER
 	WHERE CUSTOMER.CustomerID=dbo.ACCOUNTCUSTOMER.CustomerID
+	AND ACCOUNTCUSTOMER.CustomerID=@cid
 
 	UPDATE dbo.CUSTOMER
 	SET
 		MoneyCharged=MoneyCharged-@mon
 	FROM dbo.CUSTOMER,dbo.ACCOUNTCUSTOMER
 	WHERE CUSTOMER.CustomerID=dbo.ACCOUNTCUSTOMER.CustomerID
+	AND ACCOUNTCUSTOMER.CustomerID=@cid
 END
 GO
 

@@ -12,7 +12,24 @@ create table CUSTOMER
 	IdentityCardNumber NVARCHAR(100),												--số CMND
 	MoneyCharged FLOAT																--số tiền nạp
 )
+SELECT SYSDATETIME()
 
+INSERT INTO dbo.ACCOUNTCUSTOMER
+( UserName,
+    PassWord,
+    CustomerID,
+    DeviceID,
+    StatusCustomer,
+    AccMoney
+)VALUES
+(   N'van f',       -- UserName - nvarchar(100)
+    N'1',       -- PassWord - nvarchar(100)-
+    N'kh6',       -- CustomerID - nvarchar(100)
+    N'may06',       -- DeviceID - nvarchar(100)
+    0,         -- StatusCustomer - int
+    0.0      -- AccMoney - float
+    )
+iNSERT INTO ACCOUNTCUSTOMER Values('Van F','1','2021-04-19 12:00:00','','KH6','MAY06', 0, '',0)
 CREATE TABLE DEVICETYPE
 (
 	TypeID nvarchar(100) PRIMARY KEY,
@@ -221,6 +238,7 @@ BEGIN
 	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
+
 			SET DStatus=N'Đang sử dụng'
 			WHERE DeviceID=@did
 
@@ -233,7 +251,8 @@ BEGIN
 				SET @tienmay=7000
 			ELSE IF(@deT =N'Super Vip')
 				SET @tienmay=12000
-			else set @tienmay =5000
+			ELSE SET @tienmay=5000
+
 
 			DECLARE @minuteMoney INT = @AccM*60/@tienmay
 			SET @Tavl = FORMAT(DATEADD(MINUTE, @minuteMoney, @Tavl), 'dd/MM/yyyy hh:mm:ss tt')
@@ -254,6 +273,7 @@ BEGIN
 
 	UPDATE dbo.DEVICES
 	SET
+
 		DStatus=N'Chưa sử dụng'
 	WHERE DeviceID=@did
 
@@ -272,9 +292,9 @@ BEGIN
 		SET @tienmay=7000
 	ELSE IF(@kieumay =N'Super Vip')
 		SET @tienmay=12000
-	else set @tienmay =5000
+	ELSE SET @tienmay=5000
 
-	--RELOAD LAI CAI SQL DI
+
 	UPDATE dbo.ACCOUNTCUSTOMER
 	SET	
 		AccMoney=AccMoney+CAST(ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1) as float),
@@ -282,9 +302,13 @@ BEGIN
 		TimeUsed=NULL,
 		DeviceID=NULL,
 		StatusCustomer=0
-	WHERE CustomerID=@cid -- cuu di tran 9
+	WHERE CustomerID=@cid 
 END
 --vi du
+
+EXECUTE dbo.Userlogout_AccountCus @cid = N'42', -- nvarchar(100)
+                                  @did = N'1'  -- nvarchar(100)
+=======
 EXECUTE dbo.Userlogout_AccountCus @cid = N'kh6', -- nvarchar(100)
                                   @did = N'MAY03'  -- nvarchar(100)
 GO	
