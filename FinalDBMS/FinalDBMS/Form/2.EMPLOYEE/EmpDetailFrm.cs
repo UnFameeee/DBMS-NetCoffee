@@ -40,7 +40,7 @@ namespace FinalDBMS
 
             tbEmpID.Text = tab.Rows[0][0].ToString();
             tbName.Text = tab.Rows[0][1].ToString();
-            tbGender.Text = tab.Rows[0][2].ToString();
+            cbboxGender.SelectedItem = tab.Rows[0][2].ToString();
             dtpBdate.Value = (DateTime)tab.Rows[0][3];
             tbPhone.Text = tab.Rows[0][4].ToString();
             tbIdentity.Text = tab.Rows[0][5].ToString();
@@ -69,7 +69,7 @@ namespace FinalDBMS
             string id = tbEmpID.Text;
             string fname = tbName.Text;
 
-            string gender = tbGender.Text;
+            string gender = cbboxGender.SelectedItem.ToString();
 
             DateTime bdate = dtpBdate.Value;
             string phone = tbPhone.Text;
@@ -84,16 +84,17 @@ namespace FinalDBMS
                 ptbEmp.Image.Save(pic, ptbEmp.Image.RawFormat);
                 if (emp.updateEmp(id, fname, gender, bdate, phone, identity, status, email, workid, pic))
                 {
-                    MessageBox.Show("Update Employee " + fname + " Successfully", "Update Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Cập nhật thông tin nhân viên " + fname + " thành công", "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.OK;
                 }
                 else
                 {
-                    MessageBox.Show("Can't Update Employee " + fname, "Update Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không thể cập nhật thông tin nhân viên Employee " + fname, "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Please Add Enough Employee's Info", "Update Employee", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin nhân viên", "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -104,29 +105,29 @@ namespace FinalDBMS
 
             try
             {
-                if (MessageBox.Show("Are you sure to REMOVE " + tbName.Text, "Remove Employee", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Bạn có chắc muốn xoá nhân viên " + tbName.Text, "Xoá nhân viên", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if (emp.removeEmp(id))
                     {
-                        MessageBox.Show("Employee " + tbName.Text + " Has Been Removed", "Remove Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Đã xoá nhân viên " + tbName.Text, "Xoá nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Can't Remove Employee " + tbName.Text, "Remove Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Không thể xoá nhân viên " + tbName.Text, "Xoá nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "Remove Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ex.Message, "Xoá nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         bool verif()
         {
             if (tbEmpID.Text.Trim() == ""
-                || tbGender.Text.Trim() == ""
+                || cbboxGender.SelectedItem == null
                 || tbName.Text.Trim() == ""
                 || tbPhone.Text.Trim() == ""
                 || tbMail.Text.Trim() == ""

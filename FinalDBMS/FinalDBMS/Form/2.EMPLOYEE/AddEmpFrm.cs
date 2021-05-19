@@ -45,9 +45,9 @@ namespace FinalDBMS
             string id = tbEmpID.Text;
             string fname = tbName.Text;
 
-            string gender = "Male";
+            string gender = "Nam";
             if (rdbtnFemale.Checked)
-                gender = "Female";
+                gender = "Nữ";
 
             DateTime bdate = dtpBDate.Value;
             string phone = tbPhone.Text;
@@ -65,22 +65,22 @@ namespace FinalDBMS
                 {
                     if (emp.insertEmp(id, fname, gender, bdate, phone, identity, status, email, workid, pic))
                     {
-                        MessageBox.Show("Employee " + fname + " Add Successfully", "Add Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Nhân viên " + fname + " đã được thêm vào", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         reloadFrm();
                     }
                     else
                     {
-                        MessageBox.Show("Can't Add Employee " + fname, "Add Employee", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Không thể thêm nhân viên " + fname, "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Employee " + fname + " Already Exist", "Add Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Nhân viên " + fname + " đã có trong danh sách", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Please Add Full Employee's Info", "Add Employee", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin của nhân viên", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
