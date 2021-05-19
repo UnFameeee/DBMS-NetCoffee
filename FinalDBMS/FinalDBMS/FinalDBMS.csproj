@@ -67,6 +67,13 @@
     <Compile Include="C-SHARPCODE\AccountCustomerdata.cs" />
     <Compile Include="C-SHARPCODE\Calendar.cs" />
     <Compile Include="C-SHARPCODE\Device.cs" />
+    <Compile Include="ManageAccountFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageAccountFrm.Designer.cs">
+      <DependentUpon>ManageAccountFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MomayFrm.cs">
     <Compile Include="C-SHARPCODE\Extension.cs" />
     <Compile Include="Form\MAIN\CUSTOMER\MomayFrm.cs">
       <SubType>Form</SubType>
@@ -153,6 +160,10 @@
     <Compile Include="Form\Salary\SalaryFrm.Designer.cs">
       <DependentUpon>SalaryFrm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ManageAccountFrm.resx">
+      <DependentUpon>ManageAccountFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MomayFrm.resx">
     <EmbeddedResource Include="Form\MAIN\CUSTOMER\MomayFrm.resx">
       <DependentUpon>MomayFrm.cs</DependentUpon>
     </EmbeddedResource>

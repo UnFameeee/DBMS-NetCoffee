@@ -66,6 +66,9 @@ namespace FinalDBMS
             frmManageDevice.Hide();
         }
 
-        
+        private void aCCOUNTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

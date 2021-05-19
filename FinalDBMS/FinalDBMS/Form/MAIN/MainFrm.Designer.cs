@@ -109,6 +109,7 @@ namespace FinalDBMS
             this.aCCOUNTToolStripMenuItem.Name = "aCCOUNTToolStripMenuItem";
             this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
             this.aCCOUNTToolStripMenuItem.Text = "TÀI KHOẢN";
+            this.aCCOUNTToolStripMenuItem.Click += new System.EventHandler(this.aCCOUNTToolStripMenuItem_Click);
             // 
             // pnlMain
             // 
