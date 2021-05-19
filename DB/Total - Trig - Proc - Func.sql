@@ -43,12 +43,12 @@ BEGIN
 
 	Select @Keyboard_Thuong_Default = DEVICETYPE.KeyBoard
 	From DEVICETYPE
-	Where TypeID = 'Thuong'
+	Where TypeID = N'Thường'
 
 	Select @Keyboard_Thuong_Input = inserted.KeyBoard
 	From DEVICETYPE,inserted
 	Where DEVICETYPE.TypeID = inserted.TypeID
-	and inserted.TypeID = 'Thuong'
+	and inserted.TypeID = N'Thường'
 
 	if (@Keyboard_Vip_Default = @Keyboard_Thuong_Input or  @Keyboard_Vip_Input = @Keyboard_Thuong_Default)
 	BEGIN
@@ -90,9 +90,9 @@ BEGIN
 	FROM DEVICES
 	where DeviceID = @DeviceID
 
-	if (@de != 'Not in use')
+	if (@de != N'Chưa sử dụng')
 	BEGIN
-	PRINT 'This computer is in use or in repair !!!'
+	PRINT N'Máy này đang được sử dụng hoặc đang bảo trì!!!'
 	rollback
 	END
 END
@@ -270,7 +270,7 @@ BEGIN
 	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
-			SET DStatus='1'
+			SET DStatus='Đang sử dụng'
 			WHERE DeviceID=@did
 
 			SELECT @deT= dbo.DEVICES.TypeID
@@ -278,11 +278,13 @@ BEGIN
 			WHERE dbo.DEVICES.DeviceID=@did
 			
 			DECLARE @tienmay FLOAT
-			IF(@deT =1)
-				SET @tienmay=5000
-			ELSE IF(@deT =2)
+			IF(@deT =N'Vip')
 				SET @tienmay=7000
-			ELSE SET @tienmay=12000
+			ELSE IF(@deT =N'Super Vip')
+				SET @tienmay=12000
+			ELSE 
+				SET @tienmay=5000
+
 			DECLARE @minuteMoney INT = @AccM*60/@tienmay
 			SET @Tavl = FORMAT(DATEADD(MINUTE, @minuteMoney, @Tavl), 'dd/MM/yyyy hh:mm:ss tt')
 			UPDATE dbo.ACCOUNTCUSTOMER
@@ -303,12 +305,12 @@ BEGIN
 
 	UPDATE dbo.DEVICES
 	SET
-		DStatus='0'
+		DStatus='Chưa sử dụng'
 	WHERE DeviceID=@did
 
-	DECLARE @tienmay FLOAT
+	DECLARE @tienmay FLOAT,@kieumay NVARCHAR(50)
 
-	SELECT @tienmay=TypeID
+	SELECT @kieumay=TypeID
 	FROM dbo.DEVICES
 	WHERE DeviceID=@did
 
@@ -317,11 +319,12 @@ BEGIN
 	FROM dbo.ACCOUNTCUSTOMER
 	WHERE CustomerID=@cid
 
-	IF(@tienmay =1)
-		SET @tienmay=5000
-	ELSE IF(@tienmay =2)
+	IF(@kieumay =N'Vip')
 		SET @tienmay=7000
-	ELSE SET @tienmay=12000
+	ELSE IF(@kieumay =N'Super Vip')
+		SET @tienmay=12000
+	ELSE 
+		SET @tienmay=5000
 
 	UPDATE dbo.ACCOUNTCUSTOMER
 	SET	
@@ -352,23 +355,18 @@ END
 GO
 
 ----------------------------------------------------------------------Hoàng Vũ------------------------------------------------------------------------------------
---Số CMND phải có hơn 8 kí tự và nhỏ hơn 13 kí tự (9 <= CMND <= 12)
+--Số CMND phải có hơn 8 kí tự và nhỏ hơn 13 kí tự (9 <= CMND <= 12) 
 create or ALTER trigger TG_FormatIdentityNumber on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Identity nvarchar(100)
+declare @Identity nvarchar(100)
 begin
-	--Lấy ra mã ID của nhân viên vừa nhập
-	select @ID = inserted.ID
+	--Lấy ra IdentityNumber của nhân viên vừa nhập
+	select @Identity = inserted.IdentityNumber
 	from inserted
 
-	--Lấy ra số CMND của ID vừa nhập
-	select @Identity = IdentityNumber
-	from EMPLOYEE
-	where EMPLOYEE.ID = @ID
-
-	if(len(@Identity) <= 12 and len(@Identity) >= 9)
+	if(len(@Identity) > 12 or len(@Identity) < 9)
 	begin
-		print ('IdentityNumber must have more than 8 characters!!!')
+		print ('IdentityNumber must have more than 8 and less than 13 characters!!!')
 		rollback
 	end
 end
@@ -377,19 +375,14 @@ GO
 --Nhân viên phải ít nhất ĐỦ 18 tuổi
 create or ALTER trigger TG_EmpAtLeast18YO on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Bdate date
+declare @Bdate date
 begin
 	
-	--Lấy ra mã ID của nhân viên vừa nhập
-	select @ID = inserted.ID
+	--Lấy ra Birthday của nhân viên vừa nhập
+	select @Bdate = inserted.Birthday
 	from inserted
 
-	--Lấy ra ngày sinh nhật của ID vừa nhập
-	select @Bdate = Birthday
-	from EMPLOYEE
-	where EMPLOYEE.ID = @ID
-
-	if(datediff(dd,@Bdate,getdate()) != 0)
+	if(datediff(yy,@Bdate,getdate()) < 18)
 	begin
 		print('Employee has to be 18 year old!!!')
 		rollback
@@ -400,20 +393,15 @@ GO
 --Số điện thoại nhân viên phải từ 10 đến 11 chữ số
 create or ALTER trigger TG_FormatPhoneNumber on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Phone NVARCHAR(100)
+declare @Phone NVARCHAR(100)
 begin
 	--Lấy ra mã ID của nhân viên vừa nhập
-	select @ID = inserted.ID
+	select @Phone = inserted.Phone
 	from inserted
 
-	--Lấy ra số CMND của ID vừa nhập
-	select @Phone = Phone
-	from EMPLOYEE
-	where EMPLOYEE.ID = @ID
-
-	if(len(@Phone) <= 11 and len(@phone) >= 10)
+	if(len(@Phone) > 10 or len(@phone) < 9)
 	begin
-		print ('IdentityNumber must have more than 8 characters!!!')
+		print ('Phone Number must have more than 8 and less than 11 characters!!!')
 		rollback
 	end
 end
@@ -744,7 +732,7 @@ GO
 --1.
 CREATE or ALTER FUNCTION Func_CheckAvailableDevices (@devid nvarchar(100))
 RETURNS table AS
-	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = 'Not in use';
+	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = 'Chưa sử dụng';
 GO
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY03') Check01
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY01') Check01
@@ -755,7 +743,7 @@ RETURNS table AS
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID
-		and DStatus = 'In use';
+		and DStatus != 'Chưa sử dụng';
 GO
 CREATE or ALTER FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
 RETURNS table AS
@@ -763,7 +751,7 @@ RETURNS table AS
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID
-		and DStatus = 'Not in use';
+		and DStatus = 'Chưa sử dụng';
 GO
 
 
