@@ -77,27 +77,6 @@ BEGIN
 END;
 GO
 
---4. Trigger kiểm tra người dùng không được dùng máy đang bảo trì hoặc đang được sử dụng
-CREATE or ALTER Trigger Check_Available_Computer ON ACCOUNTCUSTOMER
-AFTER INSERT, UPDATE 
-AS
-declare @DeviceID nvarchar(100),@de nvarchar(100)
-BEGIN
-	SELECT @DeviceID = inserted.DeviceID
-	FROM inserted
-
-	SELECT @de = DStatus
-	FROM DEVICES
-	where DeviceID = @DeviceID
-
-	if (@de != N'Chưa sử dụng')
-	BEGIN
-	PRINT N'Máy này đang được sử dụng hoặc đang bảo trì!!!'
-	rollback
-	END
-END
-GO
-
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --1. TRIGGER không cho nhân viên check in nếu chưa tới giờ đi làm
 CREATE or ALTER TRIGGER UTG_WorkShiftCheckIn ON dbo.TIMEKEEPING
@@ -112,7 +91,7 @@ BEGIN
 	DECLARE @WorkShift INT
 	SELECT @WorkShift = ShiftID
 	FROM dbo.WORKSHIFT
-	WHERE DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) = DATEPART(HOUR,@iCheckIn)				--Nếu trễ 1 tiếng so với ca làm thì không được check in
+	WHERE DATEPART(HOUR,@iCheckIn) - DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin)	<= 1	AND DATEPART(HOUR,@iCheckIn) - DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) >= 0		--Nếu trễ 1 tiếng so với ca làm thì không được check in
 	--Kiểm tra trong bảng ca có đúng ca làm của nhân viên đang check in không?
 	DECLARE @CountID INT
 	SELECT @CountID = COUNT(*)
@@ -591,7 +570,7 @@ GO
 CREATE or ALTER PROCEDURE USP_CheckIDEmployeeWorking @IDEmployee NVARCHAR(100)
 AS
 BEGIN
-	SELECT * FROM TIMEKEEPING WHERE IDEmployee = 1 AND CheckOut IS NULL					--SELECT * để kiểm tra nhân viên có đi làm hay không
+	SELECT * FROM TIMEKEEPING WHERE IDEmployee = @IDEmployee AND CheckOut IS NULL				--SELECT * để kiểm tra nhân viên có đi làm hay không
 END
 GO
 
