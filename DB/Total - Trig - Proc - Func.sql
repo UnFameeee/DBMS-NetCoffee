@@ -84,14 +84,15 @@ AFTER INSERT
 AS
 BEGIN
 	--Lấy id nhân viên và thời gian check in của nhân viên đó
-	DECLARE @iIDEmployee NVARCHAR(100), @iCheckIN DATETIME
+	DECLARE @iIDEmployee NVARCHAR(100), @iCheckIN TIME
 	SELECT @iIDEmployee = Inserted.IDEmployee, @iCheckIN = Inserted.CheckIn
 	FROM Inserted
+
 	--Lấy ca làm của nhân viên
 	DECLARE @WorkShift INT
-	SELECT @WorkShift = ShiftID
-	FROM dbo.WORKSHIFT
-	WHERE DATEPART(HOUR,@iCheckIn) - DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin)	<= 1	AND DATEPART(HOUR,@iCheckIn) - DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) >= 0		--Nếu trễ 1 tiếng so với ca làm thì không được check in
+	SELECT @WorkShift = WORKSHIFTTME.ShiftID
+	FROM (SELECT CONVERT(TIME, dbo.WORKSHIFT.TimeBegin) AS TimeBegin, ShiftID FROM dbo.WORKSHIFT) AS WORKSHIFTTME
+	WHERE DATEDIFF(MINUTE, WORKSHIFTTME.TimeBegin, @iCheckIN) <= 60	AND DATEDIFF(MINUTE, WORKSHIFTTME.TimeBegin, @iCheckIN) >= 0		--Nếu trễ 1 tiếng so với ca làm thì không được check in
 	--Kiểm tra trong bảng ca có đúng ca làm của nhân viên đang check in không?
 	DECLARE @CountID INT
 	SELECT @CountID = COUNT(*)
@@ -681,7 +682,7 @@ END
 GO
 
 ----------------------------------------------------------------------FUNCTION------------------------------------------------------------------------------------
-----------------------------------------------------------------------Thắng------------------------------------------------------------------------------------
+----------------------------------------------------------------------Quốc Thắng------------------------------------------------------------------------------------
 --Tìm ra nhân viên theo từ khoá đã cho
 CREATE or ALTER FUNCTION Func_SearchEmployeesWithName (@search_name nvarchar(100))
 RETURNS TABLE AS
@@ -704,6 +705,19 @@ RETURNS TABLE AS
 	       WHERE EMPLOYEE.ID = @EmpID;
 GO
 
+--Tìm ra thông tin của nhân viên đang làm việc trong ca
+CREATE or ALTER FUNCTION Func_CheckEmpWorking ()
+RETURNS TABLE AS
+	RETURN SELECT IDEmployee
+		   FROM TIMEKEEPING
+	       WHERE TIMEKEEPING.CheckOut is null;
+GO
+
+go
+SELECT * FROM dbo.Func_CheckEmpWorking()
+
+go
+SELECT * FROM dbo.Func_TakePicWhenCheckin('NV17')
 
 
 

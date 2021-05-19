@@ -36,8 +36,8 @@ namespace FinalDBMS
             this.eMPLOYEEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TimeKeepingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aCCOUNTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aCCOUNTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -96,19 +96,19 @@ namespace FinalDBMS
             this.TimeKeepingToolStripMenuItem.Text = "CHẤM CÔNG";
             this.TimeKeepingToolStripMenuItem.Click += new System.EventHandler(this.TimeKeepingToolStripMenuItem_Click);
             // 
-            // aCCOUNTToolStripMenuItem
-            // 
-            this.aCCOUNTToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
-            this.aCCOUNTToolStripMenuItem.Name = "aCCOUNTToolStripMenuItem";
-            this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
-            this.aCCOUNTToolStripMenuItem.Text = "TÀI KHOẢN";
-            // 
             // manageDeviceToolStripMenuItem
             // 
             this.manageDeviceToolStripMenuItem.Name = "manageDeviceToolStripMenuItem";
             this.manageDeviceToolStripMenuItem.Size = new System.Drawing.Size(62, 22);
             this.manageDeviceToolStripMenuItem.Text = "THIẾT BỊ";
             this.manageDeviceToolStripMenuItem.Click += new System.EventHandler(this.manageDeviceToolStripMenuItem_Click);
+            // 
+            // aCCOUNTToolStripMenuItem
+            // 
+            this.aCCOUNTToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
+            this.aCCOUNTToolStripMenuItem.Name = "aCCOUNTToolStripMenuItem";
+            this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
+            this.aCCOUNTToolStripMenuItem.Text = "TÀI KHOẢN";
             // 
             // pnlMain
             // 
