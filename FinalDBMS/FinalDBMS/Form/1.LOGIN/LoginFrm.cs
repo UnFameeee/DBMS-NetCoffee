@@ -34,9 +34,22 @@ namespace FinalDBMS
                 command.Parameters.Add("@pass", SqlDbType.VarChar).Value = textBoxPassword.Text;
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = textBoxID.Text;
                 string type = comboBoxTypeuser.Text;
-                if (type == "Quản Lý") type = "QL";
-                else if (type == "Nhân Viên") type = "NV";
-                else type = "LC";
+                if (type == "Quản Lý")
+                {
+                    type = "QL";
+                    Global.SetGlobalUserID("QL");
+                }
+                else if (type == "Nhân Viên")
+                {
+                    type = "NV";
+                    Global.SetGlobalUserID("NV");
+                }
+                else
+                {
+                    type = "LC";
+                    Global.SetGlobalUserID("LC");
+                }
+                
 
                 command.Parameters.Add("@typeid", SqlDbType.VarChar).Value = type;
                 adapter.SelectCommand = command;
@@ -47,15 +60,25 @@ namespace FinalDBMS
                     {
                         MessageBox.Show("Đăng nhập thành công", "Đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         MainFrm frm = new MainFrm();
-                        frm.Show();
+                        this.Hide();
+                        frm.ShowDialog();
+                        this.Close();
                     }
                     else if (type == "NV")
                     {
                         MessageBox.Show("Đăng nhập thành công", "Đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MainFrm frm = new MainFrm();
+                        this.Hide();
+                        frm.ShowDialog();
+                        this.Close();
                     }
                     else if (type == "LC")
                     {
                         MessageBox.Show("Đăng nhập thành công", "Đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MainFrm frm = new MainFrm();
+                        this.Hide();
+                        frm.ShowDialog();
+                        this.Close();
                     }
                 }
                 else
@@ -77,8 +100,6 @@ namespace FinalDBMS
 
         private void LoginFrm_Load(object sender, EventArgs e)
         {
-            
-
             SqlCommand command = new SqlCommand("Select * from JOB", db.getConnection);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable table = new DataTable();
@@ -105,6 +126,9 @@ namespace FinalDBMS
             textBoxPassword.Text = "";
         }
 
-        
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

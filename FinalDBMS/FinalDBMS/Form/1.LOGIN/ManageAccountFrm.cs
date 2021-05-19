@@ -84,7 +84,11 @@ namespace FinalDBMS
         {
             SqlCommand com = new SqlCommand("select * from ACCOUNTEMPLOYEE");
             dgvAccount.DataSource = frm.getUser(com);
-
+            dgvAccount.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvAccount.AllowUserToAddRows = false;
+            dgvAccount.AllowUserToResizeRows = false;
+            dgvAccount.AllowUserToOrderColumns = false;
+            dgvAccount.AllowUserToResizeColumns = false;
 
             SqlCommand command = new SqlCommand("Select * from JOB");
             DataTable table = frm.getUser(command);

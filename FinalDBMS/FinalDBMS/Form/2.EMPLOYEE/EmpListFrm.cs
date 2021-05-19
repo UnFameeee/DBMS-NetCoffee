@@ -23,6 +23,10 @@ namespace FinalDBMS
         private void EmpListFrm_Load(object sender, EventArgs e)
         {
             reload();
+            dgvEmp.AllowUserToAddRows = false;
+            dgvEmp.AllowUserToResizeRows = false;
+            dgvEmp.AllowUserToOrderColumns = false;
+            dgvEmp.AllowUserToResizeColumns = false;
         }
 
         void reload()

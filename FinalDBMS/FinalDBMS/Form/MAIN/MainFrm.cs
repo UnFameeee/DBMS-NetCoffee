@@ -23,15 +23,22 @@ namespace FinalDBMS
         EmpListFrm frmEmplistFrm = new EmpListFrm() { TopLevel = false, TopMost = false };
         ManageDeviceForm frmManageDevice = new ManageDeviceForm() { TopLevel = false, TopMost = false };
         ManageAccountFrm frmManageAccount = new ManageAccountFrm() { TopLevel = false, TopMost = false };
-        SalaryFrm frmSalary = new SalaryFrm() { TopLevel = true, TopMost = true };
+        SalaryFrm frmSalary = new SalaryFrm() { TopLevel = false, TopMost = false };
+
 
         void loadForm()
         {
+            if(Global.GlobalUserID == "NV")
+            {
+                aCCOUNTToolStripMenuItem.Visible = false;
+                eMPLOYEEToolStripMenuItem.Visible = false;
+            }
             pnlMain.Controls.Add(frmAddCustomer);
             pnlMain.Controls.Add(frmCalendar);
             pnlMain.Controls.Add(frmEmplistFrm);
             pnlMain.Controls.Add(frmManageDevice);
             pnlMain.Controls.Add(frmManageAccount);
+            pnlMain.Controls.Add(frmSalary);
         }
 
         private void addCustomerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -56,6 +63,17 @@ namespace FinalDBMS
             resetForm();
             frmManageDevice.Show();
         }
+        private void aCCOUNTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            resetForm();
+            frmManageAccount.Show();
+        }
+
+        private void SalaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            resetForm();
+            frmSalary.Show();
+        }
 
         void resetForm()
         {
@@ -69,17 +87,8 @@ namespace FinalDBMS
             frmManageDevice.Hide();
             //Thong tin tai khoan
             frmManageAccount.Hide();
-        }
-
-        private void aCCOUNTToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            resetForm();
-            frmManageAccount.Show();
-        }
-
-        private void SalaryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmSalary.ShowDialog();
+            //Thông tin lương nhân viên
+            frmSalary.Hide();
         }
     }
 }

@@ -52,9 +52,9 @@ namespace FinalDBMS
             this.cbboxWorkID = new System.Windows.Forms.ComboBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbboxGender = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.cbboxGender = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ptbEmp)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -200,10 +200,10 @@ namespace FinalDBMS
             // 
             // btnUpdate
             // 
-            this.btnUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.btnUpdate.BackColor = System.Drawing.Color.White;
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdate.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.ForeColor = System.Drawing.Color.White;
+            this.btnUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.btnUpdate.Location = new System.Drawing.Point(214, 402);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(84, 37);
@@ -214,10 +214,10 @@ namespace FinalDBMS
             // 
             // btnRemove
             // 
-            this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.btnRemove.BackColor = System.Drawing.Color.White;
             this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemove.ForeColor = System.Drawing.Color.White;
+            this.btnRemove.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.btnRemove.Location = new System.Drawing.Point(417, 402);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(84, 37);
@@ -269,10 +269,11 @@ namespace FinalDBMS
             // 
             // btnExit
             // 
-            this.btnExit.BackColor = System.Drawing.SystemColors.Control;
+            this.btnExit.BackColor = System.Drawing.Color.White;
             this.btnExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(692, -1);
+            this.btnExit.Location = new System.Drawing.Point(691, 1);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(34, 29);
             this.btnExit.TabIndex = 25;
@@ -303,6 +304,18 @@ namespace FinalDBMS
             this.panel1.Size = new System.Drawing.Size(439, 248);
             this.panel1.TabIndex = 26;
             // 
+            // cbboxGender
+            // 
+            this.cbboxGender.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbboxGender.FormattingEnabled = true;
+            this.cbboxGender.Items.AddRange(new object[] {
+            "Nam",
+            "Nữ"});
+            this.cbboxGender.Location = new System.Drawing.Point(320, 191);
+            this.cbboxGender.Name = "cbboxGender";
+            this.cbboxGender.Size = new System.Drawing.Size(90, 25);
+            this.cbboxGender.TabIndex = 25;
+            // 
             // label10
             // 
             this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
@@ -324,18 +337,6 @@ namespace FinalDBMS
             this.label7.Size = new System.Drawing.Size(36, 21);
             this.label7.TabIndex = 28;
             this.label7.Text = "Tên:";
-            // 
-            // cbboxGender
-            // 
-            this.cbboxGender.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbboxGender.FormattingEnabled = true;
-            this.cbboxGender.Items.AddRange(new object[] {
-            "Nam",
-            "Nữ"});
-            this.cbboxGender.Location = new System.Drawing.Point(320, 191);
-            this.cbboxGender.Name = "cbboxGender";
-            this.cbboxGender.Size = new System.Drawing.Size(90, 25);
-            this.cbboxGender.TabIndex = 25;
             // 
             // EmpDetailFrm
             // 

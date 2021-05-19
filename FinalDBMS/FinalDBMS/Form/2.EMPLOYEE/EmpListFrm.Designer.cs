@@ -97,10 +97,10 @@ namespace FinalDBMS
             // 
             // btnDetail
             // 
-            this.btnDetail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.btnDetail.BackColor = System.Drawing.Color.White;
             this.btnDetail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetail.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDetail.ForeColor = System.Drawing.Color.White;
+            this.btnDetail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.btnDetail.Location = new System.Drawing.Point(24, 6);
             this.btnDetail.Name = "btnDetail";
             this.btnDetail.Size = new System.Drawing.Size(82, 32);
@@ -111,10 +111,10 @@ namespace FinalDBMS
             // 
             // btnAdd
             // 
-            this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.btnAdd.BackColor = System.Drawing.Color.White;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.ForeColor = System.Drawing.Color.White;
+            this.btnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.btnAdd.Location = new System.Drawing.Point(129, 6);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(89, 32);
@@ -135,10 +135,10 @@ namespace FinalDBMS
             // 
             // btnRefresh
             // 
-            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.btnRefresh.BackColor = System.Drawing.Color.White;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefresh.ForeColor = System.Drawing.Color.White;
+            this.btnRefresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.btnRefresh.Location = new System.Drawing.Point(241, 6);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(82, 32);
@@ -195,6 +195,7 @@ namespace FinalDBMS
             this.btnFemale.BackColor = System.Drawing.Color.Transparent;
             this.btnFemale.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFemale.BackgroundImage")));
             this.btnFemale.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFemale.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFemale.FlatAppearance.BorderSize = 0;
             this.btnFemale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFemale.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -211,6 +212,7 @@ namespace FinalDBMS
             this.btnMale.BackColor = System.Drawing.Color.Transparent;
             this.btnMale.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnMale.BackgroundImage")));
             this.btnMale.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnMale.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMale.FlatAppearance.BorderSize = 0;
             this.btnMale.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -227,6 +229,7 @@ namespace FinalDBMS
             this.btnSearch.BackColor = System.Drawing.Color.Transparent;
             this.btnSearch.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSearch.BackgroundImage")));
             this.btnSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSearch.FlatAppearance.BorderSize = 0;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
