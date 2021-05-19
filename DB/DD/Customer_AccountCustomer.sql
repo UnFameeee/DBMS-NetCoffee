@@ -267,24 +267,24 @@ BEGIN
 	FROM dbo.ACCOUNTCUSTOMER
 	WHERE CustomerID=@cid
 
-	IF(@tienmay =1)
+	IF(@tienmay ='Vip')
 		SET @tienmay=5000
-	ELSE IF(@tienmay =2)
+	ELSE IF(@tienmay ='Super Vip')
 		SET @tienmay=7000
 	ELSE SET @tienmay=12000
-
+	--RELOAD LAI CAI SQL DI
 	UPDATE dbo.ACCOUNTCUSTOMER
 	SET	
-		AccMoney=AccMoney+CAST(float,ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1)),
+		AccMoney=AccMoney+CAST(ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1) as float),
 		TimeAvailible=0,
 		TimeUsed=NULL,
 		DeviceID=NULL,
 		StatusCustomer=0
-	WHERE CustomerID=@cid
+	WHERE CustomerID=@cid -- cuu di tran
 END
 --vi du
-EXECUTE dbo.Userlogout_AccountCus @cid = N'02', -- nvarchar(100)
-                                  @did = N'3'  -- nvarchar(100)
+EXECUTE dbo.Userlogout_AccountCus @cid = N'kh6', -- nvarchar(100)
+                                  @did = N'MAY03'  -- nvarchar(100)
 GO	
 CREATE OR ALTER PROC AccCusActualTimeAvl(@cid NVARCHAR(100))
 AS

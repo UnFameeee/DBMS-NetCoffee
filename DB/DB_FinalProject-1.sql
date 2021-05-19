@@ -156,15 +156,15 @@ CREATE TABLE DEVICES
 	TypeID nvarchar(100) references DEVICETYPE(TypeID) ON UPDATE SET NULL,								--loại máy (super vjp, vip, thường)
 	DStatus nvarchar(100)															--tình trạng máy (đang đc sử dụng, đang đc bảo trì,....)
 )
-INSERT INTO DEVICES VALUES('MAY01','Vip','In use')
-INSERT INTO DEVICES VALUES('MAY02','Super Vip','In repair')
-INSERT INTO DEVICES VALUES('MAY03','Thường','Not in use')
-INSERT INTO DEVICES VALUES('MAY04','Vip','In use')
-INSERT INTO DEVICES VALUES('MAY05','Super Vip','Not in use')
-INSERT INTO DEVICES VALUES('MAY06','Vip','In repair')
-INSERT INTO DEVICES VALUES('MAY07','Thường','Not in use')
-INSERT INTO DEVICES VALUES('MAY08','Thường','Not in use')
-INSERT INTO DEVICES VALUES('MAY09','Thường','Not in use')
+INSERT INTO DEVICES VALUES('MAY01','Vip', N'Đang sử dụng')
+INSERT INTO DEVICES VALUES('MAY02','Super Vip',N'Đang bảo trì')
+INSERT INTO DEVICES VALUES('MAY03',N'Thường',N'Chưa sử dụng')
+INSERT INTO DEVICES VALUES('MAY04','Vip',N'Đang sử dụng')
+INSERT INTO DEVICES VALUES('MAY05','Super Vip',N'Chưa sử dụng')
+INSERT INTO DEVICES VALUES('MAY06','Vip',N'Đang bảo trì')
+INSERT INTO DEVICES VALUES('MAY07',N'Thường',N'Chưa sử dụng')
+INSERT INTO DEVICES VALUES('MAY08',N'Thường',N'Chưa sử dụng')
+INSERT INTO DEVICES VALUES('MAY09',N'Thường',N'Chưa sử dụng')
 
 ------------------------------------------------------------------------------------------------------------------------
 --Khách hàng--
@@ -188,20 +188,37 @@ create table ACCOUNTCUSTOMER
 (
 	UserName nvarchar(100) PRIMARY KEY,
 	PassWord nvarchar(100),
-	TimeAvailible float,												--dựa vào số tiền nạp và id máy để tính thời gian			
-	TimeUsed float,														--thời gian đã dùng
-	--TimeRemain float,													--thời gian còn lại = thời gian có - thời gian đã dùng
+	TimeAvailible DATETIME DEFAULT 0,	--dựa vào số tiền nạp và id máy để tính thời gian			time tính theo giờ 
+	TimeUsed DATETIME,		--thời gian đã dùng											
 	CustomerID nvarchar(100) references CUSTOMER(CustomerID),					
 	DeviceID nvarchar(100) references DEVICES(DeviceID),
-	StatusCustomer nvarchar(100),
-	AccMoney FLOAT ----------- mới thêm vào + đổi tiền từ float thành int
+	StatusCustomer int,
+	AccMoney FLOAT DEFAULT 0, ----------- mới thêm vào + đổi tiền từ float thành int
+	Actualtimeavl NVARCHAR(50)
 )
-INSERT INTO ACCOUNTCUSTOMER Values('Van A','1',10,2,'KH1','MAY01', '',0)
-INSERT INTO ACCOUNTCUSTOMER Values('Van B','1',10,2,'KH2','MAY02', '',0)
-INSERT INTO ACCOUNTCUSTOMER Values('Van C','1',10,2,'KH3','MAY03', '',0)
-INSERT INTO ACCOUNTCUSTOMER Values('Van D','1',10,2,'KH4','MAY04', '',0)
-INSERT INTO ACCOUNTCUSTOMER Values('Van E','1',10,2,'KH5','MAY05', '',0)
-INSERT INTO ACCOUNTCUSTOMER Values('Van F','1',10,2,'KH6','MAY06', '',0)
+
+INSERT INTO dbo.ACCOUNTCUSTOMER
+( UserName,
+    PassWord,
+    CustomerID,
+    DeviceID,
+    StatusCustomer,
+    AccMoney
+) VALUES
+(   N'van a',       -- UserName - nvarchar(100)
+    N'1',       -- PassWord - nvarchar(100)-
+    N'KH1',       -- CustomerID - nvarchar(100)
+    N'MAY01',       -- DeviceID - nvarchar(100)
+    1,         -- StatusCustomer - int
+    100000.0       -- AccMoney - float
+    )
+
+--INSERT INTO ACCOUNTCUSTOMER Values('Van A','1','2021-04-19 12:00:00','','KH1','MAY01', 0, '',0)
+--INSERT INTO ACCOUNTCUSTOMER Values('Van B','1','2021-04-19 12:00:00','','KH2','MAY02', 0, '',0)
+--INSERT INTO ACCOUNTCUSTOMER Values('Van C','1','2021-04-19 12:00:00','','KH3','MAY03', 0, '',0)
+--INSERT INTO ACCOUNTCUSTOMER Values('Van D','1','2021-04-19 12:00:00','','KH4','MAY04', 0, '',0)
+--INSERT INTO ACCOUNTCUSTOMER Values('Van E','1','2021-04-19 12:00:00','','KH5','MAY05', 0, '',0)
+--INSERT INTO ACCOUNTCUSTOMER Values('Van F','1','2021-04-19 12:00:00','','KH6','MAY06', 0, '',0)
 --Tài khoản nhân viên--
 CREATE TABLE ACCOUNTEMPLOYEE 
 (

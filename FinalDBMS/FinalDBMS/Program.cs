@@ -17,8 +17,15 @@ namespace FinalDBMS
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //Application.Run(new LoginFrm());
-            Application.Run(new AddCustomerFrm());
+
+            //LoginFrm frm = new LoginFrm();
+            //frm.Show();
+            //if(frm.DialogResult == DialogResult.OK)
+            //{
+            //    Application.Run(new MainFrm());
+            //}
+            //Application.Run(new AddCustomerFrm());
+            Application.Run(new MainFrm());
         }
     }
 }

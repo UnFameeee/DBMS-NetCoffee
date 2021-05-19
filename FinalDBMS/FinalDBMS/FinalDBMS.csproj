@@ -88,7 +88,7 @@
     <Compile Include="Form\2.EMPLOYEE\AddEmpFrm.Designer.cs">
       <DependentUpon>AddEmpFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\2.EMPLOYEE\Employee.cs" />
+    <Compile Include="C-SHARPCODE\Employee.cs" />
     <Compile Include="Form\2.EMPLOYEE\EmpListFrm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -48,7 +48,7 @@ namespace FinalDBMS
             this.comboBoxTypeuser.DisplayMember = "JobDetail";
             this.comboBoxTypeuser.FormattingEnabled = true;
             this.comboBoxTypeuser.Location = new System.Drawing.Point(37, 162);
-            this.comboBoxTypeuser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxTypeuser.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTypeuser.Name = "comboBoxTypeuser";
             this.comboBoxTypeuser.Size = new System.Drawing.Size(82, 21);
             this.comboBoxTypeuser.TabIndex = 3;
@@ -64,7 +64,7 @@ namespace FinalDBMS
             this.buttonRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRegister.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.buttonRegister.Location = new System.Drawing.Point(37, 221);
-            this.buttonRegister.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonRegister.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(132, 25);
             this.buttonRegister.TabIndex = 5;
@@ -78,7 +78,7 @@ namespace FinalDBMS
             this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLogin.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.buttonLogin.Location = new System.Drawing.Point(37, 192);
-            this.buttonLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonLogin.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(184, 25);
             this.buttonLogin.TabIndex = 4;
@@ -103,7 +103,7 @@ namespace FinalDBMS
             this.textBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPassword.ForeColor = System.Drawing.Color.SlateGray;
             this.textBoxPassword.Location = new System.Drawing.Point(37, 134);
-            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(185, 21);
             this.textBoxPassword.TabIndex = 2;
@@ -116,7 +116,7 @@ namespace FinalDBMS
             this.textBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxUsername.ForeColor = System.Drawing.Color.SlateGray;
             this.textBoxUsername.Location = new System.Drawing.Point(37, 78);
-            this.textBoxUsername.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxUsername.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(185, 21);
             this.textBoxUsername.TabIndex = 0;
@@ -128,7 +128,7 @@ namespace FinalDBMS
             this.textBoxID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxID.ForeColor = System.Drawing.Color.SlateGray;
             this.textBoxID.Location = new System.Drawing.Point(37, 106);
-            this.textBoxID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxID.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxID.Name = "textBoxID";
             this.textBoxID.Size = new System.Drawing.Size(185, 21);
             this.textBoxID.TabIndex = 2;
@@ -148,8 +148,9 @@ namespace FinalDBMS
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxUsername);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LoginFrm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng Nhập";
             this.Load += new System.EventHandler(this.LoginFrm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.jOBBindingSource)).EndInit();
