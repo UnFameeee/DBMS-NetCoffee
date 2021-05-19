@@ -84,16 +84,16 @@ namespace FinalDBMS
                 ptbEmp.Image.Save(pic, ptbEmp.Image.RawFormat);
                 if (emp.updateEmp(id, fname, gender, bdate, phone, identity, status, email, workid, pic))
                 {
-                    MessageBox.Show("Update Employee " + fname + " Successfully", "Update Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Cập nhật thông tin nhân viên " + fname + " thành công", "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Can't Update Employee " + fname, "Update Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không thể cập nhật thông tin nhân viên " + fname, "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Please Add Enough Employee's Info", "Update Employee", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Hãy điển đầy đủ thông tin nhân viên", "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -104,22 +104,22 @@ namespace FinalDBMS
 
             try
             {
-                if (MessageBox.Show("Are you sure to REMOVE " + tbName.Text, "Remove Employee", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Bạn có chắc chắn muốn xóa thông tin " + tbName.Text, "Xóa nhân viên", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if (emp.removeEmp(id))
                     {
-                        MessageBox.Show("Employee " + tbName.Text + " Has Been Removed", "Remove Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Nhân viên " + tbName.Text + " đã được xóa", "Xóa nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Can't Remove Employee " + tbName.Text, "Remove Employee", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Không thể xóa nhân viên " + tbName.Text, "Xóa nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "Remove Employee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ex.Message, "Xóa nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
