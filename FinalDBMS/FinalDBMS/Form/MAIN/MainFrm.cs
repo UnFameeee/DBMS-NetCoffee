@@ -23,6 +23,8 @@ namespace FinalDBMS
         EmpListFrm frmEmplistFrm = new EmpListFrm() { TopLevel = false, TopMost = false };
         ManageDeviceForm frmManageDevice = new ManageDeviceForm() { TopLevel = false, TopMost = false };
         ManageAccountFrm frmManageAccount = new ManageAccountFrm() { TopLevel = false, TopMost = false };
+        SalaryFrm frmSalary = new SalaryFrm() { TopLevel = true, TopMost = true };
+
         void loadForm()
         {
             pnlMain.Controls.Add(frmAddCustomer);
@@ -73,6 +75,11 @@ namespace FinalDBMS
         {
             resetForm();
             frmManageAccount.Show();
+        }
+
+        private void SalaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmSalary.ShowDialog();
         }
     }
 }

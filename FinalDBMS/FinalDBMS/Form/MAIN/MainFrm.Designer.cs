@@ -39,6 +39,7 @@ namespace FinalDBMS
             this.manageDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aCCOUNTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.SalaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,7 +79,8 @@ namespace FinalDBMS
             // 
             this.eMPLOYEEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.InfoToolStripMenuItem,
-            this.TimeKeepingToolStripMenuItem});
+            this.TimeKeepingToolStripMenuItem,
+            this.SalaryToolStripMenuItem});
             this.eMPLOYEEToolStripMenuItem.Name = "eMPLOYEEToolStripMenuItem";
             this.eMPLOYEEToolStripMenuItem.Size = new System.Drawing.Size(82, 22);
             this.eMPLOYEEToolStripMenuItem.Text = "NHÂN VIÊN";
@@ -116,10 +118,17 @@ namespace FinalDBMS
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Location = new System.Drawing.Point(0, 21);
-            this.pnlMain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlMain.Margin = new System.Windows.Forms.Padding(2);
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1068, 561);
             this.pnlMain.TabIndex = 1;
+            // 
+            // SalaryToolStripMenuItem
+            // 
+            this.SalaryToolStripMenuItem.Name = "SalaryToolStripMenuItem";
+            this.SalaryToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.SalaryToolStripMenuItem.Text = "LƯƠNG";
+            this.SalaryToolStripMenuItem.Click += new System.EventHandler(this.SalaryToolStripMenuItem_Click);
             // 
             // MainFrm
             // 
@@ -131,7 +140,7 @@ namespace FinalDBMS
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QUẢN LÝ QUÁN CYBER NET";
@@ -153,5 +162,6 @@ namespace FinalDBMS
         private System.Windows.Forms.ToolStripMenuItem InfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TimeKeepingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SalaryToolStripMenuItem;
     }
 }
