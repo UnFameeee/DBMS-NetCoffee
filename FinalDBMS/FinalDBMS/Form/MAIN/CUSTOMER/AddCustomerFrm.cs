@@ -61,17 +61,33 @@ namespace FinalDBMS
             
             dataGridViewCus.DataSource = Cus.GetallCus();
             dataGridViewCus.AllowUserToAddRows = false;
-            dataGridViewCus.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            //dataGridViewCus.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            //godwidth(dataGridViewCus,this);
 
             buttonCreateAcc.Enabled = false;
             buttonDoimatkhau.Enabled = false;
             buttonNaptien.Enabled = false;
+            buttonMomay.Enabled = false;
+        }
+        public void godwidth(DataGridView data, Form frm)
+        {
+            data.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            int widthdataGrid = 0;
+            for (int i = 0; i < data.Columns.Count; i++)
+            {
+
+                    widthdataGrid += data.Columns[i].Width;
+
+            }
+            data.Width = widthdataGrid + 65;
+            frm.Width = data.Location.X + data.Width + 30;
         }
         void reloadDatagridview()
         {
             dataGridViewCus.DataSource = Cus.GetallCus();
             dataGridViewCus.AllowUserToAddRows = false;
-            dataGridViewCus.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            //dataGridViewCus.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            godwidth(dataGridViewCus, this);
         }
         private void buttonXoa_Click(object sender, EventArgs e)
         {
@@ -152,9 +168,7 @@ namespace FinalDBMS
         private void dataGridViewCus_DoubleClick(object sender, EventArgs e)
         {
         
-        }
-
-       
+        }    
 
         private void dataGridViewCus_Click(object sender, EventArgs e)
         {
@@ -167,6 +181,8 @@ namespace FinalDBMS
 
             dataGridViewCusAccount.DataSource = account.LoadDataAccCusById(dataGridViewCus.CurrentRow.Cells[0].Value.ToString());
             dataGridViewCusAccount.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            //godwidth(dataGridViewCusAccount, this);
+
             dataGridViewCusAccount.AllowUserToAddRows = false;
 
             if(dataGridViewCusAccount.Rows.Count>0)
@@ -174,6 +190,7 @@ namespace FinalDBMS
                 buttonCreateAcc.Enabled = false;
                 buttonDoimatkhau.Enabled = true;
                 buttonNaptien.Enabled = true;
+                buttonMomay.Enabled = true;
             }
             else if(dataGridViewCusAccount.Rows.Count ==0)
             {
@@ -181,7 +198,8 @@ namespace FinalDBMS
                 buttonCreateAcc.Enabled = true;
                 buttonDoimatkhau.Enabled = false;
                 buttonNaptien.Enabled = false;
-                
+                buttonMomay.Enabled = false;
+
             }    
         }
 
@@ -226,7 +244,8 @@ namespace FinalDBMS
 
         private void buttonMomay_Click(object sender, EventArgs e)
         {
-
+            MomayFrm frm = new MomayFrm(dataGridViewCusAccount.CurrentRow.Cells[4].Value.ToString());
+            frm.Show();
         }
     }
 }

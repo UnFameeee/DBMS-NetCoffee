@@ -22,7 +22,7 @@ namespace FinalDBMS
         private void ManageDeviceForm_Load(object sender, EventArgs e)
         {
             //Hiển thị toàn bộ thông tin Device ngay khi vừa khởi động form
-
+            device.FormatStatus();
             DataGridView_ManageDevices.DataSource = device.getAllDevices();
 
             //Dùng ComboBox để hiển thị các loại thiết bị
@@ -143,13 +143,15 @@ namespace FinalDBMS
         private void Button_UpdateStatus_Click(object sender, EventArgs e)
         {
             string DeviceID = TextBox_DeviceID.Text;
-
+            string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
+            string status = ComboBox_SelectStatus.SelectedValue.ToString();
+            MessageBox.Show(status);
             //Kiểm tra đã đầy đủ thông tin chưa
 
             if (device.DeviceIDAvailable(DeviceID))
             {
-                try
-                {
+                //try
+                //{
                     if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
                     || (ComboBox_SelectStatus.SelectedValue == null))
                     {
@@ -158,13 +160,17 @@ namespace FinalDBMS
 
                     else
                     {
-                        string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
-                        string status = ComboBox_SelectStatus.SelectedValue.ToString();
-                        if (status == "Chưa sử dụng")
-                        {
 
-                            if (device.EditDevice(DeviceID, TypeID, status))
+                        if (status == "Đang sử dụng")
+                        {
+                            MessageBox.Show("Máy đang có khách hàng sử dụng. Không thể chỉnh sửa lúc này.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            if (device.EditDevice(DeviceID, TypeID))
+
                             {
+
                                 MessageBox.Show("Cập nhật máy thành công.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
 
@@ -172,18 +178,16 @@ namespace FinalDBMS
                             {
                                 MessageBox.Show("Cập nhật máy không thành công.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Máy đang có khách hàng sử dụng hoặc đang bảo trì. Không thể chỉnh sửa lúc này.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+ 
                         }
 
+
                     }
-                }
-                catch
-                {
-                    MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                //}
+                //catch
+                //{
+                //    MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //}
             }
 
             else
@@ -236,9 +240,9 @@ namespace FinalDBMS
                     {
                         string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
                         string status = ComboBox_SelectStatus.SelectedValue.ToString();
-                        if (status == "Chưa sử dụng")
+                        if (ComboBox_SelectStatus.SelectedValue.ToString() == "Chưa sử dụng")
                         {
-                            if (device.Func_CheckDevicesFromUser2(DeviceID))
+                            if (device.CheckAvailableDeviceFromUser(DeviceID))
                             {
                                 if (device.StartPlaying(DeviceID))
                                 {
@@ -256,7 +260,7 @@ namespace FinalDBMS
                             }
 
                         }
-                        else if (status == "Đang bảo trì")
+                        else if (ComboBox_SelectStatus.SelectedValue.ToString() == "Đang bảo trì")
                         {
                             MessageBox.Show("Máy đang được bảo trì.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
@@ -314,18 +318,25 @@ namespace FinalDBMS
                     {
                         string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
                         string status = ComboBox_SelectStatus.SelectedValue.ToString();
-                        if (status == "Đang sử dụng")
-                        { 
+                        if (device.CheckAvailableDeviceFromUser(DeviceID))
+                        {
+                            //if (status == "Đang sử dụng")
+                            //{
 
-                            if (device.StopPlaying(DeviceID))
-                            {
-                                MessageBox.Show("Đã dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
+                                if (device.StopPlaying(DeviceID))
+                                {
+                                    MessageBox.Show("Đã dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
 
-                            else
-                            {
-                                MessageBox.Show("Chưa dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
+                                else
+                                {
+                                    MessageBox.Show("Chưa dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                            //}
+                            //else
+                            //{
+                            //    MessageBox.Show("Không có khách hàng nào sử dụng máy này.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //}
                         }
                         else
                         {
@@ -518,6 +529,8 @@ namespace FinalDBMS
                         {
                             MessageBox.Show("Máy đang có khách hàng sử dụng. Không thể cài đặt bảo trì lúc này.", "Cài đặt bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+
+
                         else if (status == "Đang bảo trì")
                         {
                             if (device.StopRepairing(DeviceID))
@@ -531,6 +544,10 @@ namespace FinalDBMS
                                 MessageBox.Show("Dừng bào trì không thành công.", "Dừng bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
+
+
+
+
                     }
                 }
                 catch

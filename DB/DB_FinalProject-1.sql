@@ -30,7 +30,7 @@ INSERT INTO WORKSHIFT VALUES(1, '00:00:00', '08:00:00')
 INSERT INTO WORKSHIFT VALUES(2, '08:00:00', '16:00:00')
 INSERT INTO WORKSHIFT VALUES(3, '16:00:00', '00:00:00')
 --test
-INSERT INTO WORKSHIFT VALUES(4, '18:50:00', '00:00:00')
+INSERT INTO WORKSHIFT VALUES(5, '22:20:00', '00:00:00')
 
 
 --*Tạo table NhânViên (QT)
@@ -164,11 +164,11 @@ CREATE TABLE DEVICES
 INSERT INTO DEVICES VALUES('MAY01','Vip', N'Đang sử dụng')
 INSERT INTO DEVICES VALUES('MAY02','Super Vip',N'Đang bảo trì')
 INSERT INTO DEVICES VALUES('MAY03',N'Thường',N'Chưa sử dụng')
-INSERT INTO DEVICES VALUES('MAY04','Vip',N'Đang sử dụng')
-INSERT INTO DEVICES VALUES('MAY05','Super Vip',N'Chưa sử dụng')
-INSERT INTO DEVICES VALUES('MAY06','Vip',N'Đang bảo trì')
-INSERT INTO DEVICES VALUES('MAY07',N'Thường',N'Chưa sử dụng')
-INSERT INTO DEVICES VALUES('MAY08',N'Thường',N'Chưa sử dụng')
+INSERT INTO DEVICES(DeviceID,TypeID,DStatus) VALUES(N'MAY04',N'Vip',N'Using')
+INSERT INTO DEVICES VALUES('MAY05','Super Vip',N'Đang bảo trì')
+INSERT INTO DEVICES VALUES('MAY06','Vip',N'Chưa sử dụng')
+INSERT INTO DEVICES VALUES('MAY07',N'Thường',N'Đang sử dụng')
+INSERT INTO DEVICES VALUES('MAY08',N'Thường',N'Đang bảo trì')
 INSERT INTO DEVICES VALUES('MAY09',N'Thường',N'Chưa sử dụng')
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -218,6 +218,15 @@ INSERT INTO dbo.ACCOUNTCUSTOMER
     100000.0       -- AccMoney - float
     )
 
+	INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van A', N'1', N'KH1', N'MAY01', 1, 100000.0 )
+	INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van B', N'1', N'KH2', N'MAY02', 0, 100000.0 )
+	INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van C', N'1', N'KH3', N'MAY03', 0, 100000.0 )
+	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van D', N'1', N'KH4', N'MAY04', 1, 100000.0 )
+	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van E', N'1', N'KH5', N'MAY05', 1, 100000.0 )
+	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van F', N'1', N'KH6', N'MAY06', 1, 100000.0 )
+	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van G', N'1', N'KH7', N'MAY07', 1, 100000.0 )
+	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van H', N'1', N'KH8', N'MAY08', 1, 100000.0 )
+	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van I', N'1', N'KH9', N'MAY09', 1, 100000.0 )
 --Tài khoản nhân viên--
 CREATE TABLE ACCOUNTEMPLOYEE 
 (
@@ -226,3 +235,6 @@ CREATE TABLE ACCOUNTEMPLOYEE
 	Password nvarchar(1000),
 	TypeEmployee nvarchar(100)										--0 là nhân viên, 1 là quản lí
 )
+
+select * from DEVICES
+where DStatus = N'Chưa sử dụng'

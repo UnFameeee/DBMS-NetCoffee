@@ -84,14 +84,15 @@ AFTER INSERT
 AS
 BEGIN
 	--Lấy id nhân viên và thời gian check in của nhân viên đó
-	DECLARE @iIDEmployee NVARCHAR(100), @iCheckIN DATETIME
+	DECLARE @iIDEmployee NVARCHAR(100), @iCheckIN TIME
 	SELECT @iIDEmployee = Inserted.IDEmployee, @iCheckIN = Inserted.CheckIn
 	FROM Inserted
+
 	--Lấy ca làm của nhân viên
 	DECLARE @WorkShift INT
-	SELECT @WorkShift = ShiftID
-	FROM dbo.WORKSHIFT
-	WHERE DATEPART(HOUR,@iCheckIn) - DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin)	<= 1	AND DATEPART(HOUR,@iCheckIn) - DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) >= 0		--Nếu trễ 1 tiếng so với ca làm thì không được check in
+	SELECT @WorkShift = WORKSHIFTTME.ShiftID
+	FROM (SELECT CONVERT(TIME, dbo.WORKSHIFT.TimeBegin) AS TimeBegin, ShiftID FROM dbo.WORKSHIFT) AS WORKSHIFTTME
+	WHERE DATEDIFF(MINUTE, WORKSHIFTTME.TimeBegin, @iCheckIN) <= 60	AND DATEDIFF(MINUTE, WORKSHIFTTME.TimeBegin, @iCheckIN) >= 0		--Nếu trễ 1 tiếng so với ca làm thì không được check in
 	--Kiểm tra trong bảng ca có đúng ca làm của nhân viên đang check in không?
 	DECLARE @CountID INT
 	SELECT @CountID = COUNT(*)
@@ -249,7 +250,7 @@ BEGIN
 	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
-			SET DStatus='Đang sử dụng'
+			SET DStatus=N'Đang sử dụng'
 			WHERE DeviceID=@did
 
 			SELECT @deT= dbo.DEVICES.TypeID
@@ -284,7 +285,7 @@ BEGIN
 
 	UPDATE dbo.DEVICES
 	SET
-		DStatus='Chưa sử dụng'
+		DStatus=N'Chưa sử dụng'
 	WHERE DeviceID=@did
 
 	DECLARE @tienmay FLOAT,@kieumay NVARCHAR(50)
@@ -328,7 +329,7 @@ BEGIN
 	 UPDATE dbo.ACCOUNTCUSTOMER
 	 SET
 		ActualTimeAvl=(CONVERT(varchar, @Tavl, 108) + ' ' + CONVERT(VARCHAR, DAY(@Tavl)-1)) + 'ngay ' 
-		+CONVERT(VARCHAR, MONTH(@Tavl)-1) +'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
+		+CONVERT(VARCHAR, MONTH(@Tavl)-1) + 'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
 	 WHERE CustomerID =@cid
 END
 GO
@@ -433,13 +434,13 @@ END
 GO
 
 --4. 
-create or ALTER PROC Edit_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
+create or ALTER PROC Edit_Device (@devid nvarchar(100),@type nvarchar(100))
 AS
 BEGIN
 	UPDATE dbo.DEVICES
 	SET 
-		TypeID=@type,
-		DStatus=@status
+		TypeID=@type
+		--DStatus=@status
 	WHERE DeviceID=@devid
 END
 go
@@ -480,6 +481,8 @@ WHERE ACCOUNTCUSTOMER.DeviceID = @devid
 UPDATE DEVICES
 SET DStatus = N'Chưa sử dụng'
 WHERE DeviceID = @devid
+UPDATE ACCOUNTCUSTOMER
+SET DeviceID = NULL;
 END;
 GO
 
@@ -523,6 +526,20 @@ UPDATE DEVICES
 SET DStatus = N'Chưa sử dụng'
 WHERE DeviceID = @devid
 END;
+GO
+
+--11.
+GO
+CREATE OR ALTER PROCEDURE FormatStatus
+as 
+BEGIN
+UPDATE DEVICES
+SET
+DStatus = N'Chưa sử dụng'
+WHERE DStatus = N'Đang sử dụng'
+AND DeviceID not in
+(select DEVICES.DeviceID from DEVICES, ACCOUNTCUSTOMER Where DEVICES.DeviceID = ACCOUNTCUSTOMER.DeviceID)
+END
 GO
 
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
@@ -655,6 +672,24 @@ BEGIN
 	    )
 END
 GO
+
+CREATE OR ALTER PROC UserLoginDevice_AccountCus (@cid NVARCHAR(100),@did NVARCHAR(100))
+AS
+BEGIN
+
+	UPDATE dbo.DEVICES
+	SET
+		DStatus=N'Đang sử dụng'
+	WHERE DeviceID=@did
+
+	UPDATE dbo.ACCOUNTCUSTOMER
+	SET	
+		DeviceID=@did,
+		StatusCustomer=1
+	WHERE CustomerID=@cid
+END
+GO
+
 --** Việc khách hàng nạp tiền vào Cus và Acus là 2 việc khác nhau vì 2 loại tiền này phục mục đích khác, 
 --tiền của Cus là tiền chung có thể để nạp tiền giờ chơi hay order đồ ăn
 --việc phân biệt này giúp cho việc tính toán số giờ chơi còn lại trong Acus trực quan hơn
@@ -681,7 +716,7 @@ END
 GO
 
 ----------------------------------------------------------------------FUNCTION------------------------------------------------------------------------------------
-----------------------------------------------------------------------Thắng------------------------------------------------------------------------------------
+----------------------------------------------------------------------Quốc Thắng------------------------------------------------------------------------------------
 --Tìm ra nhân viên theo từ khoá đã cho
 CREATE or ALTER FUNCTION Func_SearchEmployeesWithName (@search_name nvarchar(100))
 RETURNS TABLE AS
@@ -704,25 +739,34 @@ RETURNS TABLE AS
 	       WHERE EMPLOYEE.ID = @EmpID;
 GO
 
-
-
+--Tìm ra thông tin của nhân viên đang làm việc trong ca
+CREATE or ALTER FUNCTION Func_CheckEmpWorking ()
+RETURNS TABLE AS
+	RETURN SELECT IDEmployee
+		   FROM TIMEKEEPING
+	       WHERE TIMEKEEPING.CheckOut is null;
+GO
 
 ----------------------------------------------------------------------Phước Đăng-----------------------------------------------------------------------------------
 --1.
+GO
 CREATE or ALTER FUNCTION Func_CheckAvailableDevices (@devid nvarchar(100))
 RETURNS table AS
-	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = 'Chưa sử dụng';
+	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = N'Chưa sử dụng';
 GO
+
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY03') Check01
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY01') Check01
---3.
+--2.
 CREATE or ALTER FUNCTION Func_CheckDevicesFromUser (@devid nvarchar(100))
 RETURNS table AS
 	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
-		and a.DeviceID = d.DeviceID
-		and DStatus != 'Chưa sử dụng';
+		and a.DeviceID = d.DeviceID;
+GO
+
+--3.
 GO
 CREATE or ALTER FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
 RETURNS table AS
@@ -730,14 +774,8 @@ RETURNS table AS
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID
-		and DStatus = 'Chưa sử dụng';
+		and DStatus = N'Chưa sử dụng';
 GO
-
-
-
-
-
-
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
