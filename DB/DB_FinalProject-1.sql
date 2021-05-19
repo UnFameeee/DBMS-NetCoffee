@@ -144,7 +144,7 @@ CREATE TABLE DEVICETYPE
 	Mouse nvarchar(100) NOT NULL,
 	KeyBoard nvarchar(100) NOT NULL
 )
-INSERT INTO DEVICETYPE VALUES('Thuong','AMD Ryzen 5 3600','DDR4','CoolerMaster MWE 400','RTX 3080 GameRock 10G','ASROCK H410M-HVS','XIGMATEK MASTER X 3FX','ViewSonic VA2406','Logitech G102 Lightsync RGB White','Razer Blackwidow Lite')
+INSERT INTO DEVICETYPE VALUES('Thường','AMD Ryzen 5 3600','DDR4','CoolerMaster MWE 400','RTX 3080 GameRock 10G','ASROCK H410M-HVS','XIGMATEK MASTER X 3FX','ViewSonic VA2406','Logitech G102 Lightsync RGB White','Razer Blackwidow Lite')
 INSERT INTO DEVICETYPE VALUES('Vip','AMD Ryzen 5 5600X','DDR4','Gigabyte P450B','RX 6700 XT OC Edition','MSI A320M-A PRO MAX','MSI MAG VAMPIRIC 100R','LG 24GN600-B','Logitech G102 Lightsync RGB Black','Razer Huntsman Mini')
 INSERT INTO DEVICETYPE VALUES('Super Vip','Intel Core i9','DDR4','SilverStone ST50F-ES230','Radeon RX 6800 XT Gaming','sus PRIME H310M-CS R2.0 LGA1151v2','GIGABYTE C200 Glass','LG 24GN600-B','Logitech G102 Lightsync RGB Black','Razer Huntsman V2 Analog')
 --INSERT INTO DEVICETYPE VALUES('Super Vip','Intel Core i7-10570H @ 2.60GHz','DDR4','Gigabyte P450B','RTX™ 3060 ELITE','MSI A320M-A PRO MAX','XIGMATEK MASTER X 3FX','Samsung LS24R350','Logitech G102 Lightsync RGB Black','Razer Huntsman Mini Mercury')
@@ -153,18 +153,18 @@ INSERT INTO DEVICETYPE VALUES('Super Vip','Intel Core i9','DDR4','SilverStone ST
 CREATE TABLE DEVICES
 (
 	DeviceID nvarchar(100) PRIMARY KEY,												--số máy
-	TypeID nvarchar(100) references DEVICETYPE(TypeID),								--loại máy (super vjp, vip, thường)
+	TypeID nvarchar(100) references DEVICETYPE(TypeID) ON UPDATE SET NULL,								--loại máy (super vjp, vip, thường)
 	DStatus nvarchar(100)															--tình trạng máy (đang đc sử dụng, đang đc bảo trì,....)
 )
 INSERT INTO DEVICES VALUES('MAY01','Vip','In use')
 INSERT INTO DEVICES VALUES('MAY02','Super Vip','In repair')
-INSERT INTO DEVICES VALUES('MAY03','Thuong','Not in use')
+INSERT INTO DEVICES VALUES('MAY03','Thường','Not in use')
 INSERT INTO DEVICES VALUES('MAY04','Vip','In use')
 INSERT INTO DEVICES VALUES('MAY05','Super Vip','Not in use')
 INSERT INTO DEVICES VALUES('MAY06','Vip','In repair')
-INSERT INTO DEVICES VALUES('MAY07','Thuong','Not in use')
-INSERT INTO DEVICES VALUES('MAY08','Thuong','Not in use')
-INSERT INTO DEVICES VALUES('MAY09','Thuong','Not in use')
+INSERT INTO DEVICES VALUES('MAY07','Thường','Not in use')
+INSERT INTO DEVICES VALUES('MAY08','Thường','Not in use')
+INSERT INTO DEVICES VALUES('MAY09','Thường','Not in use')
 
 ------------------------------------------------------------------------------------------------------------------------
 --Khách hàng--

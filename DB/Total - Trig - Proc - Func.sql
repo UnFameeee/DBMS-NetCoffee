@@ -92,6 +92,7 @@ BEGIN
 	rollback
 	END
 END;
+
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --1. TRIGGER không cho nhân viên check in nếu chưa tới giờ đi làm
 CREATE TRIGGER UTG_WorkShiftCheckIn ON dbo.TIMEKEEPING
@@ -503,6 +504,85 @@ BEGIN
 	WHERE DeviceID=@devid
 END;
 go
+
+--5. Stored-Procedure hiển thị thông tin của khách hàng đang sử dụng 1 máy cụ thể
+Go
+CREATE OR ALTER PROC ShowCustomerIsPlaying @DevID nvarchar(100)
+as
+begin
+select c.CustomerID,c.FullName,c.PhoneNumber,c.MoneyCharged,a.UserName,a.TimeAvailible,a.TimeUsed,a.DeviceID
+from ACCOUNTCUSTOMER a, DEVICES d, CUSTOMER c
+where a.DeviceID = d.DeviceID
+and a.DeviceID = @DevID
+and a.CustomerID = c.CustomerID
+end;
+
+--6. Chỉnh sửa trạng thái máy thành đã sử dụng
+GO
+CREATE PROCEDURE UpdateStatus @devid nvarchar(MAX)
+as 
+begin
+update DEVICES
+set
+DStatus = N'Đã sử dụng'
+where DeviceID = @devid
+end
+
+--7. Dừng cấp quyền sử dụng
+GO
+CREATE PROCEDURE StopPlaying @devid nvarchar(MAX)
+
+AS
+BEGIN
+
+UPDATE ACCOUNTCUSTOMER 
+SET StatusCustomer = 0
+WHERE ACCOUNTCUSTOMER.DeviceID = @devid
+
+UPDATE DEVICES
+SET DStatus = N'Chưa sử dụng'
+WHERE DeviceID = @devid
+END;
+
+--8. Cấp quyền sử dụng
+CREATE PROCEDURE StartPlaying @devid nvarchar(MAX)
+
+AS
+BEGIN
+
+UPDATE ACCOUNTCUSTOMER 
+SET StatusCustomer = 1
+WHERE ACCOUNTCUSTOMER.DeviceID = @devid
+
+UPDATE DEVICES
+SET DStatus = N'Đang sử dụng'
+WHERE DeviceID = @devid
+END;
+
+--9. Bắt đầu bảo trì
+CREATE PROCEDURE StartRepairing @devid nvarchar(MAX)
+
+AS
+BEGIN
+
+UPDATE ACCOUNTCUSTOMER 
+SET StatusCustomer = 0
+WHERE ACCOUNTCUSTOMER.DeviceID = @devid
+
+UPDATE DEVICES
+SET DStatus = N'Đang bảo trì'
+WHERE DeviceID = @devid
+END;
+
+--10. Dừng bảo trì
+CREATE PROCEDURE StopRepairing @devid nvarchar(MAX)
+AS
+BEGIN
+UPDATE DEVICES
+SET DStatus = N'Chưa sử dụng'
+WHERE DeviceID = @devid
+END;
+
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --PROCEDURE show tiền lương
 CREATE PROCEDURE USP_ShowSalary
@@ -680,34 +760,27 @@ RETURNS TABLE AS
 --1.
 CREATE FUNCTION Func_CheckAvailableDevices (@devid nvarchar(100))
 RETURNS table AS
-	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = 'Not in use';
+	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = 'Chưa sử dụng';
 
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY03') Check01
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY01') Check01
 --3.
-CREATE FUNCTION Func_CheckDevicesFromUser (@devid nvarchar(100))
+ALTER FUNCTION Func_CheckDevicesFromUser (@devid nvarchar(100))
 RETURNS table AS
 	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID
-		and DStatus = 'In use';
+		and DStatus != 'Chưa sử dụng';
 CREATE FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
 RETURNS table AS
 	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID
-		and DStatus = 'Not in use';
+		and DStatus = 'Chưa sử dụng';
 
-
-
-
-
-
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------Sự cố-------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------

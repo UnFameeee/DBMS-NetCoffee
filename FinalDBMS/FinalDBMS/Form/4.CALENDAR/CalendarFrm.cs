@@ -120,74 +120,79 @@ namespace FinalDBMS
                 lbCheckin.Text = "You have been checked out. Have a nice day!";
             }
         }
-        /*
-        //Phần hình ảnh đang làm trong ca
-        void takePicture(string EmpID)
-        {
-            if(count >= 0 && count <= 6)
-            {
-                DataTable table = cld.takePic(EmpID);
-                //Phần hình
-                byte[] pic = (byte[])table.Rows[0][0];
-                MemoryStream Picture = new MemoryStream(pic);
-                MatrixPic[count].Image = Image.FromStream(Picture);
-                //Phần tên
-                MatrixName[count].Text = table.Rows[0][1].ToString();
-                MatrixName[count].Visible = true;
-                //Phần mã nhân viên
-                MatrixEmpID[count] = EmpID;
-                count++;
-            }
-        }
-        void deletePicture(string EmpID)
-        {
-            for(int i = 0; i < 7; ++i)
-            {
-                if(EmpID == MatrixEmpID[i])
-                {
-                    MatrixPic[i].Image = null;
-                    MatrixName[i].Text = "";
-                    MatrixName[i].Visible = false;
-                    MatrixEmpID[i] = "";
-                    break;
-                }
-            }
-            count--;
-            rearrange();
-        }
-        void rearrange()
-        {
-            for (int i = 0; i < 6; ++i)
-            {
-                if(MatrixEmpID[i] == "")
-                {
-                    //Chức năng giống hàm swap
-                    MatrixPic[i].Image = MatrixPic[i + 1].Image;
-                    MatrixName[i].Text = MatrixName[i + 1].Text;
-                    MatrixEmpID[i] = MatrixEmpID[i + 1];
 
-                    MatrixPic[i + 1].Image = null;
-                    MatrixName[i + 1].Text = "";
-                    MatrixEmpID[i + 1] = "";
-                }
-            }
-        }*//*
-        //Phần tải thông tin nhân viên
-        void loadInfo(string EmpID, string operation)
+        private void tbInfo_TextChanged(object sender, EventArgs e)
         {
-            if(operation == "Load")
-            {
-                DataTable table = cld.takeInfoForCalendar(EmpID);
-                tbInfo.Text = "ID Nhân viên: " + table.Rows[0][0].ToString()
-                            + "\nHọ Tên: " + table.Rows[0][1].ToString()
-                            + "\nGiới tính: " + table.Rows[0][2].ToString()
-                            + "\nĐiện thoại: " + table.Rows[0][3].ToString()
-                            + "\nCMND: " + table.Rows[0][4].ToString();
-            }
-            else if(operation == "Unload")
-            {
-                tbInfo.Text = "";
-            }
-        }*/
+
+        }
+        /*
+//Phần hình ảnh đang làm trong ca
+void takePicture(string EmpID)
+{
+   if(count >= 0 && count <= 6)
+   {
+       DataTable table = cld.takePic(EmpID);
+       //Phần hình
+       byte[] pic = (byte[])table.Rows[0][0];
+       MemoryStream Picture = new MemoryStream(pic);
+       MatrixPic[count].Image = Image.FromStream(Picture);
+       //Phần tên
+       MatrixName[count].Text = table.Rows[0][1].ToString();
+       MatrixName[count].Visible = true;
+       //Phần mã nhân viên
+       MatrixEmpID[count] = EmpID;
+       count++;
+   }
+}
+void deletePicture(string EmpID)
+{
+   for(int i = 0; i < 7; ++i)
+   {
+       if(EmpID == MatrixEmpID[i])
+       {
+           MatrixPic[i].Image = null;
+           MatrixName[i].Text = "";
+           MatrixName[i].Visible = false;
+           MatrixEmpID[i] = "";
+           break;
+       }
+   }
+   count--;
+   rearrange();
+}
+void rearrange()
+{
+   for (int i = 0; i < 6; ++i)
+   {
+       if(MatrixEmpID[i] == "")
+       {
+           //Chức năng giống hàm swap
+           MatrixPic[i].Image = MatrixPic[i + 1].Image;
+           MatrixName[i].Text = MatrixName[i + 1].Text;
+           MatrixEmpID[i] = MatrixEmpID[i + 1];
+
+           MatrixPic[i + 1].Image = null;
+           MatrixName[i + 1].Text = "";
+           MatrixEmpID[i + 1] = "";
+       }
+   }
+}*//*
+//Phần tải thông tin nhân viên
+void loadInfo(string EmpID, string operation)
+{
+    if(operation == "Load")
+    {
+        DataTable table = cld.takeInfoForCalendar(EmpID);
+        tbInfo.Text = "ID Nhân viên: " + table.Rows[0][0].ToString()
+                    + "\nHọ Tên: " + table.Rows[0][1].ToString()
+                    + "\nGiới tính: " + table.Rows[0][2].ToString()
+                    + "\nĐiện thoại: " + table.Rows[0][3].ToString()
+                    + "\nCMND: " + table.Rows[0][4].ToString();
+    }
+    else if(operation == "Unload")
+    {
+        tbInfo.Text = "";
+    }
+}*/
     }
 }

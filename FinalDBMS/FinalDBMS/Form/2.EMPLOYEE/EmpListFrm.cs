@@ -81,5 +81,10 @@ namespace FinalDBMS
             SqlCommand com = new SqlCommand("select * from EMPLOYEE where Gender = 'Nam'");
             dgvEmp.DataSource = emp.getEmployees(com);
         }
+
+        private void dgvEmp_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
