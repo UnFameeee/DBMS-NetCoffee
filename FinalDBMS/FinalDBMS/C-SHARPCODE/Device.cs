@@ -32,6 +32,17 @@ namespace FinalDBMS
             adapter.Fill(table);
             return table;
         }
+        public DataTable getAllDevicesNotInUse()
+        {
+            SqlCommand command = new SqlCommand("SELECT CONCAT(deviceid,' (',typeid,')')  AS Máy " +
+                "FROM DEVICES " +
+                "WHERE dbo.DEVICES.DStatus = N'Chưa sử dụng'");
+            command.Connection = mydb.getConnection;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            return table;
+        }
 
         //Thêm máy mới sử dụng Store Procedure
         public bool InsertDevice(string DeviceID, string TypeID, string DStatus)

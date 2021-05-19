@@ -16,23 +16,22 @@ namespace FinalDBMS
         {
             SqlCommand command2 = new SqlCommand("insert into EMPLOYEE (ID,FullName,Gender,Birthday,Phone,IdentityNumber,StatusEmployee,Email,WorkID)" + 
                 "values(@Id,@fn,@gdr,@bd,@phone,@idt,@sta,@email,@workid)", db.getConnection);
-            command2.Parameters.Add("@Id", SqlDbType.VarChar).Value = id;
-            command2.Parameters.Add("@fn", SqlDbType.VarChar).Value = fn;
-            command2.Parameters.Add("@gdr", SqlDbType.VarChar).Value = gdr;
+            command2.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
+            command2.Parameters.Add("@fn", SqlDbType.NVarChar).Value = fn;
+            command2.Parameters.Add("@gdr", SqlDbType.NVarChar).Value = gdr;
             command2.Parameters.Add("@bd", SqlDbType.DateTime).Value = bd;
-            command2.Parameters.Add("@phone", SqlDbType.VarChar).Value = ph;
-            command2.Parameters.Add("@idt", SqlDbType.VarChar).Value = idt;
-            command2.Parameters.Add("@sta", SqlDbType.VarChar).Value = status;
-            command2.Parameters.Add("@email", SqlDbType.VarChar).Value = email;
-            command2.Parameters.Add("@workid", SqlDbType.VarChar).Value = typeid;
+            command2.Parameters.Add("@phone", SqlDbType.NVarChar).Value = ph;
+            command2.Parameters.Add("@idt", SqlDbType.NVarChar).Value = idt;
+            command2.Parameters.Add("@sta", SqlDbType.NVarChar).Value = status;
+            command2.Parameters.Add("@email", SqlDbType.NVarChar).Value = email;
+            command2.Parameters.Add("@workid", SqlDbType.NVarChar).Value = typeid;
+            db.Openconnection();
 
-
-            SqlCommand command = new SqlCommand("insert into ACCOUNTEMPLOYEE (ID,Username,Password,TypeEmployee,Gmail)" + "values(@Id,@user,@pass,@typeid,@email)", db.getConnection);
-            command.Parameters.Add("@user", SqlDbType.VarChar).Value = user;
-            command.Parameters.Add("@pass", SqlDbType.VarChar).Value = pass;
-            command.Parameters.Add("@email", SqlDbType.VarChar).Value = email;
-            command.Parameters.Add("@typeid", SqlDbType.VarChar).Value = typeid;
-            command.Parameters.Add("@Id", SqlDbType.VarChar).Value = id;
+            SqlCommand command = new SqlCommand("insert into ACCOUNTEMPLOYEE (ID,Username,Password,TypeEmployee)" + "values(@Id,@user,@pass,@typeid)", db.getConnection);
+            command.Parameters.Add("@user", SqlDbType.NVarChar).Value = user;
+            command.Parameters.Add("@pass", SqlDbType.NVarChar).Value = pass;
+            command.Parameters.Add("@typeid", SqlDbType.NVarChar).Value = typeid;
+            command.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
 
             db.Openconnection();
             try
@@ -46,7 +45,7 @@ namespace FinalDBMS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ten tai khoan hoac Id nay da duoc su dung Error"+ex.Message, "Register User", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error"+ex.Message, "Register User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             db.Closeconnection();
             return false;

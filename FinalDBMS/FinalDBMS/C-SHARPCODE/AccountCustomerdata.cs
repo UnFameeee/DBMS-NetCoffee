@@ -12,6 +12,31 @@ namespace FinalDBMS
     {
         Mydb db = new Mydb();
 
+        public void accountShowTimeAvl(string accusid)
+        {
+            SqlCommand command = new SqlCommand("EXEC dbo.AccCusActualTimeAvl @cid = @cusid ", db.getConnection);
+            command.Parameters.Add("@cusid", SqlDbType.NVarChar).Value = accusid;
+            db.Openconnection();
+            command.ExecuteNonQuery();
+            db.Closeconnection();
+        }
+        public bool MomaychoAcc(string accusid,string mamay)
+        {
+            SqlCommand command = new SqlCommand("EXEC dbo.UserLoginDevice_AccountCus @cid = @cid, @did = @mamay ", db.getConnection);
+            command.Parameters.Add("@cid", SqlDbType.NVarChar).Value = accusid;
+            command.Parameters.Add("@mamay", SqlDbType.NVarChar).Value = mamay;
+            db.Openconnection();
+            if (command.ExecuteNonQuery() != 0)
+            {
+                return true;
+            }
+            else
+            {
+                db.Closeconnection();
+                return false;
+            }
+
+        }
         public bool NaptienAcc(string accid,float tiennap)
         {
             SqlCommand command = new SqlCommand("EXECUTE dbo.DepositBudget_Accountcustomer " +
@@ -20,7 +45,7 @@ namespace FinalDBMS
             command.Parameters.Add("@id", SqlDbType.NVarChar).Value = accid;
             command.Parameters.Add("@money", SqlDbType.Real).Value = tiennap;
             db.Openconnection();
-            if (command.ExecuteNonQuery() == 2)
+            if (command.ExecuteNonQuery() !=0)
             {
                 return true;
             }
@@ -100,7 +125,7 @@ namespace FinalDBMS
         public DataTable LoadDataAccCusById(string cid)
         {
             SqlCommand command = new SqlCommand("select username as 'Tên tài khoản', password as 'Mật khẩu',Actualtimeavl as'Thời gian sử dụng còn lại', " +
-                "Timeavailible,timeused,customerid as 'Mã khách',deviceid as 'Mã máy sử dụng',Accmoney as 'Số tiền', " +
+                " timeused as 'Thời gian bắt đầu sử dụng' ,customerid as 'Mã khách',deviceid as 'Mã máy sử dụng',Accmoney as 'Số tiền', " +
                 "statuscustomer as 'Trạng thái' from Accountcustomer where customerid=@cid", db.getConnection);
             command.Parameters.Add("cid", SqlDbType.NVarChar).Value = cid;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
