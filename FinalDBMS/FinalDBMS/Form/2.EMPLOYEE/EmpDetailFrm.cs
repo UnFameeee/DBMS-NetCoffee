@@ -40,7 +40,7 @@ namespace FinalDBMS
 
             tbEmpID.Text = tab.Rows[0][0].ToString();
             tbName.Text = tab.Rows[0][1].ToString();
-            tbGender.Text = tab.Rows[0][2].ToString();
+            cbboxGender.SelectedItem = tab.Rows[0][2].ToString();
             dtpBdate.Value = (DateTime)tab.Rows[0][3];
             tbPhone.Text = tab.Rows[0][4].ToString();
             tbIdentity.Text = tab.Rows[0][5].ToString();
@@ -69,7 +69,7 @@ namespace FinalDBMS
             string id = tbEmpID.Text;
             string fname = tbName.Text;
 
-            string gender = tbGender.Text;
+            string gender = cbboxGender.SelectedItem.ToString();
 
             DateTime bdate = dtpBdate.Value;
             string phone = tbPhone.Text;
@@ -104,7 +104,7 @@ namespace FinalDBMS
 
             try
             {
-                if (MessageBox.Show("Bạn có chắc chắn muốn xóa thông tin " + tbName.Text, "Xóa nhân viên", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên " + tbName.Text, "Xóa nhân viên", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if (emp.removeEmp(id))
                     {
@@ -126,7 +126,7 @@ namespace FinalDBMS
         bool verif()
         {
             if (tbEmpID.Text.Trim() == ""
-                || tbGender.Text.Trim() == ""
+                || cbboxGender.SelectedItem == null
                 || tbName.Text.Trim() == ""
                 || tbPhone.Text.Trim() == ""
                 || tbMail.Text.Trim() == ""
