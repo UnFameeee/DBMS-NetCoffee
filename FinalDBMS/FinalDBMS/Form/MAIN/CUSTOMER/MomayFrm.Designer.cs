@@ -61,6 +61,7 @@ namespace FinalDBMS
             this.buttonMomay.TabIndex = 2;
             this.buttonMomay.Text = "Mở máy";
             this.buttonMomay.UseVisualStyleBackColor = true;
+            this.buttonMomay.Click += new System.EventHandler(this.buttonMomay_Click);
             // 
             // MomayFrm
             // 

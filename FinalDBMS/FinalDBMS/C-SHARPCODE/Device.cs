@@ -34,7 +34,9 @@ namespace FinalDBMS
         }
         public DataTable getAllDevicesNotInUse()
         {
-            SqlCommand command = new SqlCommand("SELECT Concat(deviceid,' ',typeid) FROM DEVICES where dstatus ='chưa sử dụng'");
+            SqlCommand command = new SqlCommand("SELECT CONCAT(deviceid,' (',typeid,')')  AS Máy " +
+                "FROM DEVICES " +
+                "WHERE dbo.DEVICES.DStatus = N'Chưa sử dụng'");
             command.Connection = mydb.getConnection;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable table = new DataTable();

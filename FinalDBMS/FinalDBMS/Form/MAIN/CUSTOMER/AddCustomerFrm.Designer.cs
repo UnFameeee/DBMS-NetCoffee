@@ -154,7 +154,7 @@ namespace FinalDBMS
             this.dataGridViewCus.Name = "dataGridViewCus";
             this.dataGridViewCus.RowHeadersWidth = 62;
             this.dataGridViewCus.RowTemplate.Height = 28;
-            this.dataGridViewCus.Size = new System.Drawing.Size(765, 555);
+            this.dataGridViewCus.Size = new System.Drawing.Size(628, 555);
             this.dataGridViewCus.TabIndex = 10;
             this.dataGridViewCus.Click += new System.EventHandler(this.dataGridViewCus_Click);
             this.dataGridViewCus.DoubleClick += new System.EventHandler(this.dataGridViewCus_DoubleClick);
@@ -165,7 +165,7 @@ namespace FinalDBMS
             this.buttonThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonThem.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonThem.ForeColor = System.Drawing.Color.White;
-            this.buttonThem.Location = new System.Drawing.Point(32, 800);
+            this.buttonThem.Location = new System.Drawing.Point(45, 800);
             this.buttonThem.Name = "buttonThem";
             this.buttonThem.Size = new System.Drawing.Size(164, 51);
             this.buttonThem.TabIndex = 5;
@@ -179,7 +179,7 @@ namespace FinalDBMS
             this.buttonXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonXoa.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonXoa.ForeColor = System.Drawing.Color.White;
-            this.buttonXoa.Location = new System.Drawing.Point(237, 800);
+            this.buttonXoa.Location = new System.Drawing.Point(259, 800);
             this.buttonXoa.Name = "buttonXoa";
             this.buttonXoa.Size = new System.Drawing.Size(164, 51);
             this.buttonXoa.TabIndex = 6;
@@ -193,7 +193,7 @@ namespace FinalDBMS
             this.buttonSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSua.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSua.ForeColor = System.Drawing.Color.White;
-            this.buttonSua.Location = new System.Drawing.Point(444, 800);
+            this.buttonSua.Location = new System.Drawing.Point(482, 800);
             this.buttonSua.Name = "buttonSua";
             this.buttonSua.Size = new System.Drawing.Size(164, 51);
             this.buttonSua.TabIndex = 7;
@@ -235,11 +235,11 @@ namespace FinalDBMS
             // dataGridViewCusAccount
             // 
             this.dataGridViewCusAccount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCusAccount.Location = new System.Drawing.Point(854, 234);
+            this.dataGridViewCusAccount.Location = new System.Drawing.Point(685, 234);
             this.dataGridViewCusAccount.Name = "dataGridViewCusAccount";
             this.dataGridViewCusAccount.RowHeadersWidth = 62;
             this.dataGridViewCusAccount.RowTemplate.Height = 28;
-            this.dataGridViewCusAccount.Size = new System.Drawing.Size(736, 223);
+            this.dataGridViewCusAccount.Size = new System.Drawing.Size(905, 151);
             this.dataGridViewCusAccount.TabIndex = 14;
             // 
             // buttonNaptien
@@ -248,7 +248,7 @@ namespace FinalDBMS
             this.buttonNaptien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNaptien.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonNaptien.ForeColor = System.Drawing.Color.White;
-            this.buttonNaptien.Location = new System.Drawing.Point(1110, 475);
+            this.buttonNaptien.Location = new System.Drawing.Point(1123, 414);
             this.buttonNaptien.Name = "buttonNaptien";
             this.buttonNaptien.Size = new System.Drawing.Size(169, 51);
             this.buttonNaptien.TabIndex = 15;
@@ -262,7 +262,7 @@ namespace FinalDBMS
             this.buttonCreateAcc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCreateAcc.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCreateAcc.ForeColor = System.Drawing.Color.White;
-            this.buttonCreateAcc.Location = new System.Drawing.Point(854, 475);
+            this.buttonCreateAcc.Location = new System.Drawing.Point(697, 414);
             this.buttonCreateAcc.Name = "buttonCreateAcc";
             this.buttonCreateAcc.Size = new System.Drawing.Size(176, 51);
             this.buttonCreateAcc.TabIndex = 16;
@@ -276,7 +276,7 @@ namespace FinalDBMS
             this.buttonDoimatkhau.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDoimatkhau.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDoimatkhau.ForeColor = System.Drawing.Color.White;
-            this.buttonDoimatkhau.Location = new System.Drawing.Point(854, 549);
+            this.buttonDoimatkhau.Location = new System.Drawing.Point(900, 414);
             this.buttonDoimatkhau.Name = "buttonDoimatkhau";
             this.buttonDoimatkhau.Size = new System.Drawing.Size(176, 51);
             this.buttonDoimatkhau.TabIndex = 17;
@@ -290,9 +290,9 @@ namespace FinalDBMS
             this.buttonReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonReset.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonReset.ForeColor = System.Drawing.Color.White;
-            this.buttonReset.Location = new System.Drawing.Point(644, 800);
+            this.buttonReset.Location = new System.Drawing.Point(697, 509);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(152, 51);
+            this.buttonReset.Size = new System.Drawing.Size(176, 51);
             this.buttonReset.TabIndex = 18;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = false;
@@ -304,7 +304,7 @@ namespace FinalDBMS
             this.buttonMomay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMomay.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonMomay.ForeColor = System.Drawing.Color.White;
-            this.buttonMomay.Location = new System.Drawing.Point(1110, 549);
+            this.buttonMomay.Location = new System.Drawing.Point(900, 509);
             this.buttonMomay.Name = "buttonMomay";
             this.buttonMomay.Size = new System.Drawing.Size(269, 51);
             this.buttonMomay.TabIndex = 19;
@@ -334,7 +334,6 @@ namespace FinalDBMS
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddCustomerFrm";
             this.Text = "AddCustomerFrm";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.AddCustomerFrm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCus)).EndInit();
             this.panel1.ResumeLayout(false);
