@@ -87,11 +87,11 @@ namespace FinalDBMS
             dataGridViewCus.DataSource = Cus.GetallCus();
             dataGridViewCus.AllowUserToAddRows = false;
             //dataGridViewCus.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
-            godwidth(dataGridViewCus, this);
+            //godwidth(dataGridViewCus, this);
         }
         private void buttonXoa_Click(object sender, EventArgs e)
         {
-            string cusid = dataGridViewCus.CurrentRow.Cells[0].Value.ToString();
+            string cusid = textBoxID.Text;
                   
             try
             {

@@ -450,7 +450,7 @@ Go
 CREATE OR ALTER PROC ShowCustomerIsPlaying @DevID nvarchar(100)
 as
 begin
-select c.CustomerID,c.FullName,c.PhoneNumber,c.MoneyCharged,a.UserName,a.TimeAvailible,a.TimeUsed,a.DeviceID
+select c.CustomerID,c.FullName,c.PhoneNumber,c.MoneyCharged,a.UserName,a.Actualtimeavl,a.TimeUsed,a.DeviceID
 from ACCOUNTCUSTOMER a, DEVICES d, CUSTOMER c
 where a.DeviceID = d.DeviceID
 and a.DeviceID = @DevID
