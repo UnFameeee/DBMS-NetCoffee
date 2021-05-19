@@ -41,22 +41,24 @@ namespace FinalDBMS
             dgvEmp.Columns[6].Width = 150;
             dgvEmp.Columns[8].Width = 50;
 
-            lbToTal.Text = "Total Employees: " + emp.totalEmps().ToString();
-            lbMale.Text = "Male: " + emp.totalMaleEmps().ToString();
-            lbFemale.Text = "Female: " + emp.totalFemaleEmps().ToString();
+            lbToTal.Text = "Tổng nhân viên " + emp.totalEmps().ToString();
+            lbMale.Text = "Nam: " + emp.totalMaleEmps().ToString();
+            lbFemale.Text = "Nữ: " + emp.totalFemaleEmps().ToString();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             AddEmpFrm frm = new AddEmpFrm();
-            frm.Show();
+            frm.ShowDialog();
+            reload();
         }
 
         private void btnDetail_Click(object sender, EventArgs e)
         {
             string id = dgvEmp.CurrentRow.Cells[0].Value.ToString();
             EmpDetailFrm frm = new EmpDetailFrm(id);
-            frm.Show();
+            frm.ShowDialog();
+            reload();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -66,19 +68,22 @@ namespace FinalDBMS
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            SqlCommand com = new SqlCommand("select * from EMPLOYEE where FullName LIKE '%" + tbSearch.Text + "%'");
+            SqlCommand com = new SqlCommand("select ID, FullName as 'Họ Tên', Gender as 'Giới tính', Birthday as 'Ngày sinh', Phone as 'SĐT', " +
+                "IdentityNumber as 'Số CMND', StatusEmployee as 'Trạng thái', Email, WorkID as 'Mã CV', Picture as 'Hình ảnh' from EMPLOYEE where FullName LIKE '%" + tbSearch.Text + "%'");
             dgvEmp.DataSource = emp.getEmployees(com);
         }
 
         private void btnFemale_Click(object sender, EventArgs e)
         {
-            SqlCommand com = new SqlCommand("select * from EMPLOYEE where Gender = 'Nu'");
+            SqlCommand com = new SqlCommand("select ID, FullName as 'Họ Tên', Gender as 'Giới tính', Birthday as 'Ngày sinh', Phone as 'SĐT', " +
+               "IdentityNumber as 'Số CMND', StatusEmployee as 'Trạng thái', Email, WorkID as 'Mã CV', Picture as 'Hình ảnh' from EMPLOYEE where Gender = 'Nữ'");
             dgvEmp.DataSource = emp.getEmployees(com);
         }
 
         private void btnMale_Click(object sender, EventArgs e)
         {
-            SqlCommand com = new SqlCommand("select * from EMPLOYEE where Gender = 'Nam'");
+            SqlCommand com = new SqlCommand("select ID, FullName as 'Họ Tên', Gender as 'Giới tính', Birthday as 'Ngày sinh', Phone as 'SĐT', " +
+                "IdentityNumber as 'Số CMND', StatusEmployee as 'Trạng thái', Email, WorkID as 'Mã CV', Picture as 'Hình ảnh' from EMPLOYEE where Gender = 'Nam'");
             dgvEmp.DataSource = emp.getEmployees(com);
         }
 
