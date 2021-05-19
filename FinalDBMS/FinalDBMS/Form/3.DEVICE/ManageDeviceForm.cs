@@ -143,15 +143,14 @@ namespace FinalDBMS
         private void Button_UpdateStatus_Click(object sender, EventArgs e)
         {
             string DeviceID = TextBox_DeviceID.Text;
-            string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
-            string status = ComboBox_SelectStatus.SelectedValue.ToString();
-            MessageBox.Show(status);
+
+            //MessageBox.Show(status);
             //Kiểm tra đã đầy đủ thông tin chưa
 
             if (device.DeviceIDAvailable(DeviceID))
             {
-                //try
-                //{
+                try
+                {
                     if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
                     || (ComboBox_SelectStatus.SelectedValue == null))
                     {
@@ -160,8 +159,10 @@ namespace FinalDBMS
 
                     else
                     {
+                    string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
+                    string status = ComboBox_SelectStatus.SelectedValue.ToString();
 
-                        if (status == "Đang sử dụng")
+                    if (device.CheckAvailableDeviceFromUser(DeviceID))
                         {
                             MessageBox.Show("Máy đang có khách hàng sử dụng. Không thể chỉnh sửa lúc này.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
@@ -183,11 +184,11 @@ namespace FinalDBMS
 
 
                     }
-                //}
-                //catch
-                //{
-                //    MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //}
+                }
+               catch
+                {
+                    MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
 
             else
@@ -213,7 +214,7 @@ namespace FinalDBMS
                 + "SĐT: " + table.Rows[0]["PhoneNumber"].ToString() + "\n"
                 + "Tổng tài khoản: " + table.Rows[0]["MoneyCharged"].ToString() + "\n"
                 + "Tên đăng nhập: " + table.Rows[0]["UserName"].ToString() + "\n"
-                + "Tổng thời gian: " + table.Rows[0]["TimeAvailible"].ToString() + "\n"
+                + "Tổng thời gian: " + table.Rows[0]["Actualtimeavl"].ToString() + "\n"
                 + "Thời gian đã sử dụng: " + table.Rows[0]["TimeUsed"].ToString() + "\n"
                 ;
             }
