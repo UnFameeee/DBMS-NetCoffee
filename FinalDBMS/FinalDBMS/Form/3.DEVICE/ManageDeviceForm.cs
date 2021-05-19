@@ -75,38 +75,52 @@ namespace FinalDBMS
         {
             string DeviceID = TextBox_DeviceID.Text;
 
-            //Kiểm tra đã đầy đủ thông tin chưa
-
-            if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null) 
-                || (ComboBox_SelectStatus.SelectedValue == null))
+            if (!device.DeviceIDAvailable(DeviceID))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin !!!", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }    
 
-            else
-            {
-                string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
-                string status = ComboBox_SelectStatus.SelectedValue.ToString();
-
-                if (!device.DeviceIDAvailable(DeviceID))
+                //Kiểm tra đã đầy đủ thông tin chưa
+                try
                 {
-
-                    if (device.InsertDevice(DeviceID, TypeID, status))
+                    if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
+                    || (ComboBox_SelectStatus.SelectedValue == null))
                     {
-                        MessageBox.Show("Thêm máy thành công !!!", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin !!!", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
                     else
                     {
-                        MessageBox.Show("Thêm máy không thành công !!!", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
+                        string status = ComboBox_SelectStatus.SelectedValue.ToString();
+
+
+                        if (status == "Chưa sử dụng")
+                        {
+                            if (device.InsertDevice(DeviceID, TypeID, status))
+                            {
+                                MessageBox.Show("Thêm máy thành công.", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("Thêm máy không thành công.", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Máy chưa được sử dụng. Kiểm tra lại trạng thái máy.", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                 }
-
-                else
+                catch
                 {
-                    MessageBox.Show("Vi phạm ràng buộc khoá chính, mời nhập ID khác !!!", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin !!!", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }    
 
+            }
+
+            else
+            {
+                MessageBox.Show("Máy này đã có trong danh sách. ", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
         }
@@ -132,70 +146,136 @@ namespace FinalDBMS
 
             //Kiểm tra đã đầy đủ thông tin chưa
 
-            if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
-                || (ComboBox_SelectStatus.SelectedValue == null))
+            if (device.DeviceIDAvailable(DeviceID))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin !!!", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
+                    || (ComboBox_SelectStatus.SelectedValue == null))
+                    {
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    else
+                    {
+                        string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
+                        string status = ComboBox_SelectStatus.SelectedValue.ToString();
+                        if (status == "Chưa sử dụng")
+                        {
+
+                            if (device.EditDevice(DeviceID, TypeID, status))
+                            {
+                                MessageBox.Show("Cập nhật máy thành công.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("Cập nhật máy không thành công.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Máy đang có khách hàng sử dụng hoặc đang bảo trì. Không thể chỉnh sửa lúc này.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
 
             else
             {
-                string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
-                string status = ComboBox_SelectStatus.SelectedValue.ToString();
-
-                if (device.EditDevice(DeviceID, TypeID, status))
-                {
-                    MessageBox.Show("Cập nhật máy thành công !!!", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                else
-                {
-                    MessageBox.Show("Cập nhật máy không thành công !!!", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
+                MessageBox.Show("Máy này không tồn tại trong danh sách. ", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
         private void Button_Show_Click(object sender, EventArgs e)
         {
-            if ( ComboBox_SelectDevice.SelectedValue == null)
+            string devid = TextBox_DeviceID.Text;
+            DataTable table = device.ShowCustomerIsPlaying(devid);
+            if (table.Rows.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn loại máy hợp lệ !!!", "Hiển thị danh sách", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Chưa có khách hàng nào sử dụng máy này.", "Thông tin khách hàng", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
-            {
-                string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
-                DataGridView_ManageDevices.DataSource = device.Show_InfoCustomer_GroupBy_TypeID(TypeID);
-                EditWidth(DataGridView_ManageDevices, 100, 70);
+            else 
+            { 
+                Label_Info.Text =
+                "THÔNG TIN KHÁCH HÀNG ĐANG DÙNG MÁY " + table.Rows[0]["DeviceID"].ToString() + "\n"
+                + "ID khách hàng: " + table.Rows[0]["CustomerID"].ToString() + "\n"
+                + "Họ và tên: " + table.Rows[0]["FullName"].ToString() + "\n"
+                + "SĐT: " + table.Rows[0]["PhoneNumber"].ToString() + "\n"
+                + "Tổng tài khoản: " + table.Rows[0]["MoneyCharged"].ToString() + "\n"
+                + "Tên đăng nhập: " + table.Rows[0]["UserName"].ToString() + "\n"
+                + "Tổng thời gian: " + table.Rows[0]["TimeAvailible"].ToString() + "\n"
+                + "Thời gian đã sử dụng: " + table.Rows[0]["TimeUsed"].ToString() + "\n"
+                ;
             }
         }
 
         private void Button_StartPlaying_Click(object sender, EventArgs e)
         {
-            if (TextBox_DeviceID.Text.Trim() == "")
-            {
-                MessageBox.Show("Vui lòng chọn máy để tiến hành !!!", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
-            {
-                string devid = TextBox_DeviceID.Text;
-                if (device.CheckAvailableDeviceFromUser(devid))
-                {
-                    MessageBox.Show("Máy đã có người sử dụng !!!", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+            string DeviceID = TextBox_DeviceID.Text;
 
-                else
+            if (device.DeviceIDAvailable(DeviceID))
+            {
+                try
                 {
-                    if (device.CheckAvailableDevice(devid))
+                    //Kiểm tra đã đầy đủ thông tin chưa
+
+                    if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
+                    || (ComboBox_SelectStatus.SelectedValue == null))
                     {
-                        MessageBox.Show("Máy còn trống !!!", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+
+                    //PHẦN CHÍNH
                     else
                     {
-                        MessageBox.Show("Máy đang được bảo trì !!!", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }    
-                }    
-            }    
+                        string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
+                        string status = ComboBox_SelectStatus.SelectedValue.ToString();
+                        if (status == "Chưa sử dụng")
+                        {
+                            if (device.Func_CheckDevicesFromUser2(DeviceID))
+                            {
+                                if (device.StartPlaying(DeviceID))
+                                {
+                                    MessageBox.Show("Đã cấp sử dụng máy.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+
+                                else
+                                {
+                                    MessageBox.Show("Chưa cấp sử dụng máy.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Chưa có khách hàng nào đăng kí sử dụng máy này.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+
+                        }
+                        else if (status == "Đang bảo trì")
+                        {
+                            MessageBox.Show("Máy đang được bảo trì.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Máy đã có khách hàng khác đang sử dụng.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("Máy này không tồn tại trong danh sách. ", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
 
         }
 
@@ -203,8 +283,8 @@ namespace FinalDBMS
         {
             string devid = DataGridView_ManageDevices.CurrentRow.Cells[0].Value.ToString();
             TextBox_DeviceID.Text = devid;
-            //ComboBox_SelectDevice.SelectedValue = DataGridView_ManageDevices.CurrentRow.Cells[1].Value;
-            //ComboBox_SelectStatus.SelectedValue = DataGridView_ManageDevices.CurrentRow.Cells[2].Value;
+            ComboBox_SelectDevice.SelectedValue = DataGridView_ManageDevices.CurrentRow.Cells[1].Value;
+            ComboBox_SelectStatus.SelectedValue = DataGridView_ManageDevices.CurrentRow.Cells[2].Value;
         }
 
         private void Button_Refresh_Click(object sender, EventArgs e)
@@ -217,31 +297,252 @@ namespace FinalDBMS
         {
             string DeviceID = TextBox_DeviceID.Text;
 
-            //Kiểm tra đã đầy đủ thông tin chưa
-
-            if ((TextBox_DeviceID.Text.Trim() == ""))
+            if (device.DeviceIDAvailable(DeviceID))
             {
-                MessageBox.Show("Vui lòng nhập ID máy cần dừng sử dụng !!!", "Dừng sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    //Kiểm tra đã đầy đủ thông tin chưa
+
+                    if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
+                    || (ComboBox_SelectStatus.SelectedValue == null))
+                    {
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    //PHẦN CHÍNH
+                    else
+                    {
+                        string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
+                        string status = ComboBox_SelectStatus.SelectedValue.ToString();
+                        if (status == "Đang sử dụng")
+                        { 
+
+                            if (device.StopPlaying(DeviceID))
+                            {
+                                MessageBox.Show("Đã dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("Chưa dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không có khách hàng nào sử dụng máy này.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
+                    }
             }
+                catch
+            {
+                MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
             else
             {
-
-                if (device.DeleteDeviceByID(DeviceID))
-                {
-                    MessageBox.Show("Đã dừng sử dụng máy !!!", "Dừng sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                else
-                {
-                    MessageBox.Show("Chưa dừng sử dụng máy !!!", "Dừng sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
+                MessageBox.Show("Máy này không tồn tại trong danh sách. ", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
 
         }
 
+        private void Label_ShowInfo_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void Panel_ShowInfo_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Button_Remove_Click(object sender, EventArgs e)
+        {
+            string DeviceID = TextBox_DeviceID.Text;
+
+            if (device.DeviceIDAvailable(DeviceID))
+            {
+                try
+                {
+                    //Kiểm tra đã đầy đủ thông tin chưa
+
+                    if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
+                    || (ComboBox_SelectStatus.SelectedValue == null))
+                    {
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Bảo trì máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    //PHẦN CHÍNH
+                    else
+                    {
+                        string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
+                        string status = ComboBox_SelectStatus.SelectedValue.ToString();
+                        if (status == "Đang sử dụng")
+                        {
+
+                            if (device.StopPlaying(DeviceID))
+                            {
+                                MessageBox.Show("Đã dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("Chưa dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không có khách hàng nào sử dụng máy này.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("Máy này không tồn tại trong danh sách. ", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void ButtonRemoveFromList_Click(object sender, EventArgs e)
+        {
+            string DeviceID = TextBox_DeviceID.Text;
+
+            //Kiểm tra đã đầy đủ thông tin chưa
+
+            if (device.DeviceIDAvailable(DeviceID))
+            {
+                try
+                {
+                    if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
+                    || (ComboBox_SelectStatus.SelectedValue == null))
+                    {
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    else
+                    {
+                        string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
+                        string status = ComboBox_SelectStatus.SelectedValue.ToString();
+                        if (status == "Chưa sử dụng")
+                        {
+
+                            if (device.DeleteDeviceByID(DeviceID))
+                            {
+                                MessageBox.Show("Xoá máy khỏi danh sách thành công.", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("Xoá máy khỏi danh sách không thành công.", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else if (status == "Đang sử dụng")
+                        {
+                            MessageBox.Show("Máy đang có khách hàng sử dụng. Không thể xoá lúc này.", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else if (status == "Đang bảo trì")
+                        {
+                            MessageBox.Show("Máy đang được bảo trì. Không thể xoá lúc này.", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("Máy này không tồn tại trong danh sách. ", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void comboBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+        }
+
+        private void ButtonRepairing_Click(object sender, EventArgs e)
+        {
+            string DeviceID = TextBox_DeviceID.Text;
+
+            //Kiểm tra đã đầy đủ thông tin chưa
+
+            if (device.DeviceIDAvailable(DeviceID))
+            {
+                try
+                {
+                    if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
+                    || (ComboBox_SelectStatus.SelectedValue == null))
+                    {
+                        MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Cài đặt bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                    else
+                    {
+                        string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
+                        string status = ComboBox_SelectStatus.SelectedValue.ToString();
+                        SqlCommand command2 = new SqlCommand("SELECT Distinct DStatus from DEVICES");
+                        if (status == "Chưa sử dụng")
+                        {
+
+                            if (device.StartRepairing(DeviceID))
+                            {
+                                ComboBox_SelectStatus.DataSource = device.getDevice(command2);
+                                MessageBox.Show("Đã tiến hành bảo trì.", "Tiến hành bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("Tiến hành bảo trì không thành công.", "Tiến hành bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else if (status == "Đang sử dụng")
+                        {
+                            MessageBox.Show("Máy đang có khách hàng sử dụng. Không thể cài đặt bảo trì lúc này.", "Cài đặt bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else if (status == "Đang bảo trì")
+                        {
+                            if (device.StopRepairing(DeviceID))
+                            {
+                                ComboBox_SelectStatus.DataSource = device.getDevice(command2);
+                                MessageBox.Show("Đã dừng bảo trì.", "Dừng bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("Dừng bào trì không thành công.", "Dừng bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Cài đặt bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("Máy này không tồn tại trong danh sách. ", "Cài đặt bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
     }
 }

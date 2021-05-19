@@ -151,13 +151,10 @@ namespace FinalDBMS
 
         private void dataGridViewCus_DoubleClick(object sender, EventArgs e)
         {
-            
+        
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+       
 
         private void dataGridViewCus_Click(object sender, EventArgs e)
         {

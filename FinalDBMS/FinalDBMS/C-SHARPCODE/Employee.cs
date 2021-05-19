@@ -26,7 +26,7 @@ namespace FinalDBMS
         {
             SqlCommand com = new SqlCommand("select * from EMPLOYEE where ID = @id");
 
-            com.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+            com.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
 
             return getEmployees(com);
         }
@@ -64,15 +64,15 @@ namespace FinalDBMS
             SqlCommand command = new SqlCommand("insert into EMPLOYEE (ID, FullName, Gender, BirthDay, Phone, IdentityNumber, StatusEmployee, Email, WorkID, Picture) " +
                 "values (@id, @fn, @gdr, @bdt, @phn, @iden, @status, @mail, @wid, @pic)", db.getConnection);
 
-            command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
-            command.Parameters.Add("@fn", SqlDbType.VarChar).Value = fullname;
-            command.Parameters.Add("@gdr", SqlDbType.VarChar).Value = gender;
+            command.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
+            command.Parameters.Add("@fn", SqlDbType.NVarChar).Value = fullname;
+            command.Parameters.Add("@gdr", SqlDbType.NVarChar).Value = gender;
             command.Parameters.Add("@bdt", SqlDbType.DateTime).Value = bdate;
-            command.Parameters.Add("@phn", SqlDbType.VarChar).Value = phone;
-            command.Parameters.Add("@iden", SqlDbType.VarChar).Value = identity;
-            command.Parameters.Add("@status", SqlDbType.VarChar).Value = status;
-            command.Parameters.Add("@mail", SqlDbType.VarChar).Value = email;
-            command.Parameters.Add("@wid", SqlDbType.VarChar).Value = workid;
+            command.Parameters.Add("@phn", SqlDbType.NVarChar).Value = phone;
+            command.Parameters.Add("@iden", SqlDbType.NVarChar).Value = identity;
+            command.Parameters.Add("@status", SqlDbType.NVarChar).Value = status;
+            command.Parameters.Add("@mail", SqlDbType.NVarChar).Value = email;
+            command.Parameters.Add("@wid", SqlDbType.NVarChar).Value = workid;
             command.Parameters.Add("@pic", SqlDbType.Image).Value = picture.ToArray();
 
             db.Openconnection();
@@ -92,7 +92,7 @@ namespace FinalDBMS
         {
             SqlCommand cmd = new SqlCommand("delete from EMPLOYEE where ID = @id", db.getConnection);
 
-            cmd.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+            cmd.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
 
             db.Openconnection();
             if (cmd.ExecuteNonQuery() == 1)
@@ -112,15 +112,15 @@ namespace FinalDBMS
             SqlCommand command = new SqlCommand("update EMPLOYEE set FullName = @fn, Gender = @gdr, BirthDay = @bdt, Phone = @phn, IdentityNumber = @iden, StatusEmployee = @status, " +
                 "Email = @mail, WorkID = @wid, picture = @pic where ID = @id ", db.getConnection);
 
-            command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
-            command.Parameters.Add("@fn", SqlDbType.VarChar).Value = fullname;
-            command.Parameters.Add("@gdr", SqlDbType.VarChar).Value = gender;
+            command.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
+            command.Parameters.Add("@fn", SqlDbType.NVarChar).Value = fullname;
+            command.Parameters.Add("@gdr", SqlDbType.NVarChar).Value = gender;
             command.Parameters.Add("@bdt", SqlDbType.DateTime).Value = bdate;
-            command.Parameters.Add("@phn", SqlDbType.VarChar).Value = phone;
-            command.Parameters.Add("@iden", SqlDbType.VarChar).Value = identity;
-            command.Parameters.Add("@status", SqlDbType.VarChar).Value = status;
-            command.Parameters.Add("@mail", SqlDbType.VarChar).Value = email;
-            command.Parameters.Add("@wid", SqlDbType.VarChar).Value = workid;
+            command.Parameters.Add("@phn", SqlDbType.NVarChar).Value = phone;
+            command.Parameters.Add("@iden", SqlDbType.NVarChar).Value = identity;
+            command.Parameters.Add("@status", SqlDbType.NVarChar).Value = status;
+            command.Parameters.Add("@mail", SqlDbType.NVarChar).Value = email;
+            command.Parameters.Add("@wid", SqlDbType.NVarChar).Value = workid;
             command.Parameters.Add("@pic", SqlDbType.Image).Value = picture.ToArray();
 
             db.Openconnection();
@@ -140,7 +140,7 @@ namespace FinalDBMS
         {
             SqlCommand com = new SqlCommand("select * from EMPLOYEE where id = @id", db.getConnection);
 
-            com.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+            com.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
 
             SqlDataAdapter adapter = new SqlDataAdapter(com);
             DataTable table = new DataTable();

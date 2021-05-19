@@ -42,9 +42,9 @@ namespace FinalDBMS
 
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.Add("@devid", SqlDbType.VarChar).Value = DeviceID;
-            command.Parameters.Add("@type", SqlDbType.VarChar).Value = TypeID;
-            command.Parameters.Add("@status", SqlDbType.VarChar).Value = DStatus;
+            command.Parameters.Add("@devid", SqlDbType.NVarChar).Value = DeviceID;
+            command.Parameters.Add("@type", SqlDbType.NVarChar).Value = TypeID;
+            command.Parameters.Add("@status", SqlDbType.NVarChar).Value = DStatus;
 
 
             mydb.Openconnection();
@@ -72,9 +72,9 @@ namespace FinalDBMS
 
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.Add("@devid", SqlDbType.VarChar).Value = DeviceID;
-            command.Parameters.Add("@type", SqlDbType.VarChar).Value = TypeID;
-            command.Parameters.Add("@status", SqlDbType.VarChar).Value = DStatus;
+            command.Parameters.Add("@devid", SqlDbType.NVarChar).Value = DeviceID;
+            command.Parameters.Add("@type", SqlDbType.NVarChar).Value = TypeID;
+            command.Parameters.Add("@status", SqlDbType.NVarChar).Value = DStatus;
 
 
             mydb.Openconnection();
@@ -170,5 +170,114 @@ namespace FinalDBMS
             adapter.Fill(table);
             return table.Rows.Count > 0;
         }
+        public bool Func_CheckDevicesFromUser2(string devid)
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM Func_CheckDevicesFromUser (@devid)", mydb.getConnection);
+            command.Parameters.Add("@devid", System.Data.SqlDbType.NVarChar).Value = devid;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            return table.Rows.Count > 0;
+        }
+
+        public DataTable ShowCustomerIsPlaying(string devid)
+        {
+            //Đưa stored procedure vào
+            //Không cần truyền tham số ngay command nhưng phải thêm Parameter bên dưới
+            SqlCommand command = new SqlCommand("ShowCustomerIsPlaying", mydb.getConnection);
+            command.Parameters.Add("@DevID", System.Data.SqlDbType.NVarChar).Value = devid;
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            return table;
+        }
+
+        public void UpdateStatus (string devid)
+        {
+            SqlCommand command = new SqlCommand("UpdateStatus", mydb.getConnection);
+            command.Parameters.Add("@devid", System.Data.SqlDbType.NVarChar).Value = devid;
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+        }
+
+        public bool StopPlaying(string devid)
+        {
+            SqlCommand command = new SqlCommand("StopPlaying", mydb.getConnection);
+            command.Parameters.Add("@devid", System.Data.SqlDbType.NVarChar).Value = devid;
+            command.CommandType = CommandType.StoredProcedure;
+            mydb.Openconnection();
+            if ((command.ExecuteNonQuery() >= 1))
+            {
+                mydb.Closeconnection();
+                return true;
+            }
+            else
+            {
+                mydb.Closeconnection();
+                return false;
+            }
+
+        }
+
+        public bool StartPlaying(string devid)
+        {
+            SqlCommand command = new SqlCommand("StartPlaying", mydb.getConnection);
+            command.Parameters.Add("@devid", System.Data.SqlDbType.NVarChar).Value = devid;
+            command.CommandType = CommandType.StoredProcedure;
+            mydb.Openconnection();
+            if ((command.ExecuteNonQuery() >= 1))
+            {
+                mydb.Closeconnection();
+                return true;
+            }
+            else
+            {
+                mydb.Closeconnection();
+                return false;
+            }
+
+        }
+
+        public bool StartRepairing(string devid)
+        {
+            SqlCommand command = new SqlCommand("StartRepairing", mydb.getConnection);
+            command.Parameters.Add("@devid", System.Data.SqlDbType.NVarChar).Value = devid;
+            command.CommandType = CommandType.StoredProcedure;
+            mydb.Openconnection();
+            if ((command.ExecuteNonQuery() >= 1))
+            {
+                mydb.Closeconnection();
+                return true;
+            }
+            else
+            {
+                mydb.Closeconnection();
+                return false;
+            }
+
+        }
+
+        public bool StopRepairing(string devid)
+        {
+            SqlCommand command = new SqlCommand("StartRepairing", mydb.getConnection);
+            command.Parameters.Add("@devid", System.Data.SqlDbType.NVarChar).Value = devid;
+            command.CommandType = CommandType.StoredProcedure;
+            mydb.Openconnection();
+            if ((command.ExecuteNonQuery() >= 1))
+            {
+                mydb.Closeconnection();
+                return true;
+            }
+            else
+            {
+                mydb.Closeconnection();
+                return false;
+            }
+
+        }
+
     }
 }

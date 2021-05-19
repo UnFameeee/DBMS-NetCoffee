@@ -204,8 +204,8 @@ BEGIN
 END
 GO
 --vi du 
-EXECUTE dbo.DepositBudget_Accountcustomer @cid = N'42', -- nvarchar(100)
-                                          @mon = 100000.0  -- float
+EXECUTE dbo.DepositBudget_Accountcustomer @cid = N'kh1', -- nvarchar(100)
+                                          @mon = 2000.0  -- float
 
 
 go
@@ -238,7 +238,8 @@ BEGIN
 	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
-			SET DStatus='Đang sử dụng'
+
+			SET DStatus=N'Đang sử dụng'
 			WHERE DeviceID=@did
 
 			SELECT @deT= dbo.DEVICES.TypeID
@@ -251,6 +252,7 @@ BEGIN
 			ELSE IF(@deT =N'Super Vip')
 				SET @tienmay=12000
 			ELSE SET @tienmay=5000
+
 
 			DECLARE @minuteMoney INT = @AccM*60/@tienmay
 			SET @Tavl = FORMAT(DATEADD(MINUTE, @minuteMoney, @Tavl), 'dd/MM/yyyy hh:mm:ss tt')
@@ -271,10 +273,11 @@ BEGIN
 
 	UPDATE dbo.DEVICES
 	SET
-		DStatus='Chưa sử dụng'
+
+		DStatus=N'Chưa sử dụng'
 	WHERE DeviceID=@did
 
-	DECLARE @tienmay FLOAT,@kieumay NVARCHAR(50)
+	DECLARE @tienmay FLOAT, @kieumay nvarchar(50)
 
 	SELECT @kieumay=TypeID
 	FROM dbo.DEVICES
@@ -291,6 +294,7 @@ BEGIN
 		SET @tienmay=12000
 	ELSE SET @tienmay=5000
 
+
 	UPDATE dbo.ACCOUNTCUSTOMER
 	SET	
 		AccMoney=AccMoney+CAST(ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1) as float),
@@ -298,11 +302,15 @@ BEGIN
 		TimeUsed=NULL,
 		DeviceID=NULL,
 		StatusCustomer=0
-	WHERE CustomerID=@cid
+	WHERE CustomerID=@cid 
 END
 --vi du
+
 EXECUTE dbo.Userlogout_AccountCus @cid = N'42', -- nvarchar(100)
                                   @did = N'1'  -- nvarchar(100)
+=======
+EXECUTE dbo.Userlogout_AccountCus @cid = N'kh6', -- nvarchar(100)
+                                  @did = N'MAY03'  -- nvarchar(100)
 GO	
 CREATE OR ALTER PROC AccCusActualTimeAvl(@cid NVARCHAR(100))
 AS
@@ -318,7 +326,8 @@ BEGIN
 		+CONVERT(VARCHAR, MONTH(@Tavl)-1) +'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
 	 WHERE CustomerID =@cid
 END
-GO
+GO --help
 SELECT SYSDATETIME()
 --vi du
-EXECUTE dbo.AccCusActualTimeAvl @cid = N'03' -- nvarchar(100)
+EXECUTE dbo.AccCusActualTimeAvl @cid = N'kh6' -- nvarchar(100)
+--doned

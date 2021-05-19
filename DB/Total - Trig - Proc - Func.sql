@@ -4,7 +4,7 @@ GO
 ----------------------------------------------------------------------TRIGGER------------------------------------------------------------------------------------
 ----------------------------------------------------------------------Phước Đăng------------------------------------------------------------------------------------
 --1. Khi sửa lại máy Super vip thì không được nhập CPU là Intel Core i3 hoặc Core i5
-CREATE TRIGGER Add_Device_CPU_condition ON DEVICETYPE
+CREATE or ALTER TRIGGER Add_Device_CPU_condition ON DEVICETYPE
 AFTER INSERT,UPDATE AS
 declare @CPU nvarchar(100)
 BEGIN
@@ -23,7 +23,7 @@ BEGIN
 END;
 
 --2.Khi sửa lại máy Vip thì Keyboard của máy Thường không được trùng với máy Vip 
-CREATE TRIGGER Add_Device_Keyboard_Condition ON DEVICETYPE
+CREATE or ALTER TRIGGER Add_Device_Keyboard_Condition ON DEVICETYPE
 AFTER INSERT, UPDATE AS
 declare 
 		@Keyboard_Vip_Default nvarchar(100), 
@@ -57,7 +57,7 @@ BEGIN
 END;
 
 --3. Ram phải luôn bắt buộc là DDR4, DDR3, DDR2
-CREATE TRIGGER Add_Device_RAM_condition ON DEVICETYPE
+CREATE or ALTER TRIGGER Add_Device_RAM_condition ON DEVICETYPE
 AFTER INSERT,UPDATE AS
 declare @Ram nvarchar(100)
 BEGIN
@@ -95,7 +95,7 @@ BEGIN
 END;
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --1. TRIGGER không cho nhân viên check in nếu chưa tới giờ đi làm
-CREATE TRIGGER UTG_WorkShiftCheckIn ON dbo.TIMEKEEPING
+CREATE or ALTER TRIGGER UTG_WorkShiftCheckIn ON dbo.TIMEKEEPING
 AFTER INSERT
 AS
 BEGIN
@@ -111,8 +111,8 @@ BEGIN
 	--Kiểm tra trong bảng ca có đúng ca làm của nhân viên đang check in không?
 	DECLARE @CountID INT
 	SELECT @CountID = COUNT(*)
-	FROM dbo.WORKS
-	WHERE @WorkShift = dbo.WORKS.ShiftID AND @iIDEmployee = dbo.WORKS.ID
+	FROM dbo.WORK
+	WHERE @WorkShift = dbo.WORK.ShiftID AND @iIDEmployee = dbo.WORK.EmpID
 	--Kiểm tra ca làm của nhân viên
 	IF (@CountID < 1)
 	BEGIN
@@ -121,9 +121,8 @@ BEGIN
 	END
 END
 GO
-
 --2. TRIGGER thay đổi thưởng phạt khi check out tan làm sớm hoặc muộn để tính tiền thưởng phạt
-CREATE TRIGGER UTG_RewardFineCheckOut ON dbo.TIMEKEEPING
+CREATE or ALTER TRIGGER UTG_RewardFineCheckOut ON dbo.TIMEKEEPING
 AFTER UPDATE
 AS
 BEGIN
@@ -157,9 +156,8 @@ BEGIN
 	WHERE @iIDEmployee = IDEmployee AND @iMonthWork = MonthWork AND @iYearWork = YearWork
 END
 GO
-
 --3. TRIGGER cập nhật thay đổi bảng SALARY khi nhân viên check out
-CREATE TRIGGER UTG_SalaryCheckOut ON dbo.TIMEKEEPING
+CREATE or ALTER TRIGGER UTG_SalaryCheckOut ON dbo.TIMEKEEPING
 AFTER UPDATE
 AS
 BEGIN
@@ -173,10 +171,10 @@ BEGIN
 	FROM dbo.SALARY
 	WHERE @iIDEmployee = dbo.SALARY.IDEmployee AND MONTH(@iCheckOut) = MonthWork AND YEAR(@iCheckOut) = YearWork
 	--Lấy chức vụ của nhân viên
-	DECLARE @iEmployeeType INT
+	DECLARE @iEmployeeType NVARCHAR(100)
 	SELECT @iEmployeeType = WorkID
 	FROM dbo.EMPLOYEE 
-	WHERE @iIDEmployee = dbo.EMPLOYEE.IDEmployee	
+	WHERE @iIDEmployee = dbo.EMPLOYEE.ID	
 	--Lấy hệ số của nhân viên dựa trên loại của nhân viên
 	DECLARE @CoefficientsSalary REAL
 	SELECT @CoefficientsSalary = CoefficientsSalary
@@ -185,8 +183,8 @@ BEGIN
 	--Lấy ca làm của nhân viên
 	DECLARE @ShiftID INT
 	SELECT @ShiftID = dbo.WORKSHIFT.ShiftID
-	FROM dbo.WORKSHIFT, dbo.WORKS
-	WHERE dbo.WORKS.ID = @iIDEmployee AND dbo.WORKSHIFT.ShiftID = dbo.WORKS.ShiftID AND DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) <= DATEPART(HOUR,@iCheckIn) AND DATEDIFF(HOUR,dbo.WORKSHIFT.TimeBegin, @iCheckIn) < 8
+	FROM dbo.WORKSHIFT, dbo.WORK
+	WHERE dbo.WORK.EmpID = @iIDEmployee AND dbo.WORKSHIFT.ShiftID = dbo.WORK.ShiftID AND DATEPART(HOUR,dbo.WORKSHIFT.TimeBegin) <= DATEPART(HOUR,@iCheckIn) AND DATEDIFF(HOUR,dbo.WORKSHIFT.TimeBegin, @iCheckIn) < 8
 	--Tính lương của nhân viên
 	DECLARE @Wages REAL
 	IF (@ShiftID = 1)															--Làm giờ ban đêm từ 0h đến 8h
@@ -204,7 +202,7 @@ END
 GO
 
 --4. Thay đổi số ca làm nhân viên khi nhân viên check in
-CREATE TRIGGER UTG_SalaryCheckIn ON dbo.TIMEKEEPING
+CREATE or ALTER TRIGGER UTG_SalaryCheckIn ON dbo.TIMEKEEPING
 AFTER INSERT
 AS
 BEGIN
@@ -392,7 +390,7 @@ end;
 --Số điện thoại nhân viên phải từ 10 đến 11 chữ số
 create trigger TG_FormatPhoneNumber on EMPLOYEE
 for insert, update as
-declare @ID nvarchar(100), @Phone int
+declare @ID nvarchar(100), @Phone NVARCHAR(100)
 begin
 	--Lấy ra mã ID của nhân viên vừa nhập
 	select @ID = inserted.ID
@@ -466,6 +464,20 @@ BEGIN
 END;
 go
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
+--PROCEDURE show tiền lương
+CREATE PROCEDURE USP_ShowSalary
+AS
+BEGIN
+	SELECT * FROM SALARY											
+END
+GO
+--PROCEDURE show toàn bộ điểm danh
+CREATE PROCEDURE USP_ShowFullTimeKeeping 
+AS
+BEGIN
+	SELECT * FROM TIMEKEEPING
+END
+GO
 --PROCEDURE khi nhân viên check in thêm vào bảng WORK
 CREATE PROCEDURE USP_CheckIn @IDEmployee NVARCHAR(100)
 AS
@@ -473,7 +485,6 @@ BEGIN
 	INSERT INTO dbo.TIMEKEEPING (IDEmployee, CheckIn) VALUES (@IDEmployee, GETDATE())					--Thêm vào bảng WORK
 END
 GO
-
 --PROCEDURE khi nhân viên check out update bảng WORK
 CREATE PROCEDURE USP_CheckOut @IDEmployee NVARCHAR(100)
 AS
@@ -481,15 +492,13 @@ BEGIN
 	UPDATE TIMEKEEPING SET CheckOut = GETDATE() WHERE IDEmployee = @IDEmployee AND CheckOut IS NULL		--Thay đổi chỉnh sửa bảng WORK
 END
 GO
-
 --PROCEDURE kiểm tra ID nhân viên có tồn tại hay không
 CREATE PROCEDURE USP_CheckIDEmployee @IDEmployee NVARCHAR(100)
 AS
 BEGIN
-	SELECT * FROM EMPLOYEE WHERE IDEmployee = @IDEmployee												--SELECT * để kiểm tra tồn tại của nhân viên
+	SELECT * FROM EMPLOYEE WHERE ID = @IDEmployee												--SELECT * để kiểm tra tồn tại của nhân viên
 END
 GO
-
 --PROCEDURE kiểm tra nhân viên có đang trong ca làm hay không
 CREATE PROCEDURE USP_CheckIDEmployeeWorking @IDEmployee NVARCHAR(100)
 AS

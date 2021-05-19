@@ -29,6 +29,7 @@ namespace FinalDBMS
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddCustomerFrm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,7 +46,6 @@ namespace FinalDBMS
             this.buttonSua = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonClose = new System.Windows.Forms.Button();
             this.dataGridViewCusAccount = new System.Windows.Forms.DataGridView();
             this.buttonNaptien = new System.Windows.Forms.Button();
             this.buttonCreateAcc = new System.Windows.Forms.Button();
@@ -60,9 +60,10 @@ namespace FinalDBMS
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(45, 23);
+            this.label1.Location = new System.Drawing.Point(30, 15);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 32);
+            this.label1.Size = new System.Drawing.Size(82, 21);
             this.label1.TabIndex = 0;
             this.label1.Text = "Mã Khách ";
             // 
@@ -70,9 +71,10 @@ namespace FinalDBMS
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(45, 100);
+            this.label2.Location = new System.Drawing.Point(30, 65);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 32);
+            this.label2.Size = new System.Drawing.Size(56, 21);
             this.label2.TabIndex = 1;
             this.label2.Text = "Họ tên";
             // 
@@ -80,9 +82,10 @@ namespace FinalDBMS
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(556, 28);
+            this.label3.Location = new System.Drawing.Point(371, 18);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(126, 32);
+            this.label3.Size = new System.Drawing.Size(81, 21);
             this.label3.TabIndex = 2;
             this.label3.Text = "Điện thoại";
             // 
@@ -90,9 +93,10 @@ namespace FinalDBMS
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(556, 98);
+            this.label4.Location = new System.Drawing.Point(371, 64);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 32);
+            this.label4.Size = new System.Drawing.Size(57, 21);
             this.label4.TabIndex = 3;
             this.label4.Text = "CMND";
             // 
@@ -100,60 +104,67 @@ namespace FinalDBMS
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1168, 34);
+            this.label5.Location = new System.Drawing.Point(779, 22);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(261, 32);
+            this.label5.Size = new System.Drawing.Size(168, 21);
             this.label5.TabIndex = 4;
             this.label5.Text = "Số tiền trong tài khoản";
             // 
             // textBoxID
             // 
             this.textBoxID.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxID.Location = new System.Drawing.Point(180, 20);
+            this.textBoxID.Location = new System.Drawing.Point(120, 13);
+            this.textBoxID.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxID.Name = "textBoxID";
-            this.textBoxID.Size = new System.Drawing.Size(208, 39);
+            this.textBoxID.Size = new System.Drawing.Size(140, 29);
             this.textBoxID.TabIndex = 0;
             // 
             // textBoxHoten
             // 
             this.textBoxHoten.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxHoten.Location = new System.Drawing.Point(180, 94);
+            this.textBoxHoten.Location = new System.Drawing.Point(120, 61);
+            this.textBoxHoten.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxHoten.Name = "textBoxHoten";
-            this.textBoxHoten.Size = new System.Drawing.Size(206, 39);
+            this.textBoxHoten.Size = new System.Drawing.Size(139, 29);
             this.textBoxHoten.TabIndex = 1;
             // 
             // textBoxCmnd
             // 
             this.textBoxCmnd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCmnd.Location = new System.Drawing.Point(684, 94);
+            this.textBoxCmnd.Location = new System.Drawing.Point(456, 61);
+            this.textBoxCmnd.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxCmnd.Name = "textBoxCmnd";
-            this.textBoxCmnd.Size = new System.Drawing.Size(234, 39);
+            this.textBoxCmnd.Size = new System.Drawing.Size(157, 29);
             this.textBoxCmnd.TabIndex = 3;
             // 
             // textBoxPhone
             // 
             this.textBoxPhone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPhone.Location = new System.Drawing.Point(684, 20);
+            this.textBoxPhone.Location = new System.Drawing.Point(456, 13);
+            this.textBoxPhone.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPhone.Name = "textBoxPhone";
-            this.textBoxPhone.Size = new System.Drawing.Size(234, 39);
+            this.textBoxPhone.Size = new System.Drawing.Size(157, 29);
             this.textBoxPhone.TabIndex = 2;
             // 
             // textBoxMoney
             // 
             this.textBoxMoney.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxMoney.Location = new System.Drawing.Point(1174, 69);
+            this.textBoxMoney.Location = new System.Drawing.Point(783, 45);
+            this.textBoxMoney.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxMoney.Name = "textBoxMoney";
-            this.textBoxMoney.Size = new System.Drawing.Size(244, 39);
+            this.textBoxMoney.Size = new System.Drawing.Size(164, 29);
             this.textBoxMoney.TabIndex = 4;
             // 
             // dataGridViewCus
             // 
             this.dataGridViewCus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCus.Location = new System.Drawing.Point(31, 234);
+            this.dataGridViewCus.Location = new System.Drawing.Point(21, 152);
+            this.dataGridViewCus.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewCus.Name = "dataGridViewCus";
             this.dataGridViewCus.RowHeadersWidth = 62;
             this.dataGridViewCus.RowTemplate.Height = 28;
-            this.dataGridViewCus.Size = new System.Drawing.Size(765, 555);
+            this.dataGridViewCus.Size = new System.Drawing.Size(510, 361);
             this.dataGridViewCus.TabIndex = 10;
             this.dataGridViewCus.Click += new System.EventHandler(this.dataGridViewCus_Click);
             this.dataGridViewCus.DoubleClick += new System.EventHandler(this.dataGridViewCus_DoubleClick);
@@ -164,9 +175,10 @@ namespace FinalDBMS
             this.buttonThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonThem.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonThem.ForeColor = System.Drawing.Color.White;
-            this.buttonThem.Location = new System.Drawing.Point(31, 800);
+            this.buttonThem.Location = new System.Drawing.Point(21, 520);
+            this.buttonThem.Margin = new System.Windows.Forms.Padding(2);
             this.buttonThem.Name = "buttonThem";
-            this.buttonThem.Size = new System.Drawing.Size(164, 51);
+            this.buttonThem.Size = new System.Drawing.Size(109, 33);
             this.buttonThem.TabIndex = 5;
             this.buttonThem.Text = "Thêm";
             this.buttonThem.UseVisualStyleBackColor = false;
@@ -178,9 +190,10 @@ namespace FinalDBMS
             this.buttonXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonXoa.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonXoa.ForeColor = System.Drawing.Color.White;
-            this.buttonXoa.Location = new System.Drawing.Point(237, 800);
+            this.buttonXoa.Location = new System.Drawing.Point(158, 520);
+            this.buttonXoa.Margin = new System.Windows.Forms.Padding(2);
             this.buttonXoa.Name = "buttonXoa";
-            this.buttonXoa.Size = new System.Drawing.Size(164, 51);
+            this.buttonXoa.Size = new System.Drawing.Size(109, 33);
             this.buttonXoa.TabIndex = 6;
             this.buttonXoa.Text = "Xoá";
             this.buttonXoa.UseVisualStyleBackColor = false;
@@ -192,9 +205,10 @@ namespace FinalDBMS
             this.buttonSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSua.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSua.ForeColor = System.Drawing.Color.White;
-            this.buttonSua.Location = new System.Drawing.Point(444, 800);
+            this.buttonSua.Location = new System.Drawing.Point(296, 520);
+            this.buttonSua.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSua.Name = "buttonSua";
-            this.buttonSua.Size = new System.Drawing.Size(164, 51);
+            this.buttonSua.Size = new System.Drawing.Size(109, 33);
             this.buttonSua.TabIndex = 7;
             this.buttonSua.Text = "Sửa";
             this.buttonSua.UseVisualStyleBackColor = false;
@@ -205,10 +219,9 @@ namespace FinalDBMS
             this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.label6.Font = new System.Drawing.Font("Arial", 18.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(452, 14);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(301, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(680, 52);
+            this.label6.Size = new System.Drawing.Size(453, 34);
             this.label6.TabIndex = 11;
             this.label6.Text = "QUẢN LÝ KHÁCH HÀNG";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -225,30 +238,20 @@ namespace FinalDBMS
             this.panel1.Controls.Add(this.textBoxMoney);
             this.panel1.Controls.Add(this.textBoxHoten);
             this.panel1.Controls.Add(this.textBoxPhone);
-            this.panel1.Location = new System.Drawing.Point(57, 71);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel1.Location = new System.Drawing.Point(38, 46);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1490, 155);
+            this.panel1.Size = new System.Drawing.Size(993, 101);
             this.panel1.TabIndex = 12;
-            // 
-            // buttonClose
-            // 
-            this.buttonClose.Location = new System.Drawing.Point(1213, 12);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(112, 37);
-            this.buttonClose.TabIndex = 13;
-            this.buttonClose.Text = "Close";
-            this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // dataGridViewCusAccount
             // 
             this.dataGridViewCusAccount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCusAccount.Location = new System.Drawing.Point(854, 234);
+            this.dataGridViewCusAccount.Location = new System.Drawing.Point(569, 152);
+            this.dataGridViewCusAccount.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewCusAccount.Name = "dataGridViewCusAccount";
             this.dataGridViewCusAccount.RowHeadersWidth = 62;
             this.dataGridViewCusAccount.RowTemplate.Height = 28;
-            this.dataGridViewCusAccount.Size = new System.Drawing.Size(736, 223);
+            this.dataGridViewCusAccount.Size = new System.Drawing.Size(491, 145);
             this.dataGridViewCusAccount.TabIndex = 14;
             // 
             // buttonNaptien
@@ -257,9 +260,10 @@ namespace FinalDBMS
             this.buttonNaptien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNaptien.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonNaptien.ForeColor = System.Drawing.Color.White;
-            this.buttonNaptien.Location = new System.Drawing.Point(1263, 475);
+            this.buttonNaptien.Location = new System.Drawing.Point(842, 309);
+            this.buttonNaptien.Margin = new System.Windows.Forms.Padding(2);
             this.buttonNaptien.Name = "buttonNaptien";
-            this.buttonNaptien.Size = new System.Drawing.Size(164, 51);
+            this.buttonNaptien.Size = new System.Drawing.Size(109, 33);
             this.buttonNaptien.TabIndex = 15;
             this.buttonNaptien.Text = "Nạp tiền";
             this.buttonNaptien.UseVisualStyleBackColor = false;
@@ -271,9 +275,10 @@ namespace FinalDBMS
             this.buttonCreateAcc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCreateAcc.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCreateAcc.ForeColor = System.Drawing.Color.White;
-            this.buttonCreateAcc.Location = new System.Drawing.Point(854, 475);
+            this.buttonCreateAcc.Location = new System.Drawing.Point(569, 309);
+            this.buttonCreateAcc.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCreateAcc.Name = "buttonCreateAcc";
-            this.buttonCreateAcc.Size = new System.Drawing.Size(176, 51);
+            this.buttonCreateAcc.Size = new System.Drawing.Size(117, 33);
             this.buttonCreateAcc.TabIndex = 16;
             this.buttonCreateAcc.Text = "Tạo tài khoản";
             this.buttonCreateAcc.UseVisualStyleBackColor = false;
@@ -285,9 +290,10 @@ namespace FinalDBMS
             this.buttonDoimatkhau.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDoimatkhau.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDoimatkhau.ForeColor = System.Drawing.Color.White;
-            this.buttonDoimatkhau.Location = new System.Drawing.Point(1046, 475);
+            this.buttonDoimatkhau.Location = new System.Drawing.Point(697, 309);
+            this.buttonDoimatkhau.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDoimatkhau.Name = "buttonDoimatkhau";
-            this.buttonDoimatkhau.Size = new System.Drawing.Size(202, 51);
+            this.buttonDoimatkhau.Size = new System.Drawing.Size(135, 33);
             this.buttonDoimatkhau.TabIndex = 17;
             this.buttonDoimatkhau.Text = "Đổi mật khẩu";
             this.buttonDoimatkhau.UseVisualStyleBackColor = false;
@@ -299,9 +305,10 @@ namespace FinalDBMS
             this.buttonReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonReset.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonReset.ForeColor = System.Drawing.Color.White;
-            this.buttonReset.Location = new System.Drawing.Point(644, 800);
+            this.buttonReset.Location = new System.Drawing.Point(429, 520);
+            this.buttonReset.Margin = new System.Windows.Forms.Padding(2);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(152, 51);
+            this.buttonReset.Size = new System.Drawing.Size(101, 33);
             this.buttonReset.TabIndex = 18;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = false;
@@ -309,16 +316,15 @@ namespace FinalDBMS
             // 
             // AddCustomerFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1602, 863);
+            this.ClientSize = new System.Drawing.Size(1068, 561);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.buttonDoimatkhau);
             this.Controls.Add(this.buttonCreateAcc);
             this.Controls.Add(this.buttonNaptien);
             this.Controls.Add(this.dataGridViewCusAccount);
-            this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonSua);
@@ -326,6 +332,8 @@ namespace FinalDBMS
             this.Controls.Add(this.buttonThem);
             this.Controls.Add(this.dataGridViewCus);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AddCustomerFrm";
             this.Text = "AddCustomerFrm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -356,7 +364,6 @@ namespace FinalDBMS
         private System.Windows.Forms.Button buttonSua;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.DataGridView dataGridViewCusAccount;
         private System.Windows.Forms.Button buttonNaptien;
         private System.Windows.Forms.Button buttonCreateAcc;
