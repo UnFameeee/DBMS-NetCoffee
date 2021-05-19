@@ -39,18 +39,18 @@ namespace FinalDBMS
             this.Label_DeviceID = new System.Windows.Forms.Label();
             this.Button_Refresh = new System.Windows.Forms.Button();
             this.DataGridView_ManageDevices = new System.Windows.Forms.DataGridView();
-            this.Button_Update = new System.Windows.Forms.Button();
             this.ComboBox_SelectStatus = new System.Windows.Forms.ComboBox();
             this.Button_StartPlaying = new System.Windows.Forms.Button();
             this.Button_Show = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.ButtonRepairing = new System.Windows.Forms.Button();
+            this.ButtonRemoveFromList = new System.Windows.Forms.Button();
             this.Panel_ShowInfo = new System.Windows.Forms.Panel();
             this.Label_Info = new System.Windows.Forms.Label();
             this.Label_ShowInfo = new System.Windows.Forms.Label();
-            this.ButtonRemoveFromList = new System.Windows.Forms.Button();
-            this.ButtonRepairing = new System.Windows.Forms.Button();
+            this.Button_Update = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView_ManageDevices)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -167,25 +167,14 @@ namespace FinalDBMS
             this.DataGridView_ManageDevices.TabIndex = 131;
             this.DataGridView_ManageDevices.DoubleClick += new System.EventHandler(this.DataGridView_ManageDevices_DoubleClick);
             // 
-            // Button_Update
-            // 
-            this.Button_Update.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
-            this.Button_Update.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button_Update.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Button_Update.ForeColor = System.Drawing.Color.White;
-            this.Button_Update.Location = new System.Drawing.Point(190, 6);
-            this.Button_Update.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Button_Update.Name = "Button_Update";
-            this.Button_Update.Size = new System.Drawing.Size(140, 46);
-            this.Button_Update.TabIndex = 145;
-            this.Button_Update.Text = "Chỉnh Sửa";
-            this.Button_Update.UseVisualStyleBackColor = false;
-            this.Button_Update.Click += new System.EventHandler(this.Button_UpdateStatus_Click);
-            // 
             // ComboBox_SelectStatus
             // 
             this.ComboBox_SelectStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBox_SelectStatus.FormattingEnabled = true;
+            this.ComboBox_SelectStatus.Items.AddRange(new object[] {
+            "Đang sử dụng",
+            "Đang bảo trì",
+            "Chưa sử dụng"});
             this.ComboBox_SelectStatus.Location = new System.Drawing.Point(169, 84);
             this.ComboBox_SelectStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ComboBox_SelectStatus.Name = "ComboBox_SelectStatus";
@@ -261,6 +250,36 @@ namespace FinalDBMS
             this.panel2.Size = new System.Drawing.Size(705, 58);
             this.panel2.TabIndex = 151;
             // 
+            // ButtonRepairing
+            // 
+            this.ButtonRepairing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.ButtonRepairing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonRepairing.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonRepairing.ForeColor = System.Drawing.Color.White;
+            this.ButtonRepairing.Location = new System.Drawing.Point(456, 6);
+            this.ButtonRepairing.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ButtonRepairing.Name = "ButtonRepairing";
+            this.ButtonRepairing.Size = new System.Drawing.Size(251, 46);
+            this.ButtonRepairing.TabIndex = 155;
+            this.ButtonRepairing.Text = "Bắt đầu/ Dừng bảo trì";
+            this.ButtonRepairing.UseVisualStyleBackColor = false;
+            this.ButtonRepairing.Click += new System.EventHandler(this.ButtonRepairing_Click);
+            // 
+            // ButtonRemoveFromList
+            // 
+            this.ButtonRemoveFromList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.ButtonRemoveFromList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonRemoveFromList.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonRemoveFromList.ForeColor = System.Drawing.Color.White;
+            this.ButtonRemoveFromList.Location = new System.Drawing.Point(348, 6);
+            this.ButtonRemoveFromList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ButtonRemoveFromList.Name = "ButtonRemoveFromList";
+            this.ButtonRemoveFromList.Size = new System.Drawing.Size(91, 46);
+            this.ButtonRemoveFromList.TabIndex = 154;
+            this.ButtonRemoveFromList.Text = "Xoá";
+            this.ButtonRemoveFromList.UseVisualStyleBackColor = false;
+            this.ButtonRemoveFromList.Click += new System.EventHandler(this.ButtonRemoveFromList_Click);
+            // 
             // Panel_ShowInfo
             // 
             this.Panel_ShowInfo.Controls.Add(this.Label_Info);
@@ -293,35 +312,20 @@ namespace FinalDBMS
             this.Label_ShowInfo.TabIndex = 0;
             this.Label_ShowInfo.Click += new System.EventHandler(this.Label_ShowInfo_Click);
             // 
-            // ButtonRemoveFromList
+            // Button_Update
             // 
-            this.ButtonRemoveFromList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
-            this.ButtonRemoveFromList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonRemoveFromList.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonRemoveFromList.ForeColor = System.Drawing.Color.White;
-            this.ButtonRemoveFromList.Location = new System.Drawing.Point(348, 6);
-            this.ButtonRemoveFromList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ButtonRemoveFromList.Name = "ButtonRemoveFromList";
-            this.ButtonRemoveFromList.Size = new System.Drawing.Size(91, 46);
-            this.ButtonRemoveFromList.TabIndex = 154;
-            this.ButtonRemoveFromList.Text = "Xoá";
-            this.ButtonRemoveFromList.UseVisualStyleBackColor = false;
-            this.ButtonRemoveFromList.Click += new System.EventHandler(this.ButtonRemoveFromList_Click);
-            // 
-            // ButtonRepairing
-            // 
-            this.ButtonRepairing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
-            this.ButtonRepairing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonRepairing.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonRepairing.ForeColor = System.Drawing.Color.White;
-            this.ButtonRepairing.Location = new System.Drawing.Point(456, 6);
-            this.ButtonRepairing.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ButtonRepairing.Name = "ButtonRepairing";
-            this.ButtonRepairing.Size = new System.Drawing.Size(251, 46);
-            this.ButtonRepairing.TabIndex = 155;
-            this.ButtonRepairing.Text = "Bắt đầu/ Dừng bảo trì";
-            this.ButtonRepairing.UseVisualStyleBackColor = false;
-            this.ButtonRepairing.Click += new System.EventHandler(this.ButtonRepairing_Click);
+            this.Button_Update.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.Button_Update.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_Update.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button_Update.ForeColor = System.Drawing.Color.White;
+            this.Button_Update.Location = new System.Drawing.Point(190, 6);
+            this.Button_Update.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Button_Update.Name = "Button_Update";
+            this.Button_Update.Size = new System.Drawing.Size(140, 46);
+            this.Button_Update.TabIndex = 145;
+            this.Button_Update.Text = "Sửa loại";
+            this.Button_Update.UseVisualStyleBackColor = false;
+            this.Button_Update.Click += new System.EventHandler(this.Button_UpdateStatus_Click);
             // 
             // ManageDeviceForm
             // 
@@ -365,7 +369,6 @@ namespace FinalDBMS
         private System.Windows.Forms.Label Label_DeviceID;
         private System.Windows.Forms.Button Button_Refresh;
         private System.Windows.Forms.DataGridView DataGridView_ManageDevices;
-        private System.Windows.Forms.Button Button_Update;
         private System.Windows.Forms.ComboBox ComboBox_SelectStatus;
         private System.Windows.Forms.Button Button_StartPlaying;
         private System.Windows.Forms.Button Button_Show;
@@ -377,5 +380,6 @@ namespace FinalDBMS
         private System.Windows.Forms.Label Label_Info;
         private System.Windows.Forms.Button ButtonRemoveFromList;
         private System.Windows.Forms.Button ButtonRepairing;
+        private System.Windows.Forms.Button Button_Update;
     }
 }
