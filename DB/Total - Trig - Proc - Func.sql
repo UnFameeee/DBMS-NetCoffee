@@ -434,13 +434,13 @@ END
 GO
 
 --4. 
-create or ALTER PROC Edit_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
+create or ALTER PROC Edit_Device (@devid nvarchar(100),@type nvarchar(100))
 AS
 BEGIN
 	UPDATE dbo.DEVICES
 	SET 
-		TypeID=@type,
-		DStatus=@status
+		TypeID=@type
+		--DStatus=@status
 	WHERE DeviceID=@devid
 END
 go
@@ -541,6 +541,7 @@ AND DeviceID not in
 (select DEVICES.DeviceID from DEVICES, ACCOUNTCUSTOMER Where DEVICES.DeviceID = ACCOUNTCUSTOMER.DeviceID)
 END
 GO
+
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --PROCEDURE show tiền lương
 CREATE or ALTER PROCEDURE USP_ShowSalary
@@ -756,13 +757,16 @@ GO
 
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY03') Check01
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY01') Check01
---3.
+--2.
 CREATE or ALTER FUNCTION Func_CheckDevicesFromUser (@devid nvarchar(100))
 RETURNS table AS
 	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID;
+GO
+
+--3.
 GO
 CREATE or ALTER FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
 RETURNS table AS
@@ -772,12 +776,6 @@ RETURNS table AS
 		and a.DeviceID = d.DeviceID
 		and DStatus = N'Chưa sử dụng';
 GO
-
-
-
-
-
-
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------

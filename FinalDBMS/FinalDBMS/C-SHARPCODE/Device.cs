@@ -32,6 +32,17 @@ namespace FinalDBMS
             adapter.Fill(table);
             return table;
         }
+        public DataTable getAllDevicesNotInUse()
+        {
+            SqlCommand command = new SqlCommand("SELECT CONCAT(deviceid,' (',typeid,')')  AS Máy " +
+                "FROM DEVICES " +
+                "WHERE dbo.DEVICES.DStatus = N'Chưa sử dụng'");
+            command.Connection = mydb.getConnection;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            return table;
+        }
 
         //Thêm máy mới sử dụng Store Procedure
         public bool InsertDevice(string DeviceID, string TypeID, string DStatus)
@@ -65,7 +76,7 @@ namespace FinalDBMS
 
 
         //Cập nhật máy mới sử dụng Store Procedure
-        public bool EditDevice(string DeviceID, string TypeID, string DStatus)
+        public bool EditDevice(string DeviceID, string TypeID)
         {
  
             SqlCommand command = new SqlCommand("Edit_Device", mydb.getConnection);
@@ -74,8 +85,6 @@ namespace FinalDBMS
 
             command.Parameters.Add("@devid", SqlDbType.NVarChar).Value = DeviceID;
             command.Parameters.Add("@type", SqlDbType.NVarChar).Value = TypeID;
-            command.Parameters.Add("@status", SqlDbType.NVarChar).Value = DStatus;
-
 
             mydb.Openconnection();
 
@@ -170,15 +179,15 @@ namespace FinalDBMS
             adapter.Fill(table);
             return table.Rows.Count > 0;
         }
-        public bool Func_CheckDevicesFromUser2(string devid)
-        {
-            SqlCommand command = new SqlCommand("SELECT * FROM Func_CheckDevicesFromUser (@devid)", mydb.getConnection);
-            command.Parameters.Add("@devid", System.Data.SqlDbType.NVarChar).Value = devid;
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            DataTable table = new DataTable();
-            adapter.Fill(table);
-            return table.Rows.Count > 0;
-        }
+        //public bool Func_CheckDevicesFromUser2(string devid)
+        //{
+        //    SqlCommand command = new SqlCommand("SELECT * FROM Func_CheckDevicesFromUser2 (@devid)", mydb.getConnection);
+        //    command.Parameters.Add("@devid", System.Data.SqlDbType.NVarChar).Value = devid;
+        //    SqlDataAdapter adapter = new SqlDataAdapter(command);
+        //    DataTable table = new DataTable();
+        //    adapter.Fill(table);
+        //    return table.Rows.Count > 0;
+        //}
 
         public DataTable ShowCustomerIsPlaying(string devid)
         {
@@ -262,7 +271,7 @@ namespace FinalDBMS
 
         public bool StopRepairing(string devid)
         {
-            SqlCommand command = new SqlCommand("StartRepairing", mydb.getConnection);
+            SqlCommand command = new SqlCommand("StopRepairing", mydb.getConnection);
             command.Parameters.Add("@devid", System.Data.SqlDbType.NVarChar).Value = devid;
             command.CommandType = CommandType.StoredProcedure;
             mydb.Openconnection();
@@ -278,6 +287,20 @@ namespace FinalDBMS
             }
 
         }
+
+        public void FormatStatus()
+        {
+            //Đưa stored procedure vào
+            //Không cần truyền tham số ngay command nhưng phải thêm Parameter bên dưới
+            SqlCommand command = new SqlCommand("FormatStatus", mydb.getConnection);
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+        }
+
+
+
 
     }
 }
