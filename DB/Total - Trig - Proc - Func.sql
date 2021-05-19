@@ -250,7 +250,7 @@ BEGIN
 	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
-			SET DStatus='Đang sử dụng'
+			SET DStatus=N'Đang sử dụng'
 			WHERE DeviceID=@did
 
 			SELECT @deT= dbo.DEVICES.TypeID
@@ -285,7 +285,7 @@ BEGIN
 
 	UPDATE dbo.DEVICES
 	SET
-		DStatus='Chưa sử dụng'
+		DStatus=N'Chưa sử dụng'
 	WHERE DeviceID=@did
 
 	DECLARE @tienmay FLOAT,@kieumay NVARCHAR(50)
@@ -329,7 +329,7 @@ BEGIN
 	 UPDATE dbo.ACCOUNTCUSTOMER
 	 SET
 		ActualTimeAvl=(CONVERT(varchar, @Tavl, 108) + ' ' + CONVERT(VARCHAR, DAY(@Tavl)-1)) + 'ngay ' 
-		+CONVERT(VARCHAR, MONTH(@Tavl)-1) +'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
+		+CONVERT(VARCHAR, MONTH(@Tavl)-1) + 'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
 	 WHERE CustomerID =@cid
 END
 GO
@@ -481,6 +481,8 @@ WHERE ACCOUNTCUSTOMER.DeviceID = @devid
 UPDATE DEVICES
 SET DStatus = N'Chưa sử dụng'
 WHERE DeviceID = @devid
+UPDATE ACCOUNTCUSTOMER
+SET DeviceID = NULL;
 END;
 GO
 
@@ -526,6 +528,19 @@ WHERE DeviceID = @devid
 END;
 GO
 
+--11.
+GO
+CREATE OR ALTER PROCEDURE FormatStatus
+as 
+BEGIN
+UPDATE DEVICES
+SET
+DStatus = N'Chưa sử dụng'
+WHERE DStatus = N'Đang sử dụng'
+AND DeviceID not in
+(select DEVICES.DeviceID from DEVICES, ACCOUNTCUSTOMER Where DEVICES.DeviceID = ACCOUNTCUSTOMER.DeviceID)
+END
+GO
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --PROCEDURE show tiền lương
 CREATE or ALTER PROCEDURE USP_ShowSalary
@@ -656,6 +671,24 @@ BEGIN
 	    )
 END
 GO
+
+CREATE OR ALTER PROC UserLoginDevice_AccountCus (@cid NVARCHAR(100),@did NVARCHAR(100))
+AS
+BEGIN
+
+	UPDATE dbo.DEVICES
+	SET
+		DStatus=N'Đang sử dụng'
+	WHERE DeviceID=@did
+
+	UPDATE dbo.ACCOUNTCUSTOMER
+	SET	
+		DeviceID=@did,
+		StatusCustomer=1
+	WHERE CustomerID=@cid
+END
+GO
+
 --** Việc khách hàng nạp tiền vào Cus và Acus là 2 việc khác nhau vì 2 loại tiền này phục mục đích khác, 
 --tiền của Cus là tiền chung có thể để nạp tiền giờ chơi hay order đồ ăn
 --việc phân biệt này giúp cho việc tính toán số giờ chơi còn lại trong Acus trực quan hơn
@@ -713,20 +746,14 @@ RETURNS TABLE AS
 	       WHERE TIMEKEEPING.CheckOut is null;
 GO
 
-go
-SELECT * FROM dbo.Func_CheckEmpWorking()
-
-go
-SELECT * FROM dbo.Func_TakePicWhenCheckin('NV17')
-
-
-
 ----------------------------------------------------------------------Phước Đăng-----------------------------------------------------------------------------------
 --1.
+GO
 CREATE or ALTER FUNCTION Func_CheckAvailableDevices (@devid nvarchar(100))
 RETURNS table AS
-	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = 'Chưa sử dụng';
+	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = N'Chưa sử dụng';
 GO
+
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY03') Check01
 --SELECT * FROM dbo.Func_CheckAvailableDevice('MAY01') Check01
 --3.
@@ -735,8 +762,7 @@ RETURNS table AS
 	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
-		and a.DeviceID = d.DeviceID
-		and DStatus != 'Chưa sử dụng';
+		and a.DeviceID = d.DeviceID;
 GO
 CREATE or ALTER FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
 RETURNS table AS
@@ -744,7 +770,7 @@ RETURNS table AS
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID
-		and DStatus = 'Chưa sử dụng';
+		and DStatus = N'Chưa sử dụng';
 GO
 
 
