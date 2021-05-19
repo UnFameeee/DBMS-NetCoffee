@@ -25,7 +25,7 @@ namespace FinalDBMS
             //    Application.Run(new MainFrm());
             //}
 
-            Application.Run(new ManageAccountFrm());
+            Application.Run(new MainFrm());
         }
     }
 }
