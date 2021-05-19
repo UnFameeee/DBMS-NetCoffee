@@ -144,7 +144,7 @@ CREATE TABLE DEVICETYPE
 	Mouse nvarchar(100) NOT NULL,
 	KeyBoard nvarchar(100) NOT NULL
 )
-INSERT INTO DEVICETYPE VALUES('Thường','AMD Ryzen 5 3600','DDR4','CoolerMaster MWE 400','RTX 3080 GameRock 10G','ASROCK H410M-HVS','XIGMATEK MASTER X 3FX','ViewSonic VA2406','Logitech G102 Lightsync RGB White','Razer Blackwidow Lite')
+INSERT INTO DEVICETYPE VALUES(N'Thường','AMD Ryzen 5 3600','DDR4','CoolerMaster MWE 400','RTX 3080 GameRock 10G','ASROCK H410M-HVS','XIGMATEK MASTER X 3FX','ViewSonic VA2406','Logitech G102 Lightsync RGB White','Razer Blackwidow Lite')
 INSERT INTO DEVICETYPE VALUES('Vip','AMD Ryzen 5 5600X','DDR4','Gigabyte P450B','RX 6700 XT OC Edition','MSI A320M-A PRO MAX','MSI MAG VAMPIRIC 100R','LG 24GN600-B','Logitech G102 Lightsync RGB Black','Razer Huntsman Mini')
 INSERT INTO DEVICETYPE VALUES('Super Vip','Intel Core i9','DDR4','SilverStone ST50F-ES230','Radeon RX 6800 XT Gaming','sus PRIME H310M-CS R2.0 LGA1151v2','GIGABYTE C200 Glass','LG 24GN600-B','Logitech G102 Lightsync RGB Black','Razer Huntsman V2 Analog')
 --INSERT INTO DEVICETYPE VALUES('Super Vip','Intel Core i7-10570H @ 2.60GHz','DDR4','Gigabyte P450B','RTX™ 3060 ELITE','MSI A320M-A PRO MAX','XIGMATEK MASTER X 3FX','Samsung LS24R350','Logitech G102 Lightsync RGB Black','Razer Huntsman Mini Mercury')
@@ -213,12 +213,6 @@ INSERT INTO dbo.ACCOUNTCUSTOMER
     100000.0       -- AccMoney - float
     )
 
---INSERT INTO ACCOUNTCUSTOMER Values('Van A','1','2021-04-19 12:00:00','','KH1','MAY01', 0, '',0)
---INSERT INTO ACCOUNTCUSTOMER Values('Van B','1','2021-04-19 12:00:00','','KH2','MAY02', 0, '',0)
---INSERT INTO ACCOUNTCUSTOMER Values('Van C','1','2021-04-19 12:00:00','','KH3','MAY03', 0, '',0)
---INSERT INTO ACCOUNTCUSTOMER Values('Van D','1','2021-04-19 12:00:00','','KH4','MAY04', 0, '',0)
---INSERT INTO ACCOUNTCUSTOMER Values('Van E','1','2021-04-19 12:00:00','','KH5','MAY05', 0, '',0)
---INSERT INTO ACCOUNTCUSTOMER Values('Van F','1','2021-04-19 12:00:00','','KH6','MAY06', 0, '',0)
 --Tài khoản nhân viên--
 CREATE TABLE ACCOUNTEMPLOYEE 
 (

@@ -3,7 +3,7 @@ GO
 ----------------------------------------------------------------------TRIGGER------------------------------------------------------------------------------------
 ----------------------------------------------------------------------Phước Đăng------------------------------------------------------------------------------------
 --1. Khi sửa lại máy Super vip thì không được nhập CPU là Intel Core i3 hoặc Core i5
-CREATE TRIGGER Add_Device_CPU_condition ON DEVICETYPE
+CREATE or ALTER TRIGGER Add_Device_CPU_condition ON DEVICETYPE
 AFTER INSERT,UPDATE AS
 declare @CPU nvarchar(100)
 BEGIN
@@ -22,7 +22,7 @@ BEGIN
 END;
 
 --2.Khi sửa lại máy Vip thì Keyboard của máy Thường không được trùng với máy Vip 
-CREATE TRIGGER Add_Device_Keyboard_Condition ON DEVICETYPE
+CREATE or ALTER TRIGGER Add_Device_Keyboard_Condition ON DEVICETYPE
 AFTER INSERT, UPDATE AS
 declare 
 		@Keyboard_Vip_Default nvarchar(100), 
@@ -56,7 +56,7 @@ BEGIN
 END;
 
 --3. Ram phải luôn bắt buộc là DDR4, DDR3, DDR2
-CREATE TRIGGER Add_Device_RAM_condition ON DEVICETYPE
+CREATE or ALTER TRIGGER Add_Device_RAM_condition ON DEVICETYPE
 AFTER INSERT,UPDATE AS
 declare @Ram nvarchar(100)
 BEGIN
@@ -94,7 +94,7 @@ BEGIN
 END;
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --1. TRIGGER không cho nhân viên check in nếu chưa tới giờ đi làm
-CREATE TRIGGER UTG_WorkShiftCheckIn ON dbo.TIMEKEEPING
+CREATE or ALTER TRIGGER UTG_WorkShiftCheckIn ON dbo.TIMEKEEPING
 AFTER INSERT
 AS
 BEGIN
@@ -121,7 +121,7 @@ BEGIN
 END
 GO
 --2. TRIGGER thay đổi thưởng phạt khi check out tan làm sớm hoặc muộn để tính tiền thưởng phạt
-CREATE TRIGGER UTG_RewardFineCheckOut ON dbo.TIMEKEEPING
+CREATE or ALTER TRIGGER UTG_RewardFineCheckOut ON dbo.TIMEKEEPING
 AFTER UPDATE
 AS
 BEGIN
@@ -156,7 +156,7 @@ BEGIN
 END
 GO
 --3. TRIGGER cập nhật thay đổi bảng SALARY khi nhân viên check out
-CREATE TRIGGER UTG_SalaryCheckOut ON dbo.TIMEKEEPING
+CREATE or ALTER TRIGGER UTG_SalaryCheckOut ON dbo.TIMEKEEPING
 AFTER UPDATE
 AS
 BEGIN
@@ -201,7 +201,7 @@ END
 GO
 
 --4. Thay đổi số ca làm nhân viên khi nhân viên check in
-CREATE TRIGGER UTG_SalaryCheckIn ON dbo.TIMEKEEPING
+CREATE or ALTER TRIGGER UTG_SalaryCheckIn ON dbo.TIMEKEEPING
 AFTER INSERT
 AS
 BEGIN

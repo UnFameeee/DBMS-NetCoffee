@@ -187,8 +187,8 @@ BEGIN
 END
 GO
 --vi du 
-EXECUTE dbo.DepositBudget_Accountcustomer @cid = N'42', -- nvarchar(100)
-                                          @mon = 100000.0  -- float
+EXECUTE dbo.DepositBudget_Accountcustomer @cid = N'kh1', -- nvarchar(100)
+                                          @mon = 2000.0  -- float
 
 
 go
@@ -221,7 +221,7 @@ BEGIN
 	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
-			SET DStatus='1'
+			SET DStatus=N'Đang sử dụng'
 			WHERE DeviceID=@did
 
 			SELECT @deT= dbo.DEVICES.TypeID
@@ -229,11 +229,12 @@ BEGIN
 			WHERE dbo.DEVICES.DeviceID=@did
 			
 			DECLARE @tienmay FLOAT
-			IF(@deT =1)
-				SET @tienmay=5000
-			ELSE IF(@deT =2)
+			IF(@deT =N'Vip')
 				SET @tienmay=7000
-			ELSE SET @tienmay=12000
+			ELSE IF(@deT =N'Super Vip')
+				SET @tienmay=12000
+			else set @tienmay =5000
+
 			DECLARE @minuteMoney INT = @AccM*60/@tienmay
 			SET @Tavl = FORMAT(DATEADD(MINUTE, @minuteMoney, @Tavl), 'dd/MM/yyyy hh:mm:ss tt')
 			UPDATE dbo.ACCOUNTCUSTOMER
@@ -253,12 +254,12 @@ BEGIN
 
 	UPDATE dbo.DEVICES
 	SET
-		DStatus='0'
+		DStatus=N'Chưa sử dụng'
 	WHERE DeviceID=@did
 
-	DECLARE @tienmay FLOAT
+	DECLARE @tienmay FLOAT, @kieumay nvarchar(50)
 
-	SELECT @tienmay=TypeID
+	SELECT @kieumay=TypeID
 	FROM dbo.DEVICES
 	WHERE DeviceID=@did
 
@@ -267,11 +268,12 @@ BEGIN
 	FROM dbo.ACCOUNTCUSTOMER
 	WHERE CustomerID=@cid
 
-	IF(@tienmay ='Vip')
-		SET @tienmay=5000
-	ELSE IF(@tienmay ='Super Vip')
+	IF(@kieumay =N'Vip')
 		SET @tienmay=7000
-	ELSE SET @tienmay=12000
+	ELSE IF(@kieumay =N'Super Vip')
+		SET @tienmay=12000
+	else set @tienmay =5000
+
 	--RELOAD LAI CAI SQL DI
 	UPDATE dbo.ACCOUNTCUSTOMER
 	SET	
@@ -280,7 +282,7 @@ BEGIN
 		TimeUsed=NULL,
 		DeviceID=NULL,
 		StatusCustomer=0
-	WHERE CustomerID=@cid -- cuu di tran
+	WHERE CustomerID=@cid -- cuu di tran 9
 END
 --vi du
 EXECUTE dbo.Userlogout_AccountCus @cid = N'kh6', -- nvarchar(100)
@@ -300,7 +302,8 @@ BEGIN
 		+CONVERT(VARCHAR, MONTH(@Tavl)-1) +'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
 	 WHERE CustomerID =@cid
 END
-GO
+GO --help
 SELECT SYSDATETIME()
 --vi du
-EXECUTE dbo.AccCusActualTimeAvl @cid = N'03' -- nvarchar(100)
+EXECUTE dbo.AccCusActualTimeAvl @cid = N'kh6' -- nvarchar(100)
+--doned

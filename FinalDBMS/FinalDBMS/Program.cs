@@ -19,12 +19,11 @@ namespace FinalDBMS
 
 
             //LoginFrm frm = new LoginFrm();
-            //frm.Show();
-            //if(frm.DialogResult == DialogResult.OK)
+            //Application.Run(frm);
+            //if (frm.DialogResult == DialogResult.OK)
             //{
             //    Application.Run(new MainFrm());
             //}
-            //Application.Run(new AddCustomerFrm());
             Application.Run(new MainFrm());
         }
     }
