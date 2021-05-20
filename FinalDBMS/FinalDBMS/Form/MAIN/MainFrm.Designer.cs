@@ -53,7 +53,8 @@ namespace FinalDBMS
             this.aCCOUNTToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1572, 33);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1425, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -62,14 +63,14 @@ namespace FinalDBMS
             this.cUSTOMERToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addCustomerToolStripMenuItem});
             this.cUSTOMERToolStripMenuItem.Name = "cUSTOMERToolStripMenuItem";
-            this.cUSTOMERToolStripMenuItem.Size = new System.Drawing.Size(142, 29);
+            this.cUSTOMERToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             this.cUSTOMERToolStripMenuItem.Text = "KHÁCH HÀNG";
             // 
             // addCustomerToolStripMenuItem
             // 
             this.addCustomerToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addCustomerToolStripMenuItem.Name = "addCustomerToolStripMenuItem";
-            this.addCustomerToolStripMenuItem.Size = new System.Drawing.Size(286, 34);
+            this.addCustomerToolStripMenuItem.Size = new System.Drawing.Size(241, 26);
             this.addCustomerToolStripMenuItem.Text = "QUẢN LÍ KHÁCH HÀNG";
             this.addCustomerToolStripMenuItem.Click += new System.EventHandler(this.addCustomerToolStripMenuItem_Click);
             // 
@@ -79,27 +80,27 @@ namespace FinalDBMS
             this.InfoToolStripMenuItem,
             this.TimeKeepingToolStripMenuItem});
             this.eMPLOYEEToolStripMenuItem.Name = "eMPLOYEEToolStripMenuItem";
-            this.eMPLOYEEToolStripMenuItem.Size = new System.Drawing.Size(122, 29);
+            this.eMPLOYEEToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
             this.eMPLOYEEToolStripMenuItem.Text = "NHÂN VIÊN";
             // 
             // InfoToolStripMenuItem
             // 
             this.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem";
-            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(315, 34);
+            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
             this.InfoToolStripMenuItem.Text = "DANH SÁCH NHÂN VIÊN";
             this.InfoToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
             // 
             // TimeKeepingToolStripMenuItem
             // 
             this.TimeKeepingToolStripMenuItem.Name = "TimeKeepingToolStripMenuItem";
-            this.TimeKeepingToolStripMenuItem.Size = new System.Drawing.Size(315, 34);
+            this.TimeKeepingToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
             this.TimeKeepingToolStripMenuItem.Text = "CHẤM CÔNG";
             this.TimeKeepingToolStripMenuItem.Click += new System.EventHandler(this.TimeKeepingToolStripMenuItem_Click);
             // 
             // manageDeviceToolStripMenuItem
             // 
             this.manageDeviceToolStripMenuItem.Name = "manageDeviceToolStripMenuItem";
-            this.manageDeviceToolStripMenuItem.Size = new System.Drawing.Size(93, 29);
+            this.manageDeviceToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
             this.manageDeviceToolStripMenuItem.Text = "THIẾT BỊ";
             this.manageDeviceToolStripMenuItem.Click += new System.EventHandler(this.manageDeviceToolStripMenuItem_Click);
             // 
@@ -107,28 +108,30 @@ namespace FinalDBMS
             // 
             this.aCCOUNTToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.aCCOUNTToolStripMenuItem.Name = "aCCOUNTToolStripMenuItem";
-            this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
+            this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(100, 24);
             this.aCCOUNTToolStripMenuItem.Text = "TÀI KHOẢN";
             // 
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(0, 33);
+            this.pnlMain.Location = new System.Drawing.Point(0, 28);
+            this.pnlMain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1572, 766);
+            this.pnlMain.Size = new System.Drawing.Size(1425, 692);
             this.pnlMain.TabIndex = 1;
             // 
             // MainFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1572, 799);
+            this.ClientSize = new System.Drawing.Size(1425, 720);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QUẢN LÝ QUÁN CYBER NET";
