@@ -99,7 +99,7 @@ namespace FinalDBMS
             MemoryStream Picture = new MemoryStream(picture);
             pic.Image = Image.FromStream(Picture);
         }
-
+        
         private void rdbtnMale_CheckedChanged(object sender, EventArgs e)
         {
             if(rdbtnMale.Checked == true)

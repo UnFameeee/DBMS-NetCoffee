@@ -113,19 +113,19 @@ AFTER UPDATE
 AS
 BEGIN
 	--Lấy ID và thời gian check out trừ thời gian check in để kiểm tra xem có vượt quá thời gian làm hoặc thiếu so với thời gian làm của 1 ca
-	DECLARE @iIDEmployee NVARCHAR(100), @Minute INT
-	SELECT @iIDEmployee = IDEmployee, @Minute = DATEDIFF(MINUTE, CheckIn, CheckOut)
+	DECLARE @iIDEmployee NVARCHAR(100), @Minute INT, @iCheckIn DATE
+	SELECT @iIDEmployee = IDEmployee, @Minute = DATEDIFF(MINUTE, CheckIn, CheckOut), @iCheckIn = Inserted.CheckIn
 	FROM  Inserted
 	--Lấy số ca làm và thời gian tháng năm của nhân viên trong bảng lương
 	DECLARE @iNumberofWorkShift INT,  @iMonthWork INT, @iYearWork INT
 	SELECT @iNumberofWorkShift= NumberofWorkShift, @iMonthWork = MonthWork, @iYearWork = YearWork
 	FROM dbo.SALARY
-	WHERE IDEmployee = @iIDEmployee
+	WHERE IDEmployee = @iIDEmployee AND MONTH(@iCheckIn) = MonthWork AND YEAR(@iCheckIn) = YearWork
 	--Nếu thời gian làm không đủ thì cứ mỗi 15 phút sẽ tính vào tiền phạt và ngược lại thời gian hơn trong ca làm cứ mỗi 15 phút sẽ được tính vào tiền thưởng
 	DECLARE @Reward REAL, @Fine REAL 
 	IF (@Minute >= 480)
 	BEGIN
-		SET @Reward = @Minute
+		SET @Reward = @Minute - 480
 		SET @Fine = 0
 	END
 	ELSE IF (@Minute < 480)
