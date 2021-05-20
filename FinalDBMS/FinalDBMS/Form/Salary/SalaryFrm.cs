@@ -130,7 +130,19 @@ namespace FinalDBMS
 
         private void btnFind_Click(object sender, EventArgs e)
         {
+            if (cbMonth.SelectedItem == null && cbYear.SelectedItem == null)
+                dataGridViewShow.DataSource = salary.ShowSalary();
+            else if (cbMonth.SelectedItem == null)
+                dataGridViewShow.DataSource = salary.SearchSalaryByYear(Convert.ToInt32(cbYear.SelectedItem));
+            else if (cbYear.SelectedItem == null)
+                dataGridViewShow.DataSource = salary.SearchSalaryByMonth(Convert.ToInt32(cbMonth.SelectedItem));
+            else
+                dataGridViewShow.DataSource = salary.SearchSalaryByMonthYear(Convert.ToInt32(cbMonth.SelectedItem), Convert.ToInt32(cbYear.SelectedItem));
+        }
 
+        private void btnShowFull_Click(object sender, EventArgs e)
+        {
+            dataGridViewShow.DataSource = salary.ShowSalary();
         }
     }
 }
