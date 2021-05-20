@@ -33,11 +33,11 @@ namespace FinalDBMS
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cUSTOMERToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCustomerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eMPLOYEEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TimeKeepingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SalaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.manageDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aCCOUNTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
@@ -65,6 +65,7 @@ namespace FinalDBMS
             this.addCustomerToolStripMenuItem});
             this.cUSTOMERToolStripMenuItem.Name = "cUSTOMERToolStripMenuItem";
             this.cUSTOMERToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
+            this.cUSTOMERToolStripMenuItem.Text = "KHÁCH HÀNG";
             // 
             // addCustomerToolStripMenuItem
             // 
@@ -73,6 +74,13 @@ namespace FinalDBMS
             this.addCustomerToolStripMenuItem.Size = new System.Drawing.Size(241, 26);
             this.addCustomerToolStripMenuItem.Text = "QUẢN LÍ KHÁCH HÀNG";
             this.addCustomerToolStripMenuItem.Click += new System.EventHandler(this.addCustomerToolStripMenuItem_Click);
+            // 
+            // manageDeviceToolStripMenuItem
+            // 
+            this.manageDeviceToolStripMenuItem.Name = "manageDeviceToolStripMenuItem";
+            this.manageDeviceToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
+            this.manageDeviceToolStripMenuItem.Text = "THIẾT BỊ";
+            this.manageDeviceToolStripMenuItem.Click += new System.EventHandler(this.manageDeviceToolStripMenuItem_Click);
             // 
             // eMPLOYEEToolStripMenuItem
             // 
@@ -101,16 +109,9 @@ namespace FinalDBMS
             // SalaryToolStripMenuItem
             // 
             this.SalaryToolStripMenuItem.Name = "SalaryToolStripMenuItem";
-            this.SalaryToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.SalaryToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
             this.SalaryToolStripMenuItem.Text = "LƯƠNG";
             this.SalaryToolStripMenuItem.Click += new System.EventHandler(this.SalaryToolStripMenuItem_Click);
-            // 
-            // manageDeviceToolStripMenuItem
-            // 
-            this.manageDeviceToolStripMenuItem.Name = "manageDeviceToolStripMenuItem";
-            this.manageDeviceToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
-            this.manageDeviceToolStripMenuItem.Text = "THIẾT BỊ";
-            this.manageDeviceToolStripMenuItem.Click += new System.EventHandler(this.manageDeviceToolStripMenuItem_Click);
             // 
             // aCCOUNTToolStripMenuItem
             // 
@@ -141,7 +142,6 @@ namespace FinalDBMS
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-
             this.Name = "MainFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QUẢN LÝ QUÁN CYBER NET";
