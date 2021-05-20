@@ -21,7 +21,7 @@ namespace FinalDBMS
             LoginFrm frm = new LoginFrm();
             Application.Run(frm);
             Application.Exit();
-            //Application.Run(new MainFrm());
+            Application.Run(new MainFrm());
         }
     }
 }

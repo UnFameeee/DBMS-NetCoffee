@@ -100,5 +100,10 @@ namespace FinalDBMS
             frmMyInfo.Hide();
 
         }
+
+        private void pnlMain_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
