@@ -359,7 +359,9 @@ namespace FinalDBMS
 
                         if (device.CheckAvailableDeviceFromUser(DeviceID))
                         {
+
                             if (status == "Online")
+
                             {
                                 if (device.StopPlaying(DeviceID))
                                 {
