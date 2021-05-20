@@ -24,11 +24,11 @@ namespace FinalDBMS
         ManageDeviceForm frmManageDevice = new ManageDeviceForm() { TopLevel = false, TopMost = false };
         ManageAccountFrm frmManageAccount = new ManageAccountFrm() { TopLevel = false, TopMost = false };
         SalaryFrm frmSalary = new SalaryFrm() { TopLevel = false, TopMost = false };
-
+        MyInfomation frmMyInfo = new MyInfomation() { TopLevel = false, TopMost = false };
 
         void loadForm()
         {
-            if(Global.GlobalUserID == "NV")
+            if(Global.Role == "NV")
             {
                 aCCOUNTToolStripMenuItem.Visible = false;
                 eMPLOYEEToolStripMenuItem.Visible = false;
@@ -39,9 +39,11 @@ namespace FinalDBMS
             pnlMain.Controls.Add(frmManageDevice);
             pnlMain.Controls.Add(frmManageAccount);
             pnlMain.Controls.Add(frmSalary);
+            pnlMain.Controls.Add(frmMyInfo);
+            frmMyInfo.Show();
         }
 
-        private void addCustomerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cUSTOMERToolStripMenuItem_Click(object sender, EventArgs e)
         {
             resetForm();
             frmAddCustomer.Show();
@@ -74,6 +76,11 @@ namespace FinalDBMS
             resetForm();
             frmSalary.Show();
         }
+        private void tHÔNGTINCÁNHÂNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            resetForm();
+            frmMyInfo.Show();
+        }
 
         void resetForm()
         {
@@ -89,6 +96,14 @@ namespace FinalDBMS
             frmManageAccount.Hide();
             //Thông tin lương nhân viên
             frmSalary.Hide();
+            //thông tin cá nhân
+            frmMyInfo.Hide();
+
+        }
+
+        private void pnlMain_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

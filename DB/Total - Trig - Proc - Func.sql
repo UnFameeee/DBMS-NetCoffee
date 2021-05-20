@@ -125,12 +125,12 @@ BEGIN
 	DECLARE @Reward REAL, @Fine REAL 
 	IF (@Minute >= 480)
 	BEGIN
-		SET @Reward = @Minute % 15
+		SET @Reward = @Minute
 		SET @Fine = 0
 	END
 	ELSE IF (@Minute < 480)
 	BEGIN
-		SET @Fine = @Minute % 15
+		SET @Fine = (480 - @Minute)
 		SET @Reward = 0
 	END
 	--Nếu số ca làm được hơn trên 30 và số thời gian làm của buỗi đó hơn 8 tiếng thì tiền thưởng sẽ được nhân thêm 1.1
@@ -153,7 +153,7 @@ BEGIN
 	SELECT @iIDEmployee = Inserted.IDEmployee, @iCheckIn = Inserted.CheckIn, @iCheckOut = Inserted.CheckOut
 	FROM Inserted
 	--Lấy số thưởng, phạt và số ca làm của nhân viên đó
-	DECLARE @iReward INT, @iFine INT, @iNumberofWorkShift INT	
+	DECLARE @iReward FLOAT, @iFine FLOAT, @iNumberofWorkShift INT	
 	SELECT @iReward = Reward, @iFine = Fine, @iNumberofWorkShift = NumberofWorkShift
 	FROM dbo.SALARY
 	WHERE @iIDEmployee = dbo.SALARY.IDEmployee AND MONTH(@iCheckOut) = MonthWork AND YEAR(@iCheckOut) = YearWork
@@ -180,7 +180,10 @@ BEGIN
 		SET @Wages = 8 * @CoefficientsSalary * 20000
 
 	DECLARE @SalarybyPosition INT
-	SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 30000							--Set tiền lương
+	IF (@ShiftID = 1)
+		SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 20000							--Set tiền lương
+	ELSE
+		SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 30000
 	--Cập nhật thay đổi lương nhân viên
 	UPDATE dbo.SALARY
 	SET SalaryEmployee = @SalarybyPosition
@@ -250,7 +253,7 @@ BEGIN
 	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
-			SET DStatus=N'Đang sử dụng'
+			SET DStatus=N'Online'
 			WHERE DeviceID=@did
 
 			SELECT @deT= dbo.DEVICES.TypeID
@@ -274,63 +277,6 @@ BEGIN
 				TimeUsed=SYSDATETIME()
 			WHERE CustomerID=@cid
 		END
-END
-GO
-
---2. khi Cus logout khỏi máy
-GO
-CREATE OR ALTER PROC Userlogout_AccountCus (@cid NVARCHAR(100),@did NVARCHAR(100))
-AS
-BEGIN
-
-	UPDATE dbo.DEVICES
-	SET
-		DStatus=N'Chưa sử dụng'
-	WHERE DeviceID=@did
-
-	DECLARE @tienmay FLOAT,@kieumay NVARCHAR(50)
-
-	SELECT @kieumay=TypeID
-	FROM dbo.DEVICES
-	WHERE DeviceID=@did
-
-	DECLARE @Tavl DATETIME,@Tu DATETIME
-	SELECT @Tavl=TimeAvailible,@Tu=TimeUsed
-	FROM dbo.ACCOUNTCUSTOMER
-	WHERE CustomerID=@cid
-
-	IF(@kieumay =N'Vip')
-		SET @tienmay=7000
-	ELSE IF(@kieumay =N'Super Vip')
-		SET @tienmay=12000
-	ELSE 
-		SET @tienmay=5000
-
-	UPDATE dbo.ACCOUNTCUSTOMER
-	SET	
-		AccMoney=AccMoney+CAST(ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1) as float),
-		TimeAvailible=0,
-		TimeUsed=NULL,
-		DeviceID=NULL,
-		StatusCustomer=0
-	WHERE CustomerID=@cid
-END
-GO
-
-------Thời gian sử dụng thực tế của khách
-CREATE OR ALTER PROC AccCusActualTimeAvl(@cid NVARCHAR(100))
-AS
-BEGIN
-	 DECLARE @Tavl DATETIME
-	 SELECT @Tavl=TimeAvailible
-	 FROM dbo.ACCOUNTCUSTOMER
-	 WHERE CustomerID =@cid
-
-	 UPDATE dbo.ACCOUNTCUSTOMER
-	 SET
-		ActualTimeAvl=(CONVERT(varchar, @Tavl, 108) + ' ' + CONVERT(VARCHAR, DAY(@Tavl)-1)) + 'ngay ' 
-		+CONVERT(VARCHAR, MONTH(@Tavl)-1) + 'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
-	 WHERE CustomerID =@cid
 END
 GO
 
@@ -390,6 +336,22 @@ GO
 
 
 ----------------------------------------------------------------------PROCEDURE------------------------------------------------------------------------------------
+----------------------------------------------------------------------Quốc Thắng------------------------------------------------------------------------------------
+CREATE or ALTER PROC Edit_MyInfo (@id nvarchar(100), @name nvarchar(100), @gender nvarchar(100), @birth DateTime , @phone nvarchar(100), @Identity nvarchar(100),@email nvarchar(100)) AS
+BEGIN
+	UPDATE dbo.EMPLOYEE
+	SET FullName = @name,
+		Gender = @gender,
+		Birthday = @birth,
+		Phone = @phone,
+		IdentityNumber = @Identity,
+		Email = @email
+	WHERE
+		ID = @id
+END
+GO
+
+
 ----------------------------------------------------------------------Phước Đăng------------------------------------------------------------------------------------
 --1. Stored-Procedure hiển thị thông tin của các khách hàng đang chơi máy Vip / Super Vip / Thuong
 Go
@@ -465,7 +427,7 @@ as
 begin
 update DEVICES
 set
-DStatus = N'Đã sử dụng'
+DStatus = N'Online'
 where DeviceID = @devid
 end
 GO
@@ -479,7 +441,7 @@ UPDATE ACCOUNTCUSTOMER
 SET StatusCustomer = 0
 WHERE ACCOUNTCUSTOMER.DeviceID = @devid
 UPDATE DEVICES
-SET DStatus = N'Chưa sử dụng'
+SET DStatus = N'Offline'
 WHERE DeviceID = @devid
 UPDATE ACCOUNTCUSTOMER
 SET DeviceID = NULL where DeviceID = @devid;
@@ -497,7 +459,7 @@ SET StatusCustomer = 1
 WHERE ACCOUNTCUSTOMER.DeviceID = @devid
 
 UPDATE DEVICES
-SET DStatus = N'Đang sử dụng'
+SET DStatus = N'Online'
 WHERE DeviceID = @devid
 END;
 GO
@@ -513,7 +475,7 @@ SET StatusCustomer = 0
 WHERE ACCOUNTCUSTOMER.DeviceID = @devid
 
 UPDATE DEVICES
-SET DStatus = N'Đang bảo trì'
+SET DStatus = N'In maintenance'
 WHERE DeviceID = @devid
 
 UPDATE ACCOUNTCUSTOMER 
@@ -526,7 +488,7 @@ CREATE or ALTER PROCEDURE StopRepairing @devid nvarchar(MAX)
 AS
 BEGIN
 UPDATE DEVICES
-SET DStatus = N'Chưa sử dụng'
+SET DStatus = N'Offline'
 WHERE DeviceID = @devid
 END;
 GO
@@ -538,22 +500,14 @@ as
 BEGIN
 UPDATE DEVICES
 SET
-DStatus = N'Chưa sử dụng'
-WHERE DStatus = N'Đang sử dụng'
-AND DeviceID not in
-(select DEVICES.DeviceID from DEVICES, ACCOUNTCUSTOMER Where DEVICES.DeviceID = ACCOUNTCUSTOMER.DeviceID)
+DStatus = N'Offline'
+WHERE DStatus = N'Online'
 
-UPDATE DEVICES
-SET
-DStatus = N'Chưa sử dụng'
-WHERE DStatus = N'Đang bảo trì'
-AND DeviceID in
+AND DeviceID not in
 (select DEVICES.DeviceID from DEVICES, ACCOUNTCUSTOMER Where DEVICES.DeviceID = ACCOUNTCUSTOMER.DeviceID)
 END
 GO
-EXEC FormatStatus
 
-select * from DEVICES where DStatus = N'Đang bảo trì'
 
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --PROCEDURE show tiền lương
@@ -712,7 +666,7 @@ BEGIN
 
 	UPDATE dbo.DEVICES
 	SET
-		DStatus=N'Đang sử dụng'
+		DStatus=N'Online'
 	WHERE DeviceID=@did
 
 	UPDATE dbo.ACCOUNTCUSTOMER
@@ -748,6 +702,63 @@ BEGIN
 END
 GO
 
+--6. khi Cus logout khỏi máy
+GO
+CREATE OR ALTER PROC Userlogout_AccountCus (@cid NVARCHAR(100),@did NVARCHAR(100))
+AS
+BEGIN
+
+	UPDATE dbo.DEVICES
+	SET
+		DStatus=N'Offline'
+	WHERE DeviceID=@did
+
+	DECLARE @tienmay FLOAT,@kieumay NVARCHAR(50)
+
+	SELECT @kieumay=TypeID
+	FROM dbo.DEVICES
+	WHERE DeviceID=@did
+
+	DECLARE @Tavl DATETIME,@Tu DATETIME
+	SELECT @Tavl=TimeAvailible,@Tu=TimeUsed
+	FROM dbo.ACCOUNTCUSTOMER
+	WHERE CustomerID=@cid
+
+	IF(@kieumay =N'Vip')
+		SET @tienmay=7000
+	ELSE IF(@kieumay =N'Super Vip')
+		SET @tienmay=12000
+	ELSE 
+		SET @tienmay=5000
+
+	UPDATE dbo.ACCOUNTCUSTOMER
+	SET	
+		AccMoney=AccMoney+CAST(ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1) as float),
+		TimeAvailible=0,
+		TimeUsed=NULL,
+		DeviceID=NULL,
+		StatusCustomer=0
+	WHERE CustomerID=@cid
+END
+GO
+
+------Thời gian sử dụng thực tế của khách
+CREATE OR ALTER PROC AccCusActualTimeAvl(@cid NVARCHAR(100))
+AS
+BEGIN
+	 DECLARE @Tavl DATETIME
+	 SELECT @Tavl=TimeAvailible
+	 FROM dbo.ACCOUNTCUSTOMER
+	 WHERE CustomerID =@cid
+
+	 UPDATE dbo.ACCOUNTCUSTOMER
+	 SET
+		ActualTimeAvl=(CONVERT(varchar, @Tavl, 108) + ' ' + CONVERT(VARCHAR, DAY(@Tavl)-1)) + 'ngay ' 
+		+CONVERT(VARCHAR, MONTH(@Tavl)-1) + 'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
+	 WHERE CustomerID =@cid
+END
+GO
+
 ----------------------------------------------------------------------FUNCTION------------------------------------------------------------------------------------
 ----------------------------------------------------------------------Quốc Thắng------------------------------------------------------------------------------------
 --Tìm ra nhân viên theo từ khoá đã cho
@@ -780,16 +791,30 @@ RETURNS TABLE AS
 	       WHERE TIMEKEEPING.CheckOut is null;
 GO
 
+--Tìm ra thông tin cá nhân và chỉnh sửa
+CREATE or ALTER FUNCTION Func_TakeMyInfo(@EmpID varchar(100))
+RETURNS TABLE AS
+	RETURN SELECT FullName, Gender, Birthday, Phone, IdentityNumber, Email
+		   FROM EMPLOYEE
+	       WHERE EMPLOYEE.ID = @EmpID;
+GO
+
+--Tìm ra tên và hình
+CREATE or ALTER FUNCTION Func_TakeNameandPic(@EmpID varchar(100))
+RETURNS TABLE AS
+	RETURN SELECT FullName, Picture
+		   FROM EMPLOYEE
+	       WHERE EMPLOYEE.ID = @EmpID;
+GO
+
 ----------------------------------------------------------------------Phước Đăng-----------------------------------------------------------------------------------
 --1.
 GO
 CREATE or ALTER FUNCTION Func_CheckAvailableDevices (@devid nvarchar(100))
 RETURNS table AS
-	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = N'Chưa sử dụng';
+	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = N'Offline';
 GO
 
---SELECT * FROM dbo.Func_CheckAvailableDevice('MAY03') Check01
---SELECT * FROM dbo.Func_CheckAvailableDevice('MAY01') Check01
 --2.
 CREATE or ALTER FUNCTION Func_CheckDevicesFromUser (@devid nvarchar(100))
 RETURNS table AS
@@ -807,17 +832,5 @@ RETURNS table AS
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID
-		and DStatus = N'Chưa sử dụng';
+		and DStatus = N'Offline';
 GO
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------Sự cố-------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------
---USE DBMS_FinalProject 
---GO
---    -- Turn recursive triggers OFF in the database. 
---      ALTER DATABASE DBMS_FinalProject    
---      SET RECURSIVE_TRIGGERS OFF 
---GO

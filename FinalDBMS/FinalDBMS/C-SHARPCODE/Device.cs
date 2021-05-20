@@ -36,7 +36,7 @@ namespace FinalDBMS
         {
             SqlCommand command = new SqlCommand("SELECT CONCAT(deviceid,' (',typeid,')')  AS Máy " +
                 "FROM DEVICES " +
-                "WHERE dbo.DEVICES.DStatus = N'Chưa sử dụng'");
+                "WHERE dbo.DEVICES.DStatus = N'Offline'");
             command.Connection = mydb.getConnection;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable table = new DataTable();
@@ -294,13 +294,9 @@ namespace FinalDBMS
             //Không cần truyền tham số ngay command nhưng phải thêm Parameter bên dưới
             SqlCommand command = new SqlCommand("FormatStatus", mydb.getConnection);
             command.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            DataTable table = new DataTable();
-            adapter.Fill(table);
+            mydb.Openconnection();
+            command.ExecuteNonQuery();
         }
-
-
-
 
     }
 }
