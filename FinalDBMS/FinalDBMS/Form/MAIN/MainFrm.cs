@@ -90,5 +90,10 @@ namespace FinalDBMS
             //Thông tin lương nhân viên
             frmSalary.Hide();
         }
+
+        private void pnlMain_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

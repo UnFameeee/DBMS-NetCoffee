@@ -93,7 +93,7 @@ namespace FinalDBMS
                         string status = ComboBox_SelectStatus.SelectedValue.ToString();
 
 
-                        if (status == "Chưa sử dụng" || status == "Đang bảo trì")
+                        if (status == "Chưa sử dụng" || status == "Repairing")
                         {
                             if (device.InsertDevice(DeviceID, TypeID, status))
                             {
