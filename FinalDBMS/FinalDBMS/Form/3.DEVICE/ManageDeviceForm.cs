@@ -358,7 +358,7 @@ namespace FinalDBMS
 
                         if (device.CheckAvailableDeviceFromUser(DeviceID))
                         {
-                            if (status == "Đang sử dụng")
+                            if (status == "Dang test")
                             {
                                 if (device.StopPlaying(DeviceID))
                                 {
