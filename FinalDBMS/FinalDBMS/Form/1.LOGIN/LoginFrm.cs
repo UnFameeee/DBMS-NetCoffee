@@ -34,22 +34,24 @@ namespace FinalDBMS
                 command.Parameters.Add("@pass", SqlDbType.VarChar).Value = textBoxPassword.Text;
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = textBoxID.Text;
                 string type = comboBoxTypeuser.Text;
+
+                Global.SetGlobalUserID(textBoxID.Text.ToString());
                 if (type == "Quản Lý")
                 {
                     type = "QL";
-                    Global.SetGlobalUserID("QL");
+                    Global.SetRole("QL");
+                    
                 }
                 else if (type == "Nhân Viên")
                 {
                     type = "NV";
-                    Global.SetGlobalUserID("NV");
+                    Global.SetRole("NV");
                 }
                 else
                 {
                     type = "LC";
-                    Global.SetGlobalUserID("LC");
+                    Global.SetRole("LC");
                 }
-                
 
                 command.Parameters.Add("@typeid", SqlDbType.VarChar).Value = type;
                 adapter.SelectCommand = command;
