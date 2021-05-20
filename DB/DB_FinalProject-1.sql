@@ -29,8 +29,9 @@ CREATE TABLE WORKSHIFT
 INSERT INTO WORKSHIFT VALUES(1, '00:00:00', '08:00:00')
 INSERT INTO WORKSHIFT VALUES(2, '08:00:00', '16:00:00')
 INSERT INTO WORKSHIFT VALUES(3, '16:00:00', '00:00:00')
---test
-INSERT INTO WORKSHIFT VALUES(5, '00:10:00', '23:00:00')
+
+----test
+--INSERT INTO WORKSHIFT VALUES(4, '01:10:00', '23:00:00')
 
 
 --*Tạo table NhânViên (QT)
@@ -108,8 +109,8 @@ INSERT INTO WORK VALUES ('NV15', 3, 'NV20')	--NV
 INSERT INTO WORK VALUES ('NV16', 3, 'NV20')	--NV
 INSERT INTO WORK VALUES ('NV17', 3, 'NV20')	--NV
 
---Test
-INSERT INTO WORK VALUES ('NV17', 4, 'NV20')	--NV
+----Test
+--INSERT INTO WORK VALUES ('NV17', 4, 'NV20')	--NV
 
 ------Checkin
 CREATE TABLE TIMEKEEPING
@@ -161,15 +162,15 @@ CREATE TABLE DEVICES
 	TypeID nvarchar(100) references DEVICETYPE(TypeID) ON UPDATE SET NULL,								--loại máy (super vjp, vip, thường)
 	DStatus nvarchar(100)															--tình trạng máy (đang đc sử dụng, đang đc bảo trì,....)
 )
-INSERT INTO DEVICES VALUES('MAY01','Vip',		N'Đang sử dụng')
-INSERT INTO DEVICES VALUES('MAY02','Super Vip',	N'Đang bảo trì')
-INSERT INTO DEVICES VALUES('MAY03',N'Thường',	N'Chưa sử dụng')
-INSERT INTO DEVICES VALUES('MAY04','Vip',		N'Using')
-INSERT INTO DEVICES VALUES('MAY05','Super Vip',	N'Đang bảo trì')
-INSERT INTO DEVICES VALUES('MAY06','Vip',		N'Chưa sử dụng')
-INSERT INTO DEVICES VALUES('MAY07',N'Thường',	N'Đang sử dụng')
-INSERT INTO DEVICES VALUES('MAY08',N'Thường',	N'Đang bảo trì')
-INSERT INTO DEVICES VALUES('MAY09',N'Thường',	N'Chưa sử dụng')
+INSERT INTO DEVICES VALUES('MAY01','Vip',		N'Online')
+INSERT INTO DEVICES VALUES('MAY02','Super Vip',	N'Online')
+INSERT INTO DEVICES VALUES('MAY03',N'Thường',	N'Online')
+INSERT INTO DEVICES VALUES('MAY04','Vip',		N'Offline')
+INSERT INTO DEVICES VALUES('MAY05','Super Vip',	N'In maintenance')
+INSERT INTO DEVICES VALUES('MAY06','Vip',		N'Offline')
+INSERT INTO DEVICES VALUES('MAY07',N'Thường',	N'Offline')
+INSERT INTO DEVICES VALUES('MAY08',N'Thường',	N'In maintenance')
+INSERT INTO DEVICES VALUES('MAY09',N'Thường',	N'Offline')
 
 ------------------------------------------------------------------------------------------------------------------------
 --Khách hàng--
@@ -201,22 +202,23 @@ create table ACCOUNTCUSTOMER
 	AccMoney FLOAT DEFAULT 0, ----------- mới thêm vào + đổi tiền từ float thành int
 	Actualtimeavl NVARCHAR(50)
 )
-
-INSERT INTO dbo.ACCOUNTCUSTOMER
-( UserName,
-    PassWord,
-    CustomerID,
-    DeviceID,
-    StatusCustomer,
-    AccMoney
-) VALUES
-(   N'van a',       -- UserName - nvarchar(100)
-    N'1',       -- PassWord - nvarchar(100)-
-    N'KH1',       -- CustomerID - nvarchar(100)
-    N'MAY01',       -- DeviceID - nvarchar(100)
-    1,         -- StatusCustomer - int
-    100000.0       -- AccMoney - float
-    )
+--Cái này do mình insert chỗ này thôi à, do đúng là máy 1 2 3 lúc insert vô phải để online acid :vvv
+--ý là cái này khi mình insert trên visual thì kh có chuyện như v đâu yên tâm ok, vào visual test ổn là dc
+--INSERT INTO dbo.ACCOUNTCUSTOMER
+--( UserName,
+--    PassWord,
+--    CustomerID,
+--    DeviceID,
+--    StatusCustomer,
+--    AccMoney
+--) VALUES
+--(   N'van a',       -- UserName - nvarchar(100)
+--    N'1',       -- PassWord - nvarchar(100)-
+--    N'KH1',       -- CustomerID - nvarchar(100)
+--    N'MAY01',       -- DeviceID - nvarchar(100)
+--    1,         -- StatusCustomer - int
+--    100000.0       -- AccMoney - float
+--    )
 
 	INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van A', N'1', N'KH1', N'MAY01', 1, 100000.0 )
 	INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van B', N'1', N'KH2', N'MAY02', 0, 100000.0 )
@@ -235,6 +237,3 @@ CREATE TABLE ACCOUNTEMPLOYEE
 	Password nvarchar(1000),
 	TypeEmployee nvarchar(100)										--0 là nhân viên, 1 là quản lí
 )
-
-select * from DEVICES
-where DStatus = N'Chưa sử dụng'
