@@ -268,7 +268,7 @@ namespace FinalDBMS
             this.lbCheckin.Name = "lbCheckin";
             this.lbCheckin.Size = new System.Drawing.Size(344, 24);
             this.lbCheckin.TabIndex = 1;
-            this.lbCheckin.Text = "You have been checked in. Have a nice day at work";
+            this.lbCheckin.Text = "...";
             // 
             // tbInfo
             // 
@@ -287,7 +287,7 @@ namespace FinalDBMS
             this.dataGridViewTimeKeeping.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dataGridViewTimeKeeping.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTimeKeeping.Location = new System.Drawing.Point(10, 169);
-            this.dataGridViewTimeKeeping.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridViewTimeKeeping.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewTimeKeeping.Name = "dataGridViewTimeKeeping";
             this.dataGridViewTimeKeeping.RowHeadersWidth = 62;
             this.dataGridViewTimeKeeping.RowTemplate.Height = 28;
@@ -296,12 +296,12 @@ namespace FinalDBMS
             // 
             // btnCheckOut
             // 
-            this.btnCheckOut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.btnCheckOut.BackColor = System.Drawing.Color.White;
             this.btnCheckOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCheckOut.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCheckOut.ForeColor = System.Drawing.Color.White;
+            this.btnCheckOut.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.btnCheckOut.Location = new System.Drawing.Point(276, 2);
-            this.btnCheckOut.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCheckOut.Margin = new System.Windows.Forms.Padding(2);
             this.btnCheckOut.Name = "btnCheckOut";
             this.btnCheckOut.Size = new System.Drawing.Size(70, 28);
             this.btnCheckOut.TabIndex = 8;
@@ -312,7 +312,7 @@ namespace FinalDBMS
             // txtID
             // 
             this.txtID.Location = new System.Drawing.Point(41, 7);
-            this.txtID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtID.Margin = new System.Windows.Forms.Padding(2);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(157, 20);
             this.txtID.TabIndex = 7;
@@ -331,12 +331,12 @@ namespace FinalDBMS
             // 
             // btnCheckIn
             // 
-            this.btnCheckIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.btnCheckIn.BackColor = System.Drawing.Color.White;
             this.btnCheckIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCheckIn.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCheckIn.ForeColor = System.Drawing.Color.White;
+            this.btnCheckIn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.btnCheckIn.Location = new System.Drawing.Point(202, 2);
-            this.btnCheckIn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCheckIn.Margin = new System.Windows.Forms.Padding(2);
             this.btnCheckIn.Name = "btnCheckIn";
             this.btnCheckIn.Size = new System.Drawing.Size(70, 28);
             this.btnCheckIn.TabIndex = 5;

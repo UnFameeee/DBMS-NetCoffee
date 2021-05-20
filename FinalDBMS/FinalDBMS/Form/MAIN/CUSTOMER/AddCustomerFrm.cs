@@ -87,11 +87,11 @@ namespace FinalDBMS
             dataGridViewCus.DataSource = Cus.GetallCus();
             dataGridViewCus.AllowUserToAddRows = false;
             //dataGridViewCus.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
-            godwidth(dataGridViewCus, this);
+            //godwidth(dataGridViewCus, this);
         }
         private void buttonXoa_Click(object sender, EventArgs e)
         {
-            string cusid = dataGridViewCus.CurrentRow.Cells[0].Value.ToString();
+            string cusid = textBoxID.Text;
                   
             try
             {
@@ -208,7 +208,6 @@ namespace FinalDBMS
             RegisterAccountCus frm = new RegisterAccountCus("Tạo tài khoản");
             string cid = textBoxID.Text;
             frm.textBoxCusID.Text = cid;
-            frm.labeltitle.Text = "Tạo tài khoản cho khách";
             frm.buttonCreate.Text = "Tạo tài khoản";
             frm.Show();
         }
@@ -219,7 +218,6 @@ namespace FinalDBMS
             string cid = textBoxID.Text;
             frm.textBoxCusID.Text = cid;
             frm.textBoxUsername.Text = dataGridViewCusAccount.CurrentRow.Cells[0].Value.ToString();
-            frm.labeltitle.Text = "Đổi mật khẩu tài khoản";
             frm.buttonCreate.Text = "Đổi mật khẩu";
             frm.Show();
         }

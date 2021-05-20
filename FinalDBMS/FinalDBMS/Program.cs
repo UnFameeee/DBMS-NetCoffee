@@ -18,13 +18,10 @@ namespace FinalDBMS
             Application.SetCompatibleTextRenderingDefault(false);
 
 
-            //LoginFrm frm = new LoginFrm();
-            //Application.Run(frm);
-            //if (frm.DialogResult == DialogResult.OK)
-            //{
-            //    Application.Run(new MainFrm());
-            //}
-            Application.Run(new MainFrm());
+            LoginFrm frm = new LoginFrm();
+            Application.Run(frm);
+            Application.Exit();
+            //Application.Run(new MainFrm());
         }
     }
 }

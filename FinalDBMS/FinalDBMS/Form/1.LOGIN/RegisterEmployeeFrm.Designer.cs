@@ -34,7 +34,6 @@ namespace FinalDBMS
             this.comboBoxTypeUser = new System.Windows.Forms.ComboBox();
             this.jOBBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.jOBBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.label1 = new System.Windows.Forms.Label();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.textBoxConfirmPass = new System.Windows.Forms.TextBox();
             this.buttonRegister = new System.Windows.Forms.Button();
@@ -48,6 +47,9 @@ namespace FinalDBMS
             this.dateTimePickerBirthday = new System.Windows.Forms.DateTimePicker();
             this.textBoxCMND = new System.Windows.Forms.TextBox();
             this.textboxStatusE = new System.Windows.Forms.TextBox();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.jOBBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.jOBBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -57,11 +59,12 @@ namespace FinalDBMS
             this.comboBoxTypeUser.DataSource = this.jOBBindingSource1;
             this.comboBoxTypeUser.DisplayMember = "JobDetail";
             this.comboBoxTypeUser.FormattingEnabled = true;
-            this.comboBoxTypeUser.Location = new System.Drawing.Point(27, 115);
+            this.comboBoxTypeUser.Location = new System.Drawing.Point(90, 147);
             this.comboBoxTypeUser.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTypeUser.Name = "comboBoxTypeUser";
             this.comboBoxTypeUser.Size = new System.Drawing.Size(82, 21);
-            this.comboBoxTypeUser.TabIndex = 2;
+            this.comboBoxTypeUser.TabIndex = 15;
+            this.comboBoxTypeUser.TabStop = false;
             this.comboBoxTypeUser.ValueMember = "WorkID";
             // 
             // jOBBindingSource1
@@ -72,22 +75,11 @@ namespace FinalDBMS
             // 
             this.jOBBindingSource.DataMember = "JOB";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(151, 16);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 19);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Đăng Ký";
-            // 
             // textBoxEmail
             // 
             this.textBoxEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxEmail.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.textBoxEmail.Location = new System.Drawing.Point(27, 143);
+            this.textBoxEmail.Location = new System.Drawing.Point(27, 172);
             this.textBoxEmail.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(145, 21);
@@ -98,23 +90,23 @@ namespace FinalDBMS
             // 
             this.textBoxConfirmPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxConfirmPass.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.textBoxConfirmPass.Location = new System.Drawing.Point(27, 200);
+            this.textBoxConfirmPass.Location = new System.Drawing.Point(27, 116);
             this.textBoxConfirmPass.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxConfirmPass.Name = "textBoxConfirmPass";
             this.textBoxConfirmPass.Size = new System.Drawing.Size(145, 21);
-            this.textBoxConfirmPass.TabIndex = 5;
-            this.textBoxConfirmPass.Text = "Password";
-            this.textBoxConfirmPass.UseSystemPasswordChar = true;
+            this.textBoxConfirmPass.TabIndex = 2;
+            this.textBoxConfirmPass.Text = "Nhập Lại Mật Khẩu";
             // 
             // buttonRegister
             // 
-            this.buttonRegister.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.buttonRegister.BackColor = System.Drawing.Color.White;
+            this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRegister.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonRegister.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
             this.buttonRegister.Location = new System.Drawing.Point(115, 239);
             this.buttonRegister.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(144, 25);
+            this.buttonRegister.Size = new System.Drawing.Size(144, 29);
             this.buttonRegister.TabIndex = 13;
             this.buttonRegister.Text = "Đăng ký";
             this.buttonRegister.UseVisualStyleBackColor = false;
@@ -124,13 +116,12 @@ namespace FinalDBMS
             // 
             this.textBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPassword.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.textBoxPassword.Location = new System.Drawing.Point(27, 172);
+            this.textBoxPassword.Location = new System.Drawing.Point(27, 86);
             this.textBoxPassword.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(145, 21);
-            this.textBoxPassword.TabIndex = 4;
-            this.textBoxPassword.Text = "Password";
-            this.textBoxPassword.UseSystemPasswordChar = true;
+            this.textBoxPassword.TabIndex = 1;
+            this.textBoxPassword.Text = "Mật Khẩu";
             // 
             // textBoxUsername
             // 
@@ -147,11 +138,11 @@ namespace FinalDBMS
             // 
             this.textBoxID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxID.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.textBoxID.Location = new System.Drawing.Point(27, 83);
+            this.textBoxID.Location = new System.Drawing.Point(27, 200);
             this.textBoxID.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxID.Name = "textBoxID";
             this.textBoxID.Size = new System.Drawing.Size(145, 21);
-            this.textBoxID.TabIndex = 1;
+            this.textBoxID.TabIndex = 4;
             this.textBoxID.Text = "ID";
             // 
             // textBoxPhone
@@ -162,7 +153,7 @@ namespace FinalDBMS
             this.textBoxPhone.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPhone.Name = "textBoxPhone";
             this.textBoxPhone.Size = new System.Drawing.Size(145, 21);
-            this.textBoxPhone.TabIndex = 10;
+            this.textBoxPhone.TabIndex = 6;
             this.textBoxPhone.Text = "Điện thoại";
             // 
             // textBoxHoTen
@@ -173,7 +164,7 @@ namespace FinalDBMS
             this.textBoxHoTen.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxHoTen.Name = "textBoxHoTen";
             this.textBoxHoTen.Size = new System.Drawing.Size(145, 21);
-            this.textBoxHoTen.TabIndex = 6;
+            this.textBoxHoTen.TabIndex = 5;
             this.textBoxHoTen.Text = "Họ Tên";
             // 
             // radioButtonNam
@@ -184,7 +175,6 @@ namespace FinalDBMS
             this.radioButtonNam.Name = "radioButtonNam";
             this.radioButtonNam.Size = new System.Drawing.Size(47, 17);
             this.radioButtonNam.TabIndex = 7;
-            this.radioButtonNam.TabStop = true;
             this.radioButtonNam.Text = "Nam";
             this.radioButtonNam.UseVisualStyleBackColor = true;
             // 
@@ -196,7 +186,6 @@ namespace FinalDBMS
             this.radioButtonNu.Name = "radioButtonNu";
             this.radioButtonNu.Size = new System.Drawing.Size(39, 17);
             this.radioButtonNu.TabIndex = 8;
-            this.radioButtonNu.TabStop = true;
             this.radioButtonNu.Text = "Nữ";
             this.radioButtonNu.UseVisualStyleBackColor = true;
             // 
@@ -209,6 +198,7 @@ namespace FinalDBMS
             this.dateTimePickerBirthday.Name = "dateTimePickerBirthday";
             this.dateTimePickerBirthday.Size = new System.Drawing.Size(103, 20);
             this.dateTimePickerBirthday.TabIndex = 9;
+            this.dateTimePickerBirthday.TabStop = false;
             // 
             // textBoxCMND
             // 
@@ -218,7 +208,7 @@ namespace FinalDBMS
             this.textBoxCMND.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxCMND.Name = "textBoxCMND";
             this.textBoxCMND.Size = new System.Drawing.Size(145, 21);
-            this.textBoxCMND.TabIndex = 11;
+            this.textBoxCMND.TabIndex = 7;
             this.textBoxCMND.Text = "CMND";
             // 
             // textboxStatusE
@@ -229,14 +219,58 @@ namespace FinalDBMS
             this.textboxStatusE.Margin = new System.Windows.Forms.Padding(2);
             this.textboxStatusE.Name = "textboxStatusE";
             this.textboxStatusE.Size = new System.Drawing.Size(145, 21);
-            this.textboxStatusE.TabIndex = 12;
+            this.textboxStatusE.TabIndex = 8;
             this.textboxStatusE.Text = "Tình Trạng";
+            // 
+            // btnExit
+            // 
+            this.btnExit.BackColor = System.Drawing.Color.White;
+            this.btnExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.Location = new System.Drawing.Point(350, 2);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(30, 29);
+            this.btnExit.TabIndex = 159;
+            this.btnExit.Text = "x";
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // label11
+            // 
+            this.label11.BackColor = System.Drawing.Color.White;
+            this.label11.Font = new System.Drawing.Font("Arial Narrow", 18.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(88)))), ((int)(((byte)(254)))));
+            this.label11.Location = new System.Drawing.Point(77, 7);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(235, 33);
+            this.label11.TabIndex = 160;
+            this.label11.Text = "ĐĂNG KÝ";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(14, 145);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 26);
+            this.label3.TabIndex = 161;
+            this.label3.Text = "Chức vụ:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RegisterEmployeeFrm
             // 
+            this.AcceptButton = this.buttonRegister;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(382, 279);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.textboxStatusE);
             this.Controls.Add(this.textBoxCMND);
             this.Controls.Add(this.dateTimePickerBirthday);
@@ -246,12 +280,12 @@ namespace FinalDBMS
             this.Controls.Add(this.textBoxHoTen);
             this.Controls.Add(this.textBoxID);
             this.Controls.Add(this.comboBoxTypeUser);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.textBoxConfirmPass);
             this.Controls.Add(this.buttonRegister);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxUsername);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "RegisterEmployeeFrm";
@@ -268,7 +302,6 @@ namespace FinalDBMS
         #endregion
 
         private System.Windows.Forms.ComboBox comboBoxTypeUser;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.TextBox textBoxConfirmPass;
         private System.Windows.Forms.Button buttonRegister;
@@ -287,6 +320,9 @@ namespace FinalDBMS
         private System.Windows.Forms.TextBox textboxStatusE;
       //  private DBMS_FinalProjectDataSet1 dBMS_FinalProjectDataSet1;
         private System.Windows.Forms.BindingSource jOBBindingSource1;
-       // private DBMS_FinalProjectDataSet1TableAdapters.JOBTableAdapter jOBTableAdapter1;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label3;
+        // private DBMS_FinalProjectDataSet1TableAdapters.JOBTableAdapter jOBTableAdapter1;
     }
 }

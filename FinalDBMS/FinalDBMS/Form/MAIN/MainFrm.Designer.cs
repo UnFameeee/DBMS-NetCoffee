@@ -36,6 +36,7 @@ namespace FinalDBMS
             this.eMPLOYEEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TimeKeepingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SalaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aCCOUNTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
@@ -48,8 +49,8 @@ namespace FinalDBMS
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cUSTOMERToolStripMenuItem,
-            this.eMPLOYEEToolStripMenuItem,
             this.manageDeviceToolStripMenuItem,
+            this.eMPLOYEEToolStripMenuItem,
             this.aCCOUNTToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -64,7 +65,6 @@ namespace FinalDBMS
             this.addCustomerToolStripMenuItem});
             this.cUSTOMERToolStripMenuItem.Name = "cUSTOMERToolStripMenuItem";
             this.cUSTOMERToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
-            this.cUSTOMERToolStripMenuItem.Text = "KHÁCH HÀNG";
             // 
             // addCustomerToolStripMenuItem
             // 
@@ -78,7 +78,8 @@ namespace FinalDBMS
             // 
             this.eMPLOYEEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.InfoToolStripMenuItem,
-            this.TimeKeepingToolStripMenuItem});
+            this.TimeKeepingToolStripMenuItem,
+            this.SalaryToolStripMenuItem});
             this.eMPLOYEEToolStripMenuItem.Name = "eMPLOYEEToolStripMenuItem";
             this.eMPLOYEEToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
             this.eMPLOYEEToolStripMenuItem.Text = "NHÂN VIÊN";
@@ -97,6 +98,13 @@ namespace FinalDBMS
             this.TimeKeepingToolStripMenuItem.Text = "CHẤM CÔNG";
             this.TimeKeepingToolStripMenuItem.Click += new System.EventHandler(this.TimeKeepingToolStripMenuItem_Click);
             // 
+            // SalaryToolStripMenuItem
+            // 
+            this.SalaryToolStripMenuItem.Name = "SalaryToolStripMenuItem";
+            this.SalaryToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.SalaryToolStripMenuItem.Text = "LƯƠNG";
+            this.SalaryToolStripMenuItem.Click += new System.EventHandler(this.SalaryToolStripMenuItem_Click);
+            // 
             // manageDeviceToolStripMenuItem
             // 
             this.manageDeviceToolStripMenuItem.Name = "manageDeviceToolStripMenuItem";
@@ -110,6 +118,7 @@ namespace FinalDBMS
             this.aCCOUNTToolStripMenuItem.Name = "aCCOUNTToolStripMenuItem";
             this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(100, 24);
             this.aCCOUNTToolStripMenuItem.Text = "TÀI KHOẢN";
+            this.aCCOUNTToolStripMenuItem.Click += new System.EventHandler(this.aCCOUNTToolStripMenuItem_Click);
             // 
             // pnlMain
             // 
@@ -132,6 +141,7 @@ namespace FinalDBMS
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+
             this.Name = "MainFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QUẢN LÝ QUÁN CYBER NET";
@@ -153,5 +163,6 @@ namespace FinalDBMS
         private System.Windows.Forms.ToolStripMenuItem InfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TimeKeepingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manageDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SalaryToolStripMenuItem;
     }
 }

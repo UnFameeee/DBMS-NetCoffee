@@ -90,10 +90,9 @@ namespace FinalDBMS
         {
             textBoxCusID.Enabled = false;
         }
-
-        private void buttonBack_Click(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Close();
         }
     }
 }

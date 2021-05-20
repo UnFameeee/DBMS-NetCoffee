@@ -144,7 +144,6 @@ namespace FinalDBMS
         {
             string DeviceID = TextBox_DeviceID.Text;
 
-
             //Kiểm tra đã đầy đủ thông tin chưa
 
             if (device.DeviceIDAvailable(DeviceID))
@@ -162,7 +161,7 @@ namespace FinalDBMS
                         string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
                         string status = ComboBox_SelectStatus.SelectedValue.ToString();
 
-                        if (status == "Đang sử dụng")
+                    if (device.CheckAvailableDeviceFromUser(DeviceID))
                         {
                             MessageBox.Show("Máy đang có khách hàng sử dụng. Không thể chỉnh sửa lúc này.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
@@ -236,6 +235,19 @@ namespace FinalDBMS
             {
                 MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            
+            /*else 
+            { 
+                Label_Info.Text =
+                "THÔNG TIN KHÁCH HÀNG ĐANG DÙNG MÁY " + table.Rows[0]["DeviceID"].ToString() + "\n"
+                + "ID khách hàng: " + table.Rows[0]["CustomerID"].ToString() + "\n"
+                + "Họ và tên: " + table.Rows[0]["FullName"].ToString() + "\n"
+                + "SĐT: " + table.Rows[0]["PhoneNumber"].ToString() + "\n"
+                + "Tổng tài khoản: " + table.Rows[0]["MoneyCharged"].ToString() + "\n"
+                + "Tên đăng nhập: " + table.Rows[0]["UserName"].ToString() + "\n"
+                + "Tổng thời gian: " + table.Rows[0]["Actualtimeavl"].ToString() + "\n"
+                + "Thời gian đã sử dụng: " + table.Rows[0]["TimeUsed"].ToString() + "\n"
+                ;*/
         }
 
         private void Button_StartPlaying_Click(object sender, EventArgs e)

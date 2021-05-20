@@ -79,5 +79,44 @@ namespace FinalDBMS
             db.Closeconnection();
             return false;
         }
+
+        public bool updateAccount(string id, string user, string pass, string typeid)
+        {
+            SqlCommand command = new SqlCommand("update ACCOUNTEMPLOYEE  set Username = @user,Password = @pass ,TypeEmployee = @typeid where ID = @Id", db.getConnection);
+            command.Parameters.Add("@user", SqlDbType.NVarChar).Value = user;
+            command.Parameters.Add("@pass", SqlDbType.NVarChar).Value = pass;
+            command.Parameters.Add("@typeid", SqlDbType.NVarChar).Value = typeid;
+            command.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
+
+            db.Openconnection();
+            if (command.ExecuteNonQuery() == 1)
+            {
+                db.Closeconnection();
+                return true;
+            }
+            else
+            {
+                db.Closeconnection();
+                return false;
+            }
+        }
+
+        public bool removeAccount(string id)
+        {
+            SqlCommand cmd = new SqlCommand("delete from ACCOUNTEMPLOYEE where ID = @Id", db.getConnection);
+            cmd.Parameters.Add("@Id", SqlDbType.NVarChar).Value = id;
+
+            db.Openconnection();
+            if (cmd.ExecuteNonQuery() == 1)
+            {
+                db.Closeconnection();
+                return true;
+            }
+            else
+            {
+                db.Closeconnection();
+                return false;
+            }
+        }
     }
 }

@@ -125,12 +125,12 @@ BEGIN
 	DECLARE @Reward REAL, @Fine REAL 
 	IF (@Minute >= 480)
 	BEGIN
-		SET @Reward = @Minute % 15
+		SET @Reward = @Minute
 		SET @Fine = 0
 	END
 	ELSE IF (@Minute < 480)
 	BEGIN
-		SET @Fine = @Minute % 15
+		SET @Fine = (480 - @Minute)
 		SET @Reward = 0
 	END
 	--Nếu số ca làm được hơn trên 30 và số thời gian làm của buỗi đó hơn 8 tiếng thì tiền thưởng sẽ được nhân thêm 1.1
@@ -153,7 +153,7 @@ BEGIN
 	SELECT @iIDEmployee = Inserted.IDEmployee, @iCheckIn = Inserted.CheckIn, @iCheckOut = Inserted.CheckOut
 	FROM Inserted
 	--Lấy số thưởng, phạt và số ca làm của nhân viên đó
-	DECLARE @iReward INT, @iFine INT, @iNumberofWorkShift INT	
+	DECLARE @iReward FLOAT, @iFine FLOAT, @iNumberofWorkShift INT	
 	SELECT @iReward = Reward, @iFine = Fine, @iNumberofWorkShift = NumberofWorkShift
 	FROM dbo.SALARY
 	WHERE @iIDEmployee = dbo.SALARY.IDEmployee AND MONTH(@iCheckOut) = MonthWork AND YEAR(@iCheckOut) = YearWork
@@ -180,7 +180,10 @@ BEGIN
 		SET @Wages = 8 * @CoefficientsSalary * 20000
 
 	DECLARE @SalarybyPosition INT
-	SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 30000							--Set tiền lương
+	IF (@ShiftID = 1)
+		SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 20000							--Set tiền lương
+	ELSE
+		SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 30000
 	--Cập nhật thay đổi lương nhân viên
 	UPDATE dbo.SALARY
 	SET SalaryEmployee = @SalarybyPosition
@@ -450,7 +453,7 @@ Go
 CREATE OR ALTER PROC ShowCustomerIsPlaying @DevID nvarchar(100)
 as
 begin
-select c.CustomerID,c.FullName,c.PhoneNumber,c.MoneyCharged,a.UserName,a.TimeAvailible,a.TimeUsed,a.DeviceID
+select c.CustomerID,c.FullName,c.PhoneNumber,c.MoneyCharged,a.UserName,a.Actualtimeavl,a.TimeUsed,a.DeviceID
 from ACCOUNTCUSTOMER a, DEVICES d, CUSTOMER c
 where a.DeviceID = d.DeviceID
 and a.DeviceID = @DevID
@@ -755,8 +758,6 @@ RETURNS table AS
 	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = N'Chưa sử dụng';
 GO
 
---SELECT * FROM dbo.Func_CheckAvailableDevice('MAY03') Check01
---SELECT * FROM dbo.Func_CheckAvailableDevice('MAY01') Check01
 --2.
 CREATE or ALTER FUNCTION Func_CheckDevicesFromUser (@devid nvarchar(100))
 RETURNS table AS
@@ -776,15 +777,3 @@ RETURNS table AS
 		and a.DeviceID = d.DeviceID
 		and DStatus = N'Chưa sử dụng';
 GO
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------Sự cố-------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------
---USE DBMS_FinalProject 
---GO
---    -- Turn recursive triggers OFF in the database. 
---      ALTER DATABASE DBMS_FinalProject    
---      SET RECURSIVE_TRIGGERS OFF 
---GO
