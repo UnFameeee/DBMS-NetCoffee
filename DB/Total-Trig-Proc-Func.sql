@@ -453,7 +453,7 @@ Go
 CREATE OR ALTER PROC ShowCustomerIsPlaying @DevID nvarchar(100)
 as
 begin
-select c.CustomerID,c.FullName,c.PhoneNumber,c.MoneyCharged,a.UserName,a.Actualtimeavl,a.TimeUsed,a.DeviceID
+select c.CustomerID,c.FullName,c.PhoneNumber,c.MoneyCharged,a.UserName,a.TimeAvailible,a.TimeUsed,a.DeviceID
 from ACCOUNTCUSTOMER a, DEVICES d, CUSTOMER c
 where a.DeviceID = d.DeviceID
 and a.DeviceID = @DevID
@@ -485,7 +485,7 @@ UPDATE DEVICES
 SET DStatus = N'Chưa sử dụng'
 WHERE DeviceID = @devid
 UPDATE ACCOUNTCUSTOMER
-SET DeviceID = NULL;
+SET DeviceID = NULL where DeviceID = @devid;
 END;
 GO
 
@@ -518,6 +518,9 @@ WHERE ACCOUNTCUSTOMER.DeviceID = @devid
 UPDATE DEVICES
 SET DStatus = N'Đang bảo trì'
 WHERE DeviceID = @devid
+
+UPDATE ACCOUNTCUSTOMER 
+SET DeviceID = NULL where DeviceID = @devid
 END;
 GO
 
@@ -593,7 +596,27 @@ BEGIN
 	SELECT * FROM TIMEKEEPING WHERE IDEmployee = @IDEmployee AND CheckOut IS NULL				--SELECT * để kiểm tra nhân viên có đi làm hay không
 END
 GO
-
+--PROCEDURE tìm kiếm lương nhân viên bằng tháng và năm
+CREATE or ALTER PROCEDURE USP_SearchSalaryByMonthYear @Month INT, @Year INT
+AS
+BEGIN
+	Select * FROM Salary WHERE MonthWork = @Month AND YearWork = @Year
+END
+GO
+--PROCEDURE tìm kiếm lương nhân viên bằng tháng
+CREATE or ALTER PROCEDURE USP_SearchSalaryByMonth @Month INT
+AS
+BEGIN
+	Select * FROM Salary WHERE MonthWork = @Month
+END
+GO
+--PROCEDURE tìm kiếm lương nhân viên bằng năm
+CREATE or ALTER PROCEDURE USP_SearchSalaryByYear @Year INT
+AS
+BEGIN
+	Select * FROM Salary WHERE YearWork = @Year
+END
+GO
 ----------------------------------------------------------------------Dương Duy------------------------------------------------------------------------------------
 --1. thêm mới khách hàng Cus
 go
