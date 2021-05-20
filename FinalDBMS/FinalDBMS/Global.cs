@@ -13,5 +13,11 @@ namespace FinalDBMS
         {
             GlobalUserID = userID;
         }
+
+        public static string Role { get; private set; }
+        public static void SetRole(string userID)
+        {
+            Role = userID;
+        }
     }
 }
