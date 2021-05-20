@@ -253,7 +253,7 @@ BEGIN
 	IF(@st = 1 AND @did IS NOT NULL)
 		BEGIN
 			UPDATE dbo.DEVICES
-			SET DStatus=N'Đang sử dụng'
+			SET DStatus=N'Online'
 			WHERE DeviceID=@did
 
 			SELECT @deT= dbo.DEVICES.TypeID
@@ -427,7 +427,7 @@ as
 begin
 update DEVICES
 set
-DStatus = N'Đã sử dụng'
+DStatus = N'Online'
 where DeviceID = @devid
 end
 GO
@@ -441,7 +441,7 @@ UPDATE ACCOUNTCUSTOMER
 SET StatusCustomer = 0
 WHERE ACCOUNTCUSTOMER.DeviceID = @devid
 UPDATE DEVICES
-SET DStatus = N'Chưa sử dụng'
+SET DStatus = N'Offline'
 WHERE DeviceID = @devid
 UPDATE ACCOUNTCUSTOMER
 SET DeviceID = NULL where DeviceID = @devid;
@@ -459,7 +459,7 @@ SET StatusCustomer = 1
 WHERE ACCOUNTCUSTOMER.DeviceID = @devid
 
 UPDATE DEVICES
-SET DStatus = N'Đang sử dụng'
+SET DStatus = N'Online'
 WHERE DeviceID = @devid
 END;
 GO
@@ -475,7 +475,7 @@ SET StatusCustomer = 0
 WHERE ACCOUNTCUSTOMER.DeviceID = @devid
 
 UPDATE DEVICES
-SET DStatus = N'Đang bảo trì'
+SET DStatus = N'In maintenance'
 WHERE DeviceID = @devid
 
 UPDATE ACCOUNTCUSTOMER 
@@ -488,7 +488,7 @@ CREATE or ALTER PROCEDURE StopRepairing @devid nvarchar(MAX)
 AS
 BEGIN
 UPDATE DEVICES
-SET DStatus = N'Chưa sử dụng'
+SET DStatus = N'Offline'
 WHERE DeviceID = @devid
 END;
 GO
@@ -500,12 +500,14 @@ as
 BEGIN
 UPDATE DEVICES
 SET
-DStatus = N'Chưa sử dụng'
-WHERE DStatus = N'Đang sử dụng'
+DStatus = N'Offline'
+WHERE DStatus = N'Online'
+
 AND DeviceID not in
 (select DEVICES.DeviceID from DEVICES, ACCOUNTCUSTOMER Where DEVICES.DeviceID = ACCOUNTCUSTOMER.DeviceID)
 END
 GO
+
 
 ----------------------------------------------------------------------Nhật Tiến------------------------------------------------------------------------------------
 --PROCEDURE show tiền lương
@@ -664,7 +666,7 @@ BEGIN
 
 	UPDATE dbo.DEVICES
 	SET
-		DStatus=N'Đang sử dụng'
+		DStatus=N'Online'
 	WHERE DeviceID=@did
 
 	UPDATE dbo.ACCOUNTCUSTOMER
@@ -708,7 +710,7 @@ BEGIN
 
 	UPDATE dbo.DEVICES
 	SET
-		DStatus=N'Chưa sử dụng'
+		DStatus=N'Offline'
 	WHERE DeviceID=@did
 
 	DECLARE @tienmay FLOAT,@kieumay NVARCHAR(50)
@@ -810,7 +812,7 @@ GO
 GO
 CREATE or ALTER FUNCTION Func_CheckAvailableDevices (@devid nvarchar(100))
 RETURNS table AS
-	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = N'Chưa sử dụng';
+	return SELECT * FROM DEVICES WHERE DeviceID = @devid and DStatus = N'Offline';
 GO
 
 --2.
@@ -830,5 +832,5 @@ RETURNS table AS
 		FROM DEVICES d, ACCOUNTCUSTOMER a 
 		WHERE d.DeviceID = @devid 
 		and a.DeviceID = d.DeviceID
-		and DStatus = N'Chưa sử dụng';
+		and DStatus = N'Offline';
 GO

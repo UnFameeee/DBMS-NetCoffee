@@ -22,24 +22,25 @@ namespace FinalDBMS
         private void ManageDeviceForm_Load(object sender, EventArgs e)
         {
             //Hiển thị toàn bộ thông tin Device ngay khi vừa khởi động form
-            device.FormatStatus();
-            DataGridView_ManageDevices.DataSource = device.getAllDevices();
+                device.FormatStatus();
+  
+                DataGridView_ManageDevices.DataSource = device.getAllDevices();
 
-            //Dùng ComboBox để hiển thị các loại thiết bị
-            SqlCommand command = new SqlCommand("SELECT Distinct TypeID from DEVICES");
-            ComboBox_SelectDevice.DataSource = device.getDevice(command);
-            ComboBox_SelectDevice.DisplayMember = "TypeID";
-            ComboBox_SelectDevice.ValueMember = "TypeID";
-            ComboBox_SelectDevice.SelectedItem = null;
+                //Dùng ComboBox để hiển thị các loại thiết bị
+                SqlCommand command = new SqlCommand("SELECT Distinct TypeID from DEVICES");
+                ComboBox_SelectDevice.DataSource = device.getDevice(command);
+                ComboBox_SelectDevice.DisplayMember = "TypeID";
+                ComboBox_SelectDevice.ValueMember = "TypeID";
+                ComboBox_SelectDevice.SelectedItem = null;
 
-            //Dùng ComboBox để hiển thị các loại trạng thái
-            SqlCommand command2 = new SqlCommand("SELECT Distinct DStatus from DEVICES");
-            ComboBox_SelectStatus.DataSource = device.getDevice(command2);
-            ComboBox_SelectStatus.DisplayMember = "DStatus";
-            ComboBox_SelectStatus.ValueMember = "DStatus";
-            ComboBox_SelectStatus.SelectedItem = null;
+                //Dùng ComboBox để hiển thị các loại trạng thái
+                SqlCommand command2 = new SqlCommand("SELECT Distinct DStatus from DEVICES");
+                ComboBox_SelectStatus.DataSource = device.getDevice(command2);
+                ComboBox_SelectStatus.DisplayMember = "DStatus";
+                ComboBox_SelectStatus.ValueMember = "DStatus";
+                ComboBox_SelectStatus.SelectedItem = null;
 
-            EditWidth(DataGridView_ManageDevices, 100, 154);
+                EditWidth(DataGridView_ManageDevices, 100, 154);
 
 
         }
@@ -93,7 +94,7 @@ namespace FinalDBMS
                         string status = ComboBox_SelectStatus.SelectedValue.ToString();
 
 
-                        if (status == "Chưa sử dụng" || status == "Repairing")
+                        if (status == "Offline" || status == "In maintenance")
                         {
                             if (device.InsertDevice(DeviceID, TypeID, status))
                             {
@@ -162,7 +163,7 @@ namespace FinalDBMS
                         string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
                         string status = ComboBox_SelectStatus.SelectedValue.ToString();
 
-                        if (status == "Đang sử dụng")
+                        if (status == "Online")
                         {
                             MessageBox.Show("Máy đang có khách hàng sử dụng. Không thể chỉnh sửa lúc này.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
@@ -280,7 +281,7 @@ namespace FinalDBMS
 
                         if (device.CheckAvailableDeviceFromUser(DeviceID))
                         {
-                            if (status == "Chưa sử dụng")
+                            if (status == "Offline")
                             {
                                 if (device.StartPlaying(DeviceID))
                                 {
@@ -358,7 +359,7 @@ namespace FinalDBMS
 
                         if (device.CheckAvailableDeviceFromUser(DeviceID))
                         {
-                            if (status == "Đang sử dụng")
+                            if (status == "Online")
                             {
                                 if (device.StopPlaying(DeviceID))
                                 {
@@ -423,7 +424,7 @@ namespace FinalDBMS
                     {
                         string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
                         string status = ComboBox_SelectStatus.SelectedValue.ToString();
-                        if (status == "Đang sử dụng")
+                        if (status == "Online")
                         {
 
                             if (device.StopPlaying(DeviceID))
@@ -476,7 +477,7 @@ namespace FinalDBMS
 
                         string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
                         string status = ComboBox_SelectStatus.SelectedValue.ToString();
-                        if (status == "Chưa sử dụng")
+                        if (status == "Offline")
                         {
 
                             if (device.DeleteDeviceByID(DeviceID))
@@ -489,11 +490,11 @@ namespace FinalDBMS
                                 MessageBox.Show("Xoá máy khỏi danh sách không thành công.", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
-                        else if (status == "Đang sử dụng")
+                        else if (status == "Online")
                         {
                             MessageBox.Show("Máy đang có khách hàng sử dụng. Không thể xoá lúc này.", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
-                        else if (status == "Đang bảo trì")
+                        else if (status == "In maintenance")
                         {
                             MessageBox.Show("Máy đang được bảo trì. Không thể xoá lúc này.", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
@@ -546,7 +547,7 @@ namespace FinalDBMS
                         string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
                         string status = ComboBox_SelectStatus.SelectedValue.ToString();
                         SqlCommand command2 = new SqlCommand("SELECT Distinct DStatus from DEVICES");
-                        if (status == "Chưa sử dụng")
+                        if (status == "Offline")
                         {
 
                             if (device.StartRepairing(DeviceID))
@@ -560,13 +561,13 @@ namespace FinalDBMS
                                 MessageBox.Show("Tiến hành bảo trì không thành công.", "Tiến hành bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
-                        else if (status == "Đang sử dụng")
+                        else if (status == "Online")
                         {
                             MessageBox.Show("Máy đang có khách hàng sử dụng. Không thể cài đặt bảo trì lúc này.", "Cài đặt bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
 
-                        else if (status == "Đang bảo trì")
+                        else if (status == "In maintenance")
                         {
                             if (device.StopRepairing(DeviceID))
                             {
