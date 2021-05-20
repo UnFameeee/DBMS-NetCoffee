@@ -99,6 +99,8 @@ namespace FinalDBMS
                             if (device.InsertDevice(DeviceID, TypeID, status))
                             {
                                 MessageBox.Show("Thêm máy thành công.", "Thêm máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                DataGridView_ManageDevices.DataSource = device.getAllDevices();
+                                EditWidth(DataGridView_ManageDevices, 100, 154);
                             }
 
                             else
@@ -174,6 +176,8 @@ namespace FinalDBMS
                             {
 
                                 MessageBox.Show("Cập nhật máy thành công.", "Cập nhật máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                DataGridView_ManageDevices.DataSource = device.getAllDevices();
+                                EditWidth(DataGridView_ManageDevices, 100, 154);
                             }
 
                             else
@@ -209,7 +213,8 @@ namespace FinalDBMS
                         || (ComboBox_SelectStatus.SelectedValue == null))
                         {
                             MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
+                            Label_Info.Text = "";
+                }
 
                         else
                         {
@@ -217,6 +222,7 @@ namespace FinalDBMS
                                 if (table.Rows.Count == 0)
                                 {
                                     MessageBox.Show("Chưa có khách hàng nào sử dụng máy này.", "Thông tin khách hàng", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    Label_Info.Text = "";
                                 }
                                 else
                                 {
@@ -236,6 +242,7 @@ namespace FinalDBMS
             catch
             {
                 MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Label_Info.Text = "";
             }
             
             /*else 
@@ -286,6 +293,8 @@ namespace FinalDBMS
                                 if (device.StartPlaying(DeviceID))
                                 {
                                     MessageBox.Show("Đã cấp sử dụng máy.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    DataGridView_ManageDevices.DataSource = device.getAllDevices();
+                                    EditWidth(DataGridView_ManageDevices, 100, 154);
                                 }
 
                                 else
@@ -366,6 +375,8 @@ namespace FinalDBMS
                                 if (device.StopPlaying(DeviceID))
                                 {
                                     MessageBox.Show("Đã dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    DataGridView_ManageDevices.DataSource = device.getAllDevices();
+                                    EditWidth(DataGridView_ManageDevices, 100, 154);
                                 }
 
                                 else
@@ -432,6 +443,8 @@ namespace FinalDBMS
                             if (device.StopPlaying(DeviceID))
                             {
                                 MessageBox.Show("Đã dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                DataGridView_ManageDevices.DataSource = device.getAllDevices();
+                                EditWidth(DataGridView_ManageDevices, 100, 154);
                             }
 
                             else
@@ -485,6 +498,8 @@ namespace FinalDBMS
                             if (device.DeleteDeviceByID(DeviceID))
                             {
                                 MessageBox.Show("Xoá máy khỏi danh sách thành công.", "Xoá máy khỏi danh sách", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                DataGridView_ManageDevices.DataSource = device.getAllDevices();
+                                EditWidth(DataGridView_ManageDevices, 100, 154);
                             }
 
                             else
@@ -556,6 +571,8 @@ namespace FinalDBMS
                             {
                                 ComboBox_SelectStatus.DataSource = device.getDevice(command2);
                                 MessageBox.Show("Đã tiến hành bảo trì.", "Tiến hành bảo trì", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                DataGridView_ManageDevices.DataSource = device.getAllDevices();
+                                EditWidth(DataGridView_ManageDevices, 100, 154);
                             }
 
                             else
