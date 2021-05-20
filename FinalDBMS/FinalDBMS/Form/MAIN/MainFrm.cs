@@ -28,7 +28,7 @@ namespace FinalDBMS
 
         void loadForm()
         {
-            if(Global.GlobalUserID == "NV")
+            if(Global.Role == "NV")
             {
                 aCCOUNTToolStripMenuItem.Visible = false;
                 eMPLOYEEToolStripMenuItem.Visible = false;
