@@ -11,7 +11,7 @@ namespace FinalDBMS
     class Mydb
     {
         //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-7RGSHQT;Initial Catalog=DBMS_FinalProject;Integrated Security=True");              //--Dibu
-        //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-7RGSHQT;Initial Catalog=DBMS_FiNALBackup;Integrated Security=True");  //TEST DIBU
+       // SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-7RGSHQT;Initial Catalog=DBMS_FinalProjectBackup;Integrated Security=True");  //TEST DIBU
 
         //SqlConnection db = new SqlConnection(@"Data Source=DESKTOP-26GDDIM\SQLEXPRESS;Initial Catalog=DBMS_FinalProject;Integrated Security=True");   //--2 dụ
 
