@@ -54,8 +54,8 @@ namespace FinalDBMS
             this.aCCOUNTToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1070, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1425, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -64,14 +64,13 @@ namespace FinalDBMS
             this.cUSTOMERToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addCustomerToolStripMenuItem});
             this.cUSTOMERToolStripMenuItem.Name = "cUSTOMERToolStripMenuItem";
-            this.cUSTOMERToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
-            this.cUSTOMERToolStripMenuItem.Text = "KHÁCH HÀNG";
+            this.cUSTOMERToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             // 
             // addCustomerToolStripMenuItem
             // 
             this.addCustomerToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addCustomerToolStripMenuItem.Name = "addCustomerToolStripMenuItem";
-            this.addCustomerToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.addCustomerToolStripMenuItem.Size = new System.Drawing.Size(241, 26);
             this.addCustomerToolStripMenuItem.Text = "QUẢN LÍ KHÁCH HÀNG";
             this.addCustomerToolStripMenuItem.Click += new System.EventHandler(this.addCustomerToolStripMenuItem_Click);
             // 
@@ -82,20 +81,20 @@ namespace FinalDBMS
             this.TimeKeepingToolStripMenuItem,
             this.SalaryToolStripMenuItem});
             this.eMPLOYEEToolStripMenuItem.Name = "eMPLOYEEToolStripMenuItem";
-            this.eMPLOYEEToolStripMenuItem.Size = new System.Drawing.Size(82, 22);
+            this.eMPLOYEEToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
             this.eMPLOYEEToolStripMenuItem.Text = "NHÂN VIÊN";
             // 
             // InfoToolStripMenuItem
             // 
             this.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem";
-            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.InfoToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
             this.InfoToolStripMenuItem.Text = "DANH SÁCH NHÂN VIÊN";
             this.InfoToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
             // 
             // TimeKeepingToolStripMenuItem
             // 
             this.TimeKeepingToolStripMenuItem.Name = "TimeKeepingToolStripMenuItem";
-            this.TimeKeepingToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.TimeKeepingToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
             this.TimeKeepingToolStripMenuItem.Text = "CHẤM CÔNG";
             this.TimeKeepingToolStripMenuItem.Click += new System.EventHandler(this.TimeKeepingToolStripMenuItem_Click);
             // 
@@ -109,7 +108,7 @@ namespace FinalDBMS
             // manageDeviceToolStripMenuItem
             // 
             this.manageDeviceToolStripMenuItem.Name = "manageDeviceToolStripMenuItem";
-            this.manageDeviceToolStripMenuItem.Size = new System.Drawing.Size(62, 22);
+            this.manageDeviceToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
             this.manageDeviceToolStripMenuItem.Text = "THIẾT BỊ";
             this.manageDeviceToolStripMenuItem.Click += new System.EventHandler(this.manageDeviceToolStripMenuItem_Click);
             // 
@@ -117,30 +116,32 @@ namespace FinalDBMS
             // 
             this.aCCOUNTToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.aCCOUNTToolStripMenuItem.Name = "aCCOUNTToolStripMenuItem";
-            this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
+            this.aCCOUNTToolStripMenuItem.Size = new System.Drawing.Size(100, 24);
             this.aCCOUNTToolStripMenuItem.Text = "TÀI KHOẢN";
             this.aCCOUNTToolStripMenuItem.Click += new System.EventHandler(this.aCCOUNTToolStripMenuItem_Click);
             // 
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
-            this.pnlMain.Location = new System.Drawing.Point(0, 21);
-            this.pnlMain.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.Location = new System.Drawing.Point(0, 28);
+            this.pnlMain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1068, 561);
+            this.pnlMain.Size = new System.Drawing.Size(1425, 692);
             this.pnlMain.TabIndex = 1;
             // 
             // MainFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1070, 583);
+            this.ClientSize = new System.Drawing.Size(1425, 720);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+
             this.Name = "MainFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QUẢN LÝ QUÁN CYBER NET";
