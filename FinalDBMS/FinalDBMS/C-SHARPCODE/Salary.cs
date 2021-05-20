@@ -79,5 +79,33 @@ namespace FinalDBMS
             adapter.Fill(data);
             return data;
         }
+        public DataTable SearchSalaryByMonthYear(int month, int year)
+        {
+            SqlCommand command = new SqlCommand("USP_SearchSalaryByMonthYear @Month, @Year", db.getConnection);
+            command.Parameters.Add("@Month", SqlDbType.Int).Value = month;
+            command.Parameters.Add("@Year", SqlDbType.Int).Value = year;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+            return data;
+        }
+        public DataTable SearchSalaryByMonth(int month)
+        {
+            SqlCommand command = new SqlCommand("USP_SearchSalaryByMonth @Month", db.getConnection);
+            command.Parameters.Add("@Month", SqlDbType.Int).Value = month;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+            return data;
+        }
+        public DataTable SearchSalaryByYear(int year)
+        {
+            SqlCommand command = new SqlCommand("USP_SearchSalaryByYear @Year", db.getConnection);
+            command.Parameters.Add("@Year", SqlDbType.Int).Value = year;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable data = new DataTable();
+            adapter.Fill(data);
+            return data;
+        }
     }
 }
