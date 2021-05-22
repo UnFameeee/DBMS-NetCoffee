@@ -137,12 +137,6 @@ GO
 
 -- Cấp quyền các Store procedure cho employee
 GRANT EXEC ON Edit_MyInfo TO employee
-GRANT EXEC ON AddDivideShift TO employee
-GRANT EXEC ON UpdateDivideShift TO employee
-GRANT EXEC ON DeleteDivideShift TO employee
-GRANT EXEC ON AddDivideTimeShift TO employee
-GRANT EXEC ON UpdateDivideTimeShift TO employee
-GRANT EXEC ON DeleteDivideTimeShift TO employee
 
 GRANT EXEC ON ShowInfoCustomerGroupByTypeID TO employee
 GRANT EXEC ON Insert_Device TO employee
