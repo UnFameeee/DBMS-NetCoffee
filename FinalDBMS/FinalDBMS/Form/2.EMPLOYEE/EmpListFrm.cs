@@ -91,6 +91,10 @@ namespace FinalDBMS
 
                     DataGridViewImageColumn picCol = new DataGridViewImageColumn();
                     dgvEmp.RowTemplate.Height = 80;
+                    //if(dgvEmp.Columns[9] != DBNull.Value)
+                    //{ 
+
+                    //}
                     picCol = (DataGridViewImageColumn)dgvEmp.Columns[9];
                     picCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
 

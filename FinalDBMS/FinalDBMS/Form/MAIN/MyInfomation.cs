@@ -95,9 +95,12 @@ namespace FinalDBMS
                 lbPosition.Text = "Lao công";
             }
 
-            byte[] picture = (byte[])table.Rows[0]["Picture"];
-            MemoryStream Picture = new MemoryStream(picture);
-            pic.Image = Image.FromStream(Picture);
+            if(table.Rows[0]["Picture"] != DBNull.Value)
+            {
+                byte[] picture = (byte[])table.Rows[0]["Picture"];
+                MemoryStream Picture = new MemoryStream(picture);
+                pic.Image = Image.FromStream(Picture);
+            }
         }
         
         private void rdbtnMale_CheckedChanged(object sender, EventArgs e)

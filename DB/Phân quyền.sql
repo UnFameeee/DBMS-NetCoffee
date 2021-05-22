@@ -52,6 +52,14 @@ manager
 GO
 
 -- Cấp quyền các Store procedure cho manager
+GRANT EXEC, ALTER ON Edit_MyInfo TO manager
+GRANT EXEC, ALTER ON AddDivideShift TO manager
+GRANT EXEC, ALTER ON UpdateDivideShift TO manager
+GRANT EXEC, ALTER ON DeleteDivideShift TO manager
+GRANT EXEC, ALTER ON AddDivideTimeShift TO manager
+GRANT EXEC, ALTER ON UpdateDivideTimeShift TO manager
+GRANT EXEC, ALTER ON DeleteDivideTimeShift TO manager
+
 GRANT EXEC, ALTER ON ShowInfoCustomerGroupByTypeID TO manager
 GRANT EXEC, ALTER ON Insert_Device TO manager
 GRANT EXEC, ALTER ON DeleteDeviceByID TO manager
@@ -83,8 +91,6 @@ GRANT EXEC, ALTER ON UserLoginDevice_AccountCus TO manager
 GRANT EXEC, ALTER ON DepositBudget_Accountcustomer TO manager
 GRANT EXEC, ALTER ON Userlogout_AccountCus TO manager
 GRANT EXEC, ALTER ON AccCusActualTimeAvl TO manager
-
-GRANT EXEC, ALTER ON Edit_MyInfo TO manager
 
 -- Cấp quyền các Function cho manager
 GRANT SELECT, ALTER ON Func_SearchEmployeesWithName TO manager
@@ -130,6 +136,14 @@ employee
 GO
 
 -- Cấp quyền các Store procedure cho employee
+GRANT EXEC ON Edit_MyInfo TO employee
+GRANT EXEC ON AddDivideShift TO employee
+GRANT EXEC ON UpdateDivideShift TO employee
+GRANT EXEC ON DeleteDivideShift TO employee
+GRANT EXEC ON AddDivideTimeShift TO employee
+GRANT EXEC ON UpdateDivideTimeShift TO employee
+GRANT EXEC ON DeleteDivideTimeShift TO employee
+
 GRANT EXEC ON ShowInfoCustomerGroupByTypeID TO employee
 GRANT EXEC ON Insert_Device TO employee
 GRANT EXEC ON DeleteDeviceByID TO employee
@@ -151,8 +165,6 @@ GRANT EXEC ON UserLoginDevice_AccountCus TO employee
 GRANT EXEC ON DepositBudget_Accountcustomer TO employee
 GRANT EXEC ON Userlogout_AccountCus TO employee
 GRANT EXEC ON AccCusActualTimeAvl TO employee
-
-GRANT EXEC ON Edit_MyInfo TO employee
 
 -- Cấp quyền các Function cho employee
 GRANT SELECT ON Func_CheckAvailableDevices TO employee

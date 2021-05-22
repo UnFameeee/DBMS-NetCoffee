@@ -211,6 +211,27 @@ namespace FinalDBMS
             DataTable table = new DataTable();
             adapter.Fill(table);
         }
+        public bool UpdateUserlogout(string cid,string devid)
+        {
+            SqlCommand command = new SqlCommand("execute Userlogout_AccountCus " +
+                "@cid =@cusid, " +
+                "@did =@deviceid ", mydb.getConnection);
+            command.Parameters.Add("@deviceid", System.Data.SqlDbType.NVarChar).Value = devid;
+            command.Parameters.Add("@cusid", System.Data.SqlDbType.NVarChar).Value = cid;
+           // command.CommandType = CommandType.StoredProcedure;
+            mydb.Openconnection();
+            if ((command.ExecuteNonQuery() >= 1))
+            {
+                mydb.Closeconnection();
+                return true;
+            }
+            else
+            {
+                mydb.Closeconnection();
+                return false;
+            }
+
+        }
 
         public bool StopPlaying(string devid)
         {
