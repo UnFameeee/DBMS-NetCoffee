@@ -896,3 +896,24 @@ RETURNS table AS
 		and a.DeviceID = d.DeviceID
 		and DStatus = N'Offline';
 GO
+----------------------------------------------------------------------View-----------------------------------------------------------------------------------
+----------------------------------------------------------------------Nhật Tiến-----------------------------------------------------------------------------------
+--Hiển thị lương và tên nhân viên
+CREATE or ALTER VIEW UV_Salary
+AS
+SELECT IDEmployee, FullName, MonthWork, YearWork, Reward, Fine, SalaryEmployee FROM dbo.SALARY, dbo.EMPLOYEE WHERE dbo.SALARY.IDEmployee = dbo.EMPLOYEE.ID
+GO
+--Hiển thị nhân viên và thời gian check in check out
+CREATE or ALTER VIEW UV_Timekeeping
+AS
+SELECT IDEmployee, FullName, CheckIn, CheckOut FROM dbo.Timekeeping, dbo.EMPLOYEE WHERE dbo.Timekeeping.IDEmployee = dbo.EMPLOYEE.ID
+GO
+--Hiển thị người sử dụng và thông tin thời gian
+CREATE or ALTER VIEW UV_ACCOUTNCUSTOMER
+AS
+SELECT UserName, ACCOUNTCUSTOMER.DeviceID, TimeAvailible, TimeUsed FROM dbo.ACCOUNTCUSTOMER, dbo.DEVICES WHERE dbo.DEVICES.DeviceID = dbo.ACCOUNTCUSTOMER.DeviceID
+GO
+--Hiển thị công việc và thời gian ca làm của nhân viên, quản lí của nhân viên đó
+CREATE OR ALTER VIEW UV_TimeWork
+AS
+SELECT EmpID, FullName, dbo.JOB.JobDetail, dbo.WORK.ShiftID, dbo.WORK.ShiftManagerID FROM dbo.JOB, dbo.EMPLOYEE, dbo.WORK WHERE dbo.JOB.WorkID = dbo.EMPLOYEE.WorkID AND dbo.WORK.EmpID = dbo.EMPLOYEE.ID
