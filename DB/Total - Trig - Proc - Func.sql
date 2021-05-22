@@ -351,6 +351,71 @@ BEGIN
 END
 GO
 
+--Work
+CREATE or ALTER PROC AddDivideShift (@EmpID nvarchar(100), @ShiftID nvarchar(100), @ShiftManagerID nvarchar(100)) AS
+BEGIN
+	INSERT INTO dbo.WORK
+	(
+		EmpID, ShiftID, ShiftManagerID
+	)
+	VALUES
+	(
+		@EmpID, @ShiftID, @ShiftManagerID
+	)
+END
+GO
+
+CREATE or ALTER PROC UpdateDivideShift (@EmpID nvarchar(100), @shiftID nvarchar(100), @ShiftManagerID nvarchar(100)) AS
+BEGIN
+	UPDATE dbo.WORK
+	SET EmpID = @EmpID,
+		ShiftID = @ShiftID,
+		ShiftManagerID = @ShiftManagerID
+	WHERE
+		EmpID = @EmpID
+END
+GO
+CREATE or ALTER PROC DeleteDivideShift (@EmpID nvarchar(100), @shiftID nvarchar(100), @ShiftManagerID nvarchar(100)) AS
+BEGIN
+	DELETE FROM dbo.WORK
+	WHERE EmpID = @EmpID and ShiftID = @ShiftID and ShiftManagerID = @ShiftManagerID
+END
+GO
+
+
+
+--WorkShift
+CREATE or ALTER PROC AddDivideTimeShift (@ShiftID nvarchar(100), @TimeBegin nvarchar(100), @TimeEnd nvarchar(100)) AS
+BEGIN
+	INSERT INTO dbo.WORKSHIFT
+	(
+		ShiftID, TimeBegin, TimeEnd
+	)
+	VALUES
+	(
+		@ShiftID, @TimeBegin, @TimeEnd
+	)
+END
+GO
+
+CREATE or ALTER PROC UpdateDivideTimeShift (@ShiftID nvarchar(100), @TimeBegin time(7), @TimeEnd time(7)) AS
+BEGIN
+	UPDATE dbo.WORKSHIFT
+	SET ShiftID = @ShiftID,
+		TimeBegin = @TimeBegin,
+		TimeEnd = @TimeEnd
+	WHERE
+		ShiftID = @ShiftID
+END
+GO
+
+CREATE or ALTER PROC DeleteDivideTimeShift (@ShiftID nvarchar(100)) AS
+BEGIN
+	DELETE FROM dbo.WORKSHIFT
+	WHERE ShiftID = @ShiftID
+END
+GO
+
 
 ----------------------------------------------------------------------Phước Đăng------------------------------------------------------------------------------------
 --1. Stored-Procedure hiển thị thông tin của các khách hàng đang chơi máy Vip / Super Vip / Thuong
@@ -412,7 +477,7 @@ Go
 CREATE OR ALTER PROC ShowCustomerIsPlaying @DevID nvarchar(100)
 as
 begin
-select c.CustomerID,c.FullName,c.PhoneNumber,c.MoneyCharged,a.UserName,a.TimeAvailible,a.TimeUsed,a.DeviceID
+select c.CustomerID,c.FullName,c.PhoneNumber,c.MoneyCharged,a.UserName,a.Actualtimeavl,a.TimeUsed,a.DeviceID
 from ACCOUNTCUSTOMER a, DEVICES d, CUSTOMER c
 where a.DeviceID = d.DeviceID
 and a.DeviceID = @DevID
@@ -708,11 +773,6 @@ CREATE OR ALTER PROC Userlogout_AccountCus (@cid NVARCHAR(100),@did NVARCHAR(100
 AS
 BEGIN
 
-	UPDATE dbo.DEVICES
-	SET
-		DStatus=N'Offline'
-	WHERE DeviceID=@did
-
 	DECLARE @tienmay FLOAT,@kieumay NVARCHAR(50)
 
 	SELECT @kieumay=TypeID
@@ -737,11 +797,13 @@ BEGIN
 		TimeAvailible=0,
 		TimeUsed=NULL,
 		DeviceID=NULL,
-		StatusCustomer=0
+		StatusCustomer=0,
+		Actualtimeavl=null
 	WHERE CustomerID=@cid
 END
 GO
 
+go
 ------Thời gian sử dụng thực tế của khách
 CREATE OR ALTER PROC AccCusActualTimeAvl(@cid NVARCHAR(100))
 AS

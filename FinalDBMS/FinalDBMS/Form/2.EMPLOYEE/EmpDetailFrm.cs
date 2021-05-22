@@ -48,10 +48,13 @@ namespace FinalDBMS
             tbMail.Text = tab.Rows[0][7].ToString();
             cbboxWorkID.SelectedValue = tab.Rows[0][8].ToString();
 
-            byte[] pic;
-            pic = (byte[])tab.Rows[0][9];
-            MemoryStream picture = new MemoryStream(pic);
-            ptbEmp.Image = Image.FromStream(picture);
+            if(tab.Rows[0][9] != DBNull.Value)
+            {
+                byte[] pic;
+                pic = (byte[])tab.Rows[0][9];
+                MemoryStream picture = new MemoryStream(pic);
+                ptbEmp.Image = Image.FromStream(picture);
+            }           
         }
 
         private void btnUpload_Click(object sender, EventArgs e)

@@ -230,14 +230,26 @@ namespace FinalDBMS
             textBoxPhone.Text = "";
             textBoxMoney.Text = "";
             reloadDatagridview();
+            dataGridViewCusAccount.DataSource = null;
+            buttonCreateAcc.Enabled = false;
+            buttonDoimatkhau.Enabled = false;
+            buttonMomay.Enabled = false;
+            buttonNaptien.Enabled = false;
         }
 
         private void buttonNaptien_Click(object sender, EventArgs e)
         {
-            float tiencus = float.Parse(textBoxMoney.Text);
-            string accid = dataGridViewCus.CurrentRow.Cells[0].Value.ToString();
-            NapTienFrm frm = new NapTienFrm(accid,tiencus);
-            frm.Show();
+            if(textBoxMoney.Text != null)
+            {
+                float tiencus = float.Parse(textBoxMoney.Text);
+                string accid = dataGridViewCus.CurrentRow.Cells[0].Value.ToString();
+                NapTienFrm frm = new NapTienFrm(accid, tiencus);
+                frm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Hãy chọn tài khoản trước khi nạp tiền!!!", "Nạp tiền", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void buttonMomay_Click(object sender, EventArgs e)

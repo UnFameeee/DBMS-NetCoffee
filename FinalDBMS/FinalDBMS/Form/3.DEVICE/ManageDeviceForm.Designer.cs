@@ -168,6 +168,7 @@ namespace FinalDBMS
             this.DataGridView_ManageDevices.RowTemplate.Height = 24;
             this.DataGridView_ManageDevices.Size = new System.Drawing.Size(530, 417);
             this.DataGridView_ManageDevices.TabIndex = 131;
+            this.DataGridView_ManageDevices.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_ManageDevices_CellContentClick);
             this.DataGridView_ManageDevices.DoubleClick += new System.EventHandler(this.DataGridView_ManageDevices_DoubleClick);
             // 
             // ComboBox_SelectStatus

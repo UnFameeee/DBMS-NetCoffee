@@ -237,3 +237,11 @@ CREATE TABLE ACCOUNTEMPLOYEE
 	Password nvarchar(1000),
 	TypeEmployee nvarchar(100)										--0 là nhân viên, 1 là quản lí
 )
+
+create table TypeDevice
+(
+deviceType nvarchar(50)
+)
+insert into TypeDevice values ('In maintenance')
+insert into TypeDevice values ('Online')
+insert into TypeDevice values ('Offline')

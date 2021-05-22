@@ -25,10 +25,11 @@ namespace FinalDBMS
         ManageAccountFrm frmManageAccount = new ManageAccountFrm() { TopLevel = false, TopMost = false };
         SalaryFrm frmSalary = new SalaryFrm() { TopLevel = false, TopMost = false };
         MyInfomation frmMyInfo = new MyInfomation() { TopLevel = false, TopMost = false };
+        DivideShift frmDivideShift = new DivideShift() { TopLevel = false, TopMost = false };
 
         void loadForm()
         {
-            if(Global.Role == "NV")
+            if(Global.Role == "NV" || Global.Role == "LC")
             {
                 aCCOUNTToolStripMenuItem.Visible = false;
                 eMPLOYEEToolStripMenuItem.Visible = false;
@@ -40,6 +41,7 @@ namespace FinalDBMS
             pnlMain.Controls.Add(frmManageAccount);
             pnlMain.Controls.Add(frmSalary);
             pnlMain.Controls.Add(frmMyInfo);
+            pnlMain.Controls.Add(frmDivideShift);
             frmMyInfo.Show();
         }
 
@@ -81,6 +83,11 @@ namespace FinalDBMS
             resetForm();
             frmMyInfo.Show();
         }
+        private void cHIACAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            resetForm();
+            frmDivideShift.Show();
+        }
 
         void resetForm()
         {
@@ -98,11 +105,6 @@ namespace FinalDBMS
             frmSalary.Hide();
             //thông tin cá nhân
             frmMyInfo.Hide();
-
-        }
-
-        private void pnlMain_Paint(object sender, PaintEventArgs e)
-        {
 
         }
     }

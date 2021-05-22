@@ -40,6 +40,7 @@ namespace FinalDBMS
             this.SalaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aCCOUNTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.cHIACAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +87,8 @@ namespace FinalDBMS
             this.eMPLOYEEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.InfoToolStripMenuItem,
             this.TimeKeepingToolStripMenuItem,
-            this.SalaryToolStripMenuItem});
+            this.SalaryToolStripMenuItem,
+            this.cHIACAToolStripMenuItem});
             this.eMPLOYEEToolStripMenuItem.Name = "eMPLOYEEToolStripMenuItem";
             this.eMPLOYEEToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
             this.eMPLOYEEToolStripMenuItem.Text = "NHÂN VIÊN";
@@ -129,7 +131,13 @@ namespace FinalDBMS
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1069, 561);
             this.pnlMain.TabIndex = 1;
-            this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
+            // 
+            // cHIACAToolStripMenuItem
+            // 
+            this.cHIACAToolStripMenuItem.Name = "cHIACAToolStripMenuItem";
+            this.cHIACAToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.cHIACAToolStripMenuItem.Text = "CHIA CA";
+            this.cHIACAToolStripMenuItem.Click += new System.EventHandler(this.cHIACAToolStripMenuItem_Click);
             // 
             // MainFrm
             // 
@@ -164,5 +172,6 @@ namespace FinalDBMS
         private System.Windows.Forms.ToolStripMenuItem manageDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SalaryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tHÔNGTINCÁNHÂNToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cHIACAToolStripMenuItem;
     }
 }
