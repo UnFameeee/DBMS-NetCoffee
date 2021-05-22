@@ -74,7 +74,7 @@ namespace FinalDBMS
 
         private bool verif1()
         {
-            if (tbEmpID.Text == "" || tbShiftID.Text == "" || tbShiftManagerID.Text == "")
+            if (tbEmpID.Text == "" || tbShiftID.Text == "")
                 return false;
             return true;
         }
@@ -204,27 +204,20 @@ namespace FinalDBMS
             {
                 if (verif2())
                 {
-                    if(timeStart.Value < timeEnd.Value)
+                    if (ws.check2(shiftid))
                     {
-                        if (ws.check2(shiftid))
-                        {
-                            MessageBox.Show("Thời gian ca làm này đã có sẵn!!!", "Chỉnh sửa ca làm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        else
-                        {
-                            if (ws.AddDivideTimeShift(shiftid, timestart, timeend))
-                            {
-                                MessageBox.Show("Thêm thời gian ca làm thành công", "Chỉnh sửa thời gian", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Không thể thêm thời gian ca làm!!!", "Chỉnh sửa thời gian", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                        }
+                        MessageBox.Show("Thời gian ca làm này đã có sẵn!!!", "Chỉnh sửa ca làm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {
-                        MessageBox.Show("Thời gian bắt đầu không thể bé hơn thời gian kết thúc", "Chỉnh sửa thời gian", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (ws.AddDivideTimeShift(shiftid, timestart, timeend))
+                        {
+                            MessageBox.Show("Thêm thời gian ca làm thành công", "Chỉnh sửa thời gian", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không thể thêm thời gian ca làm!!!", "Chỉnh sửa thời gian", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                 }
                 else
@@ -247,27 +240,20 @@ namespace FinalDBMS
             {
                 if (verif2())
                 {
-                    if (timeStart.Value < timeEnd.Value)
+                    if (ws.check2(shiftid))
                     {
-                        if (ws.check2(shiftid))
-                        {
-                            MessageBox.Show("Thời gian ca làm này đã có sẵn!!!", "Chỉnh sửa ca làm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        else
-                        {
-                            if (ws.UpdateDivideTimeShift(shiftid, timestart, timeend))
-                            {
-                                MessageBox.Show("Sửa thời gian ca làm thành công", "Chỉnh sửa thời gian", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Không thể Sửa thời gian ca làm!!!", "Chỉnh sửa thời gian", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                        }    
+                        MessageBox.Show("Thời gian ca làm này đã có sẵn!!!", "Chỉnh sửa ca làm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {
-                        MessageBox.Show("Thời gian bắt đầu không thể bé hơn thời gian kết thúc", "Chỉnh sửa thời gian", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
+                        if (ws.UpdateDivideTimeShift(shiftid, timestart, timeend))
+                        {
+                            MessageBox.Show("Sửa thời gian ca làm thành công", "Chỉnh sửa thời gian", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không thể Sửa thời gian ca làm!!!", "Chỉnh sửa thời gian", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                 }
                 else

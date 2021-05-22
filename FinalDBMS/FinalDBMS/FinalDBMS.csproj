@@ -68,10 +68,10 @@
     <Compile Include="C-SHARPCODE\Calendar.cs" />
     <Compile Include="C-SHARPCODE\Device.cs" />
     <Compile Include="C-SHARPCODE\Extension.cs" />
-    <Compile Include="DivideShift.cs">
+    <Compile Include="Form\4.CALENDAR\DivideShift.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DivideShift.Designer.cs">
+    <Compile Include="Form\4.CALENDAR\DivideShift.Designer.cs">
       <DependentUpon>DivideShift.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\MAIN\CUSTOMER\MomayFrm.cs">
@@ -174,7 +174,7 @@
       <DependentUpon>SalaryFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkShift.cs" />
-    <EmbeddedResource Include="DivideShift.resx">
+    <EmbeddedResource Include="Form\4.CALENDAR\DivideShift.resx">
       <DependentUpon>DivideShift.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\MAIN\CUSTOMER\MomayFrm.resx">
