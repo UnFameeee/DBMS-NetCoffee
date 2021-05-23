@@ -240,9 +240,9 @@ namespace FinalDBMS
             {
                 if (verif2())
                 {
-                    if (ws.check2(shiftid))
+                    if (!ws.check2(shiftid))
                     {
-                        MessageBox.Show("Thời gian ca làm này đã có sẵn!!!", "Chỉnh sửa ca làm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Thời gian ca làm này không tồn tại!!!", "Chỉnh sửa ca làm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {
