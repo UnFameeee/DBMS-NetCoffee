@@ -568,7 +568,7 @@ namespace FinalDBMS
                     {
                         string TypeID = ComboBox_SelectDevice.SelectedValue.ToString();
                         string status = ComboBox_SelectStatus.SelectedValue.ToString();
-                        SqlCommand command2 = new SqlCommand("SELECT Distinct DStatus from DEVICES");
+                        SqlCommand command2 = new SqlCommand("SELECT Distinct deviceType from TypeDevice");
                         if (status == "Offline")
                         {
 
@@ -629,7 +629,7 @@ namespace FinalDBMS
 
         private void DeviceType_Click(object sender, EventArgs e)
         {
-            Loại_máy frm = new Loại_máy();
+            Loại_Máy frm = new Loại_Máy();
             frm.Show();
         }
 
