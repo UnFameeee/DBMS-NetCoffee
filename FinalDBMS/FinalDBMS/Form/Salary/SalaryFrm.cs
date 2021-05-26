@@ -143,6 +143,8 @@ namespace FinalDBMS
         private void btnShowFull_Click(object sender, EventArgs e)
         {
             dataGridViewShow.DataSource = salary.ShowSalary();
+            cbMonth.SelectedIndex = -1;
+            cbYear.SelectedIndex = -1;
         }
     }
 }

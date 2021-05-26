@@ -88,7 +88,7 @@ namespace FinalDBMS
                     MessageBox.Show("Thông tin đăng nhập không hợp lệ", "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error " + ex.Message);
             }

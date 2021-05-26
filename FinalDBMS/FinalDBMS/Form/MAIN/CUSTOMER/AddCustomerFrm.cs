@@ -257,5 +257,16 @@ namespace FinalDBMS
             MomayFrm frm = new MomayFrm(dataGridViewCusAccount.CurrentRow.Cells[4].Value.ToString());
             frm.Show();
         }
+
+        private void buttonNaptienCus_Click(object sender, EventArgs e)
+        {
+            SqlCommand command = new SqlCommand("EXECUTE DepositBudget_customer @cid=@cusid ,@mon=@money", db.getConnection);
+            command.Parameters.Add("@cusid", SqlDbType.NVarChar).Value = textBoxID.Text;
+            command.Parameters.Add("@money", SqlDbType.Real).Value = float.Parse(textBoxMoney.Text);
+            db.Openconnection();
+            command.ExecuteNonQuery();
+
+            db.Closeconnection();
+        }
     }
 }

@@ -55,32 +55,38 @@ namespace FinalDBMS
             string status = tbStatus.Text;
             string email = tbMail.Text;
             string workid = cbbxWorkID.SelectedValue.ToString();
-
-            if(verif())
+            try
             {
-                MemoryStream pic = new MemoryStream();
-                ptbEmp.Image.Save(pic, ptbEmp.Image.RawFormat);
-
-                if (emp.checkID(id))
+                if (verif())
                 {
-                    if (emp.insertEmp(id, fname, gender, bdate, phone, identity, status, email, workid, pic))
+                    MemoryStream pic = new MemoryStream();
+                    ptbEmp.Image.Save(pic, ptbEmp.Image.RawFormat);
+
+                    if (emp.checkID(id))
                     {
-                        MessageBox.Show("Nhân viên " + fname + " đã được thêm vào", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        reloadFrm();
+                        if (emp.insertEmp(id, fname, gender, bdate, phone, identity, status, email, workid, pic))
+                        {
+                            MessageBox.Show("Nhân viên " + fname + " đã được thêm vào", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            reloadFrm();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không thể thêm nhân viên " + fname, "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Không thể thêm nhân viên " + fname, "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Nhân viên " + fname + " đã có trong danh sách", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Nhân viên " + fname + " đã có trong danh sách", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Hãy điền đầy đủ thông tin nhân viên", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Hãy điền đầy đủ thông tin nhân viên", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message);
             }
         }
 

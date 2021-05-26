@@ -24,31 +24,29 @@ namespace FinalDBMS
         
         private void btnCheckIn_Click(object sender, EventArgs e)
         {
-
-            try
+            if (salary.CheckIDEmployee(txtID.Text))
             {
-                if (salary.CheckIDEmployee(txtID.Text))
+                if (!salary.CheckIDWork(txtID.Text))
                 {
-                    if (!salary.CheckIDWork(txtID.Text))
+                    try
                     {
                         salary.AddCheckIn(txtID.Text);
                         dataGridViewTimeKeeping.DataSource = salary.ShowTimeKeeping();
-
                         //Thắng
                         takePicture(txtID.Text);
                         changeLBcheckin("Checkin");
                         loadInfo(txtID.Text, "Load");
                     }
-                    else
-                        MessageBox.Show("ID is working. Can't check in");
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
                 else
-                    MessageBox.Show("Can't find the ID");
+                    MessageBox.Show("ID is working. Can't check in");
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Check in", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            else
+                MessageBox.Show("Can't find the ID");
         }
 
         private void btnCheckOut_Click(object sender, EventArgs e)
@@ -133,9 +131,12 @@ namespace FinalDBMS
            {
                DataTable table = cld.takePic(EmpID);
                //Phần hình
-               byte[] pic = (byte[])table.Rows[0][0];
-               MemoryStream Picture = new MemoryStream(pic);
-               MatrixPic[count].Image = Image.FromStream(Picture);
+               if(table.Rows[0][0] != DBNull.Value)
+               {
+                   byte[] pic = (byte[])table.Rows[0][0];
+                   MemoryStream Picture = new MemoryStream(pic);
+                   MatrixPic[count].Image = Image.FromStream(Picture);
+               }
                //Phần tên
                MatrixName[count].Text = table.Rows[0][1].ToString();
                MatrixName[count].Visible = true;
@@ -195,10 +196,14 @@ namespace FinalDBMS
             {
                 if (count >= 0 && count <= 6)
                 {
+                    
                     tableInfo = cld.takePic(table.Rows[i][0].ToString());
-                    byte[] pic = (byte[])tableInfo.Rows[0][0];
-                    MemoryStream Picture = new MemoryStream(pic);
-                    MatrixPic[count].Image = Image.FromStream(Picture);
+                    if (tableInfo.Rows[0][0] != DBNull.Value)
+                    {
+                        byte[] pic = (byte[])tableInfo.Rows[0][0];
+                        MemoryStream Picture = new MemoryStream(pic);
+                        MatrixPic[count].Image = Image.FromStream(Picture);
+                    }                   
                     //Phần tên
                     MatrixName[count].Text = tableInfo.Rows[0][1].ToString();
                     MatrixName[count].Visible = true;

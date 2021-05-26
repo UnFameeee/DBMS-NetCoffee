@@ -190,15 +190,6 @@ namespace FinalDBMS
             adapter.Fill(table);
             return table.Rows.Count > 0;
         }
-        //public bool Func_CheckDevicesFromUser2(string devid)
-        //{
-        //    SqlCommand command = new SqlCommand("SELECT * FROM Func_CheckDevicesFromUser2 (@devid)", mydb.getConnection);
-        //    command.Parameters.Add("@devid", System.Data.SqlDbType.NVarChar).Value = devid;
-        //    SqlDataAdapter adapter = new SqlDataAdapter(command);
-        //    DataTable table = new DataTable();
-        //    adapter.Fill(table);
-        //    return table.Rows.Count > 0;
-        //}
 
         public DataTable ShowCustomerIsPlaying(string devid)
         {

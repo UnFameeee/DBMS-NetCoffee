@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace FinalDBMS
 {
-    public partial class Loại_máy : Form
+    public partial class Loại_Máy : Form
     {
         Device device = new Device();
-        public Loại_máy()
+        public Loại_Máy()
         {
             InitializeComponent();
         }
@@ -87,8 +87,8 @@ namespace FinalDBMS
             string Mouse = TextBox_Mouse.Text;
             string Keyboard = TextBox_Keyboard.Text;
 
-            //try
-            //{
+            try
+            {
                 if (device.updateDeviceType(TypeID, CPU, Ram, PowerSupply, GraphicCard, MainBoard, Case, Monitor, Mouse, Keyboard))
                 {
                     MessageBox.Show("Cập nhật thành công", "Cập nhật thiết bị", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -107,11 +107,12 @@ namespace FinalDBMS
                 {
                     MessageBox.Show("Cập nhật không thành công", "Cập nhật thiết bị", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show( ex.ToString(),  "Cập nhật thiết bị", MessageBoxButtons.OK, MessageBoxIcon.Warning );
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

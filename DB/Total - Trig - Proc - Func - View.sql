@@ -4,6 +4,7 @@ GO
 ----------------------------------------------------------------------TRIGGER------------------------------------------------------------------------------------
 ----------------------------------------------------------------------Phước Đăng------------------------------------------------------------------------------------
 --1. Khi sửa lại máy Super vip thì không được nhập CPU là Intel Core i3 hoặc Core i5
+--Form CacLoai trong Folder Devices
 CREATE or ALTER TRIGGER Add_Device_CPU_condition ON DEVICETYPE
 AFTER INSERT,UPDATE AS
 declare @CPU nvarchar(100)
@@ -90,14 +91,16 @@ BEGIN
 
 	--Lấy ca làm của nhân viên
 	DECLARE @WorkShift INT
-	SELECT @WorkShift = WORKSHIFTTME.ShiftID
+	SELECT @WorkShift = WORKSHIFTTME.ShiftID	--> Lấy giờ từ 1-1-1900 HH:mm:ss  => HH:mm:ss 
 	FROM (SELECT CONVERT(TIME, dbo.WORKSHIFT.TimeBegin) AS TimeBegin, ShiftID FROM dbo.WORKSHIFT) AS WORKSHIFTTME
-	WHERE DATEDIFF(MINUTE, WORKSHIFTTME.TimeBegin, @iCheckIN) <= 60	AND DATEDIFF(MINUTE, WORKSHIFTTME.TimeBegin, @iCheckIN) >= 0		--Nếu trễ 1 tiếng so với ca làm thì không được check in
+	WHERE DATEDIFF(MINUTE, WORKSHIFTTME.TimeBegin, @iCheckIN) <= 60	AND DATEDIFF(MINUTE, WORKSHIFTTME.TimeBegin, @iCheckIN) >= 0 --> kiểm tra trong vòng 1 tiếng		--Nếu trễ 1 tiếng so với ca làm thì không được check in
+	
 	--Kiểm tra trong bảng ca có đúng ca làm của nhân viên đang check in không?
 	DECLARE @CountID INT
 	SELECT @CountID = COUNT(*)
 	FROM dbo.WORK
 	WHERE @WorkShift = dbo.WORK.ShiftID AND @iIDEmployee = dbo.WORK.EmpID
+	
 	--Kiểm tra ca làm của nhân viên
 	IF (@CountID < 1)
 	BEGIN
@@ -114,13 +117,15 @@ AS
 BEGIN
 	--Lấy ID và thời gian check out trừ thời gian check in để kiểm tra xem có vượt quá thời gian làm hoặc thiếu so với thời gian làm của 1 ca
 	DECLARE @iIDEmployee NVARCHAR(100), @Minute INT, @iCheckIn DATE
-	SELECT @iIDEmployee = IDEmployee, @Minute = DATEDIFF(MINUTE, CheckIn, CheckOut), @iCheckIn = Inserted.CheckIn
+	SELECT @iIDEmployee = Inserted.IDEmployee, @Minute = DATEDIFF(MINUTE, Inserted.CheckIn, Inserted.CheckOut), @iCheckIn = Inserted.CheckIn
 	FROM  Inserted
+
 	--Lấy số ca làm và thời gian tháng năm của nhân viên trong bảng lương
 	DECLARE @iNumberofWorkShift INT,  @iMonthWork INT, @iYearWork INT
 	SELECT @iNumberofWorkShift= NumberofWorkShift, @iMonthWork = MonthWork, @iYearWork = YearWork
 	FROM dbo.SALARY
 	WHERE IDEmployee = @iIDEmployee AND MONTH(@iCheckIn) = MonthWork AND YEAR(@iCheckIn) = YearWork
+	
 	--Nếu thời gian làm không đủ thì cứ mỗi 15 phút sẽ tính vào tiền phạt và ngược lại thời gian hơn trong ca làm cứ mỗi 15 phút sẽ được tính vào tiền thưởng
 	DECLARE @Reward REAL, @Fine REAL 
 	IF (@Minute >= 480)
@@ -136,7 +141,7 @@ BEGIN
 	--Nếu số ca làm được hơn trên 30 và số thời gian làm của buỗi đó hơn 8 tiếng thì tiền thưởng sẽ được nhân thêm 1.1
 	IF (@iNumberofWorkShift >= 30 AND @Minute >= 480)
 		SET @Reward = @Reward * 1.1
-	--Cập nhật thay đổi thưởng phạt ở bảng tiền lương
+	--Cập nhật thay đổi thưởng phạt ở bảng tiền lương 
 	UPDATE dbo.SALARY
 	SET Reward = Reward + @Reward / 60, Fine = Fine + @Fine / 60
 	WHERE @iIDEmployee = IDEmployee AND @iMonthWork = MonthWork AND @iYearWork = YearWork
@@ -181,9 +186,9 @@ BEGIN
 
 	DECLARE @SalarybyPosition INT
 	IF (@ShiftID = 1)
-		SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 20000							--Set tiền lương
+		SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 30000							--Set tiền lương
 	ELSE
-		SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 30000
+		SET @SalarybyPosition = @iNumberofWorkShift* @Wages + (@iReward - @iFine) * 20000
 	--Cập nhật thay đổi lương nhân viên
 	UPDATE dbo.SALARY
 	SET SalaryEmployee = @SalarybyPosition
@@ -267,14 +272,14 @@ BEGIN
 				SET @tienmay=12000
 			ELSE 
 				SET @tienmay=5000
-
+				
 			DECLARE @minuteMoney INT = @AccM*60/@tienmay
-			SET @Tavl = FORMAT(DATEADD(MINUTE, @minuteMoney, @Tavl), 'dd/MM/yyyy hh:mm:ss tt')
+			SET @Tavl = FORMAT(DATEADD(minute, @minuteMoney, @Tavl), 'dd/MM/yyyy hh:mm:ss tt') --> từ ngày 1-1-1900 0h0p0s + lên
 			UPDATE dbo.ACCOUNTCUSTOMER
 			SET	
 				AccMoney=0,
 				TimeAvailible=@Tavl,
-				TimeUsed=SYSDATETIME()
+				TimeUsed=SYSDATETIME() --datetime.now
 			WHERE CustomerID=@cid
 		END
 END
@@ -351,7 +356,8 @@ BEGIN
 END
 GO
 
---Work
+--Work (Ca làm của nhân viên)
+--Thêm ca làm
 CREATE or ALTER PROC AddDivideShift (@EmpID nvarchar(100), @ShiftID nvarchar(100), @ShiftManagerID nvarchar(100)) AS
 BEGIN
 	INSERT INTO dbo.WORK
@@ -365,6 +371,7 @@ BEGIN
 END
 GO
 
+--Chỉnh sửa ca làm
 CREATE or ALTER PROC UpdateDivideShift (@EmpID nvarchar(100), @shiftID nvarchar(100), @ShiftManagerID nvarchar(100)) AS
 BEGIN
 	UPDATE dbo.WORK
@@ -375,6 +382,8 @@ BEGIN
 		EmpID = @EmpID
 END
 GO
+
+--Xóa ca làm
 CREATE or ALTER PROC DeleteDivideShift (@EmpID nvarchar(100), @shiftID nvarchar(100), @ShiftManagerID nvarchar(100)) AS
 BEGIN
 	DELETE FROM dbo.WORK
@@ -384,7 +393,8 @@ GO
 
 
 
---WorkShift
+--WorkShift (Thời gian ca làm)
+--Thêm thời gian ca làm
 CREATE or ALTER PROC AddDivideTimeShift (@ShiftID nvarchar(100), @TimeBegin nvarchar(100), @TimeEnd nvarchar(100)) AS
 BEGIN
 	INSERT INTO dbo.WORKSHIFT
@@ -398,6 +408,7 @@ BEGIN
 END
 GO
 
+--Sửa thời gian ca làm
 CREATE or ALTER PROC UpdateDivideTimeShift (@ShiftID nvarchar(100), @TimeBegin time(7), @TimeEnd time(7)) AS
 BEGIN
 	UPDATE dbo.WORKSHIFT
@@ -409,6 +420,7 @@ BEGIN
 END
 GO
 
+--Xóa thời gian ca làm
 CREATE or ALTER PROC DeleteDivideTimeShift (@ShiftID nvarchar(100)) AS
 BEGIN
 	DELETE FROM dbo.WORKSHIFT
@@ -430,7 +442,7 @@ and d.TypeID = @TypeID
 end
 GO
 
---2.
+--2. Them thiet bi
 CREATE or ALTER PROC Insert_Device (@devid nvarchar(100),@type nvarchar(100),@status nvarchar(100))
 AS
 BEGIN
@@ -449,7 +461,7 @@ BEGIN
 END
 GO
 
---3. 
+--3. Xoa thiet bi
 CREATE or ALTER PROC DeleteDeviceByID (@devID nvarchar(100))
 AS
 BEGIN
@@ -460,7 +472,7 @@ WHERE ACCOUNTCUSTOMER.DeviceID = @devID
 END
 GO
 
---4. 
+--4.  Sua thiet bi
 create or ALTER PROC Edit_Device (@devid nvarchar(100),@type nvarchar(100))
 AS
 BEGIN
@@ -558,7 +570,7 @@ WHERE DeviceID = @devid
 END;
 GO
 
---11.
+--11. Trường hợp máy kh có người sử dụng và trạng thái ONLINE thì cập nhật lại
 GO
 CREATE OR ALTER PROCEDURE FormatStatus
 as 
@@ -603,7 +615,8 @@ GO
 CREATE or ALTER PROCEDURE USP_CheckOut @IDEmployee NVARCHAR(100)
 AS
 BEGIN
-	UPDATE TIMEKEEPING SET CheckOut = GETDATE() WHERE IDEmployee = @IDEmployee AND CheckOut IS NULL		--Thay đổi chỉnh sửa bảng WORK
+	UPDATE TIMEKEEPING SET CheckOut = GETDATE() 
+	WHERE IDEmployee = @IDEmployee AND CheckOut IS NULL		--Thay đổi chỉnh sửa bảng WORK
 END
 GO
 
@@ -702,6 +715,7 @@ BEGIN
 		MoneyCharged=MoneyCharged+@mon
 	WHERE CUSTOMER.CustomerID=@cid
 END
+
 GO
 
 --5. tạo tài khoản AccCus
@@ -724,7 +738,7 @@ BEGIN
 	    )
 END
 GO
-
+--button mở máy => form mở máy cho khách 
 CREATE OR ALTER PROC UserLoginDevice_AccountCus (@cid NVARCHAR(100),@did NVARCHAR(100))
 AS
 BEGIN
@@ -747,6 +761,7 @@ GO
 --việc phân biệt này giúp cho việc tính toán số giờ chơi còn lại trong Acus trực quan hơn
 
 --5. Khách hàng nạp tiền vào Account
+--button nạp tiền vào account
 go
 CREATE OR ALTER PROC DepositBudget_Accountcustomer(@cid nvarchar(100),@mon float)
 AS
@@ -772,7 +787,7 @@ GO
 CREATE OR ALTER PROC Userlogout_AccountCus (@cid NVARCHAR(100),@did NVARCHAR(100))
 AS
 BEGIN
-
+	
 	DECLARE @tienmay FLOAT,@kieumay NVARCHAR(50)
 
 	SELECT @kieumay=TypeID
@@ -790,9 +805,8 @@ BEGIN
 		SET @tienmay=12000
 	ELSE 
 		SET @tienmay=5000
-
 	UPDATE dbo.ACCOUNTCUSTOMER
-	SET	
+	SET	                              --Thời gian tổng trừ cho tgian đã chơi
 		AccMoney=AccMoney+CAST(ROUND((DATEDIFF(MINUTE, 0, @Tavl) - DATEDIFF(MINUTE, @Tu, SYSDATETIME()))*@tienmay/60,1) as float),
 		TimeAvailible=0,
 		TimeUsed=NULL,
@@ -804,7 +818,7 @@ END
 GO
 
 go
-------Thời gian sử dụng thực tế của khách
+------Tổng thời gian có thể sử dụng thực tế của khách
 CREATE OR ALTER PROC AccCusActualTimeAvl(@cid NVARCHAR(100))
 AS
 BEGIN
@@ -813,8 +827,8 @@ BEGIN
 	 FROM dbo.ACCOUNTCUSTOMER
 	 WHERE CustomerID =@cid
 
-	 UPDATE dbo.ACCOUNTCUSTOMER
-	 SET
+	 UPDATE dbo.ACCOUNTCUSTOMER --1900-1-1 2h5p30s => 2h5p30s 0ngay 0 month 0 nam || 1900-1-1 0h0p0s
+	 SET			--108 -> hh:mm:ss (định dạng giờ phút giây) //1-1-1900 -> cast thành số tgian tài khoản có thể chơi thực tế
 		ActualTimeAvl=(CONVERT(varchar, @Tavl, 108) + ' ' + CONVERT(VARCHAR, DAY(@Tavl)-1)) + 'ngay ' 
 		+CONVERT(VARCHAR, MONTH(@Tavl)-1) + 'thang '+ CONVERT(VARCHAR, YEAR(@Tavl) - 1900) +'nam'
 	 WHERE CustomerID =@cid
@@ -823,21 +837,21 @@ GO
 
 ----------------------------------------------------------------------FUNCTION------------------------------------------------------------------------------------
 ----------------------------------------------------------------------Quốc Thắng------------------------------------------------------------------------------------
---Tìm ra nhân viên theo từ khoá đã cho
+--Tìm ra nhân viên theo từ khoá đã cho (tìm kiếm theo tên nhân viên - ở form nhân viên)
 CREATE or ALTER FUNCTION Func_SearchEmployeesWithName (@search_name nvarchar(100))
 RETURNS TABLE AS
 	RETURN SELECT * FROM dbo.EMPLOYEE
 		   WHERE FullName LIKE '%' + @search_name + '%'
 GO
 
---Tìm ra hình ảnh nhân viên lúc điểm danh xong bằng EmpID (CalendarFrm)
+--Tìm ra hình ảnh nhân viên lúc điểm danh xong bằng EmpID (CalendarFrm - btncheckin)
 CREATE or ALTER FUNCTION Func_TakePicWhenCheckin (@EmpID varchar(100))
 RETURNS TABLE AS
 	RETURN SELECT Picture, FullName
 		   FROM EMPLOYEE
 	       WHERE EMPLOYEE.ID = @EmpID;
 GO
---Tìm ra thông tin của nhân viên lúc điểm danh xong bằng EmpID (CalendarFrm)
+--Tìm ra thông tin của nhân viên lúc điểm danh xong bằng EmpID (CalendarFrm - btncheckin - thông tin mini của nhân viên)
 CREATE or ALTER FUNCTION Func_TakeInfoWhenCheckin (@EmpID varchar(100))
 RETURNS TABLE AS
 	RETURN SELECT Id, FullName, Gender, Phone, IdentityNumber
@@ -845,7 +859,7 @@ RETURNS TABLE AS
 	       WHERE EMPLOYEE.ID = @EmpID;
 GO
 
---Tìm ra thông tin của nhân viên đang làm việc trong ca
+--Tìm ra thông tin của nhân viên đang làm việc trong ca (chạy lấy thông tin của người đi làm mỗi khi mở lại chương trình)
 CREATE or ALTER FUNCTION Func_CheckEmpWorking ()
 RETURNS TABLE AS
 	RETURN SELECT IDEmployee
@@ -853,7 +867,7 @@ RETURNS TABLE AS
 	       WHERE TIMEKEEPING.CheckOut is null;
 GO
 
---Tìm ra thông tin cá nhân và chỉnh sửa
+--Tìm ra thông tin cá nhân và chỉnh sửa (Phần thông tin cá nhân - nút cập nhật)
 CREATE or ALTER FUNCTION Func_TakeMyInfo(@EmpID varchar(100))
 RETURNS TABLE AS
 	RETURN SELECT FullName, Gender, Birthday, Phone, IdentityNumber, Email
@@ -861,7 +875,7 @@ RETURNS TABLE AS
 	       WHERE EMPLOYEE.ID = @EmpID;
 GO
 
---Tìm ra tên và hình
+--Tìm ra tên và hình (tìm ra tên và hình ở form thông tin cá nhân - phần trên) - đăng nhập vào là có
 CREATE or ALTER FUNCTION Func_TakeNameandPic(@EmpID varchar(100))
 RETURNS TABLE AS
 	RETURN SELECT FullName, Picture
@@ -886,16 +900,6 @@ RETURNS table AS
 		and a.DeviceID = d.DeviceID;
 GO
 
---3.
-GO
-CREATE or ALTER FUNCTION Func_CheckDevicesFromUser2 (@devid nvarchar(100))
-RETURNS table AS
-	return SELECT a.CustomerID,a.DeviceID,d.DStatus 
-		FROM DEVICES d, ACCOUNTCUSTOMER a 
-		WHERE d.DeviceID = @devid 
-		and a.DeviceID = d.DeviceID
-		and DStatus = N'Offline';
-GO
 ----------------------------------------------------------------------View-----------------------------------------------------------------------------------
 ----------------------------------------------------------------------Nhật Tiến-----------------------------------------------------------------------------------
 --Hiển thị lương và tên nhân viên

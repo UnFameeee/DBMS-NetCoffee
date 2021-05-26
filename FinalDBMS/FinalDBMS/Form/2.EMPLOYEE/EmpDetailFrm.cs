@@ -80,23 +80,29 @@ namespace FinalDBMS
             string status = tbStatus.Text;
             string email = tbMail.Text;
             string workid = cbboxWorkID.SelectedValue.ToString();
-
-            if(verif())
+            try
             {
-                MemoryStream pic = new MemoryStream();
-                ptbEmp.Image.Save(pic, ptbEmp.Image.RawFormat);
-                if (emp.updateEmp(id, fname, gender, bdate, phone, identity, status, email, workid, pic))
+                if (verif())
                 {
-                    MessageBox.Show("Cập nhật thông tin nhân viên " + fname + " thành công", "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MemoryStream pic = new MemoryStream();
+                    ptbEmp.Image.Save(pic, ptbEmp.Image.RawFormat);
+                    if (emp.updateEmp(id, fname, gender, bdate, phone, identity, status, email, workid, pic))
+                    {
+                        MessageBox.Show("Cập nhật thông tin nhân viên " + fname + " thành công", "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không thể cập nhật thông tin nhân viên " + fname, "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Không thể cập nhật thông tin nhân viên " + fname, "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Hãy điển đầy đủ thông tin nhân viên", "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Hãy điển đầy đủ thông tin nhân viên", "Cập nhật thông tin nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message);
             }
         }
 
