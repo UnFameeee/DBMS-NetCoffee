@@ -150,7 +150,7 @@ CREATE TABLE DEVICETYPE
 	Mouse nvarchar(100) NOT NULL,
 	KeyBoard nvarchar(100) NOT NULL
 )
-INSERT INTO DEVICETYPE VALUES(N'Thường','AMD Ryzen 5 3600','DDR4','CoolerMaster MWE 400','RTX 3080 GameRock 10G','ASROCK H410M-HVS','XIGMATEK MASTER X 3FX','ViewSonic VA2406','Logitech G102 Lightsync RGB White','Razer Blackwidow Lite')
+INSERT INTO DEVICETYPE VALUES(N'Thuong','AMD Ryzen 5 3600','DDR4','CoolerMaster MWE 400','RTX 3080 GameRock 10G','ASROCK H410M-HVS','XIGMATEK MASTER X 3FX','ViewSonic VA2406','Logitech G102 Lightsync RGB White','Razer Blackwidow Lite')
 INSERT INTO DEVICETYPE VALUES('Vip','AMD Ryzen 5 5600X','DDR4','Gigabyte P450B','RX 6700 XT OC Edition','MSI A320M-A PRO MAX','MSI MAG VAMPIRIC 100R','LG 24GN600-B','Logitech G102 Lightsync RGB Black','Razer Huntsman Mini')
 INSERT INTO DEVICETYPE VALUES('Super Vip','Intel Core i9','DDR4','SilverStone ST50F-ES230','Radeon RX 6800 XT Gaming','sus PRIME H310M-CS R2.0 LGA1151v2','GIGABYTE C200 Glass','LG 24GN600-B','Logitech G102 Lightsync RGB Black','Razer Huntsman V2 Analog')
 --INSERT INTO DEVICETYPE VALUES('Super Vip','Intel Core i7-10570H @ 2.60GHz','DDR4','Gigabyte P450B','RTX™ 3060 ELITE','MSI A320M-A PRO MAX','XIGMATEK MASTER X 3FX','Samsung LS24R350','Logitech G102 Lightsync RGB Black','Razer Huntsman Mini Mercury')
@@ -162,15 +162,15 @@ CREATE TABLE DEVICES
 	TypeID nvarchar(100) references DEVICETYPE(TypeID) ON UPDATE SET NULL,								--loại máy (super vjp, vip, thường)
 	DStatus nvarchar(100)															--tình trạng máy (đang đc sử dụng, đang đc bảo trì,....)
 )
-INSERT INTO DEVICES VALUES('MAY01','Vip',		N'Online')
-INSERT INTO DEVICES VALUES('MAY02','Super Vip',	N'Online')
-INSERT INTO DEVICES VALUES('MAY03',N'Thường',	N'Online')
+INSERT INTO DEVICES VALUES('MAY01','Vip',		N'Offline')
+INSERT INTO DEVICES VALUES('MAY02','Super Vip',	N'Offline')
+INSERT INTO DEVICES VALUES('MAY03',N'Thuong',	N'Offline')
 INSERT INTO DEVICES VALUES('MAY04','Vip',		N'Offline')
 INSERT INTO DEVICES VALUES('MAY05','Super Vip',	N'In maintenance')
 INSERT INTO DEVICES VALUES('MAY06','Vip',		N'Offline')
-INSERT INTO DEVICES VALUES('MAY07',N'Thường',	N'Offline')
-INSERT INTO DEVICES VALUES('MAY08',N'Thường',	N'In maintenance')
-INSERT INTO DEVICES VALUES('MAY09',N'Thường',	N'Offline')
+INSERT INTO DEVICES VALUES('MAY07',N'Thuong',	N'Offline')
+INSERT INTO DEVICES VALUES('MAY08',N'Thuong',	N'In maintenance')
+INSERT INTO DEVICES VALUES('MAY09',N'Thuong',	N'Offline')
 
 ------------------------------------------------------------------------------------------------------------------------
 --Khách hàng--
@@ -220,9 +220,9 @@ create table ACCOUNTCUSTOMER
 --    100000.0       -- AccMoney - float
 --    )
 
-	INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van A', N'1', N'KH1', N'MAY01', 1, 100000.0 )
-	INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van B', N'1', N'KH2', N'MAY02', 0, 100000.0 )
-	INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van C', N'1', N'KH3', N'MAY03', 0, 100000.0 )
+	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van A', N'1', N'KH1', N'MAY01', 1, 100000.0 )
+	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van B', N'1', N'KH2', N'MAY02', 0, 100000.0 )
+	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van C', N'1', N'KH3', N'MAY03', 0, 100000.0 )
 	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van D', N'1', N'KH4', N'MAY04', 1, 100000.0 )
 	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van E', N'1', N'KH5', N'MAY05', 1, 100000.0 )
 	--INSERT INTO dbo.ACCOUNTCUSTOMER(UserName, PassWord, CustomerID, DeviceID, StatusCustomer, AccMoney) VALUES(N'van F', N'1', N'KH6', N'MAY06', 1, 100000.0 )
