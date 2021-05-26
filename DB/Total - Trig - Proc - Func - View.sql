@@ -43,12 +43,12 @@ BEGIN
 
 	Select @Keyboard_Thuong_Default = DEVICETYPE.KeyBoard
 	From DEVICETYPE
-	Where TypeID = N'Thường'
+	Where TypeID = N'Thuong'
 
 	Select @Keyboard_Thuong_Input = inserted.KeyBoard
 	From DEVICETYPE,inserted
 	Where DEVICETYPE.TypeID = inserted.TypeID
-	and inserted.TypeID = N'Thường'
+	and inserted.TypeID = N'Thuong'
 
 	if (@Keyboard_Vip_Default = @Keyboard_Thuong_Input or  @Keyboard_Vip_Input = @Keyboard_Thuong_Default)
 	BEGIN
@@ -423,7 +423,7 @@ Go
 CREATE or ALTER PROC ShowInfoCustomerGroupByTypeID @TypeID nvarchar(100)
 as
 begin
-select a.UserName,a.PassWord,a.TimeAvailible,a.TimeUsed,a.CustomerID,a.DeviceID,a.StatusCustomer
+select a.UserName,a.PassWord,a.Actualtimeavl,a.TimeUsed,a.CustomerID,a.DeviceID,a.StatusCustomer
 from ACCOUNTCUSTOMER a, DEVICES d
 where a.DeviceID = d.DeviceID
 and d.TypeID = @TypeID

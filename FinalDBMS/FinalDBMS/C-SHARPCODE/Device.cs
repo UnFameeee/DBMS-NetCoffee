@@ -32,6 +32,17 @@ namespace FinalDBMS
             adapter.Fill(table);
             return table;
         }
+
+        public DataTable getAllDeviceTypes()
+        {
+            SqlCommand command = new SqlCommand("SELECT * FROM DEVICETYPE");
+            command.Connection = mydb.getConnection;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            return table;
+        }
+
         public DataTable getAllDevicesNotInUse()
         {
             SqlCommand command = new SqlCommand("SELECT CONCAT(deviceid,' (',typeid,')')  AS Máy " +
@@ -319,5 +330,32 @@ namespace FinalDBMS
             command.ExecuteNonQuery();
         }
 
+        public bool updateDeviceType(string TypeID, string CPU, string RAM, string PowerSupply, string GraphicCard, string Mainboard, string DeviceCase, string Monitor, string Mouse, string KeyBoard)
+        {
+            SqlCommand command = new SqlCommand("UPDATE DEVICETYPE SET CPU=@CPU,RAM=@RAM,PowerSupply=@PowerSupply,GraphicCard=@GraphicCard,Mainboard=@Mainboard,DeviceCase = @DeviceCase,Monitor=@Monitor,Mouse=@Mouse,KeyBoard=@KeyBoard" +
+                " WHERE TypeID=@type", mydb.getConnection);
+            command.Parameters.Add("@type", SqlDbType.VarChar).Value = TypeID;
+            command.Parameters.Add("@CPU", SqlDbType.VarChar).Value = CPU;
+            command.Parameters.Add("@RAM", SqlDbType.VarChar).Value = RAM;
+            command.Parameters.Add("@PowerSupply", SqlDbType.VarChar).Value = PowerSupply;
+            command.Parameters.Add("@GraphicCard", SqlDbType.VarChar).Value = GraphicCard;
+            command.Parameters.Add("@Mainboard", SqlDbType.VarChar).Value = Mainboard;
+            command.Parameters.Add("@DeviceCase", SqlDbType.VarChar).Value = DeviceCase;
+            command.Parameters.Add("@Monitor", SqlDbType.VarChar).Value = Monitor;
+            command.Parameters.Add("@Mouse", SqlDbType.VarChar).Value = Mouse;
+            command.Parameters.Add("@KeyBoard", SqlDbType.VarChar).Value = KeyBoard;
+            mydb.Openconnection();
+            if ((command.ExecuteNonQuery() ==0))
+            {
+                mydb.Openconnection();
+                return false;
+            }
+            else
+            {
+                mydb.Closeconnection();
+                return true;
+
+            }
+        }
     }
 }

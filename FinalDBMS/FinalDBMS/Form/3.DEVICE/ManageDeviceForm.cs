@@ -207,14 +207,14 @@ namespace FinalDBMS
              string DeviceID = TextBox_DeviceID.Text;
             try
             {
-                        //Kiểm tra đã đầy đủ thông tin chưa
+                //Kiểm tra đã đầy đủ thông tin chưa
 
-                        if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
+                if ((TextBox_DeviceID.Text.Trim() == "") || (ComboBox_SelectDevice.SelectedValue == null)
                         || (ComboBox_SelectStatus.SelectedValue == null))
                         {
                             MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             Label_Info.Text = "";
-                }
+                        }
 
                         else
                         {
@@ -238,26 +238,26 @@ namespace FinalDBMS
                                     ;
                                 }
                         }
-            }
+             }
             catch
             {
                 MessageBox.Show("Vui lòng nhập/ chọn đầy đủ thông tin.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Label_Info.Text = "";
             }
-            
-            /*else 
-            { 
-                Label_Info.Text =
-                "THÔNG TIN KHÁCH HÀNG ĐANG DÙNG MÁY " + table.Rows[0]["DeviceID"].ToString() + "\n"
-                + "ID khách hàng: " + table.Rows[0]["CustomerID"].ToString() + "\n"
-                + "Họ và tên: " + table.Rows[0]["FullName"].ToString() + "\n"
-                + "SĐT: " + table.Rows[0]["PhoneNumber"].ToString() + "\n"
-                + "Tổng tài khoản: " + table.Rows[0]["MoneyCharged"].ToString() + "\n"
-                + "Tên đăng nhập: " + table.Rows[0]["UserName"].ToString() + "\n"
-                + "Tổng thời gian: " + table.Rows[0]["Actualtimeavl"].ToString() + "\n"
-                + "Thời gian đã sử dụng: " + table.Rows[0]["TimeUsed"].ToString() + "\n"
-                ;*/
-        }
+
+    /*else 
+    { 
+        Label_Info.Text =
+        "THÔNG TIN KHÁCH HÀNG ĐANG DÙNG MÁY " + table.Rows[0]["DeviceID"].ToString() + "\n"
+        + "ID khách hàng: " + table.Rows[0]["CustomerID"].ToString() + "\n"
+        + "Họ và tên: " + table.Rows[0]["FullName"].ToString() + "\n"
+        + "SĐT: " + table.Rows[0]["PhoneNumber"].ToString() + "\n"
+        + "Tổng tài khoản: " + table.Rows[0]["MoneyCharged"].ToString() + "\n"
+        + "Tên đăng nhập: " + table.Rows[0]["UserName"].ToString() + "\n"
+        + "Tổng thời gian: " + table.Rows[0]["Actualtimeavl"].ToString() + "\n"
+        + "Thời gian đã sử dụng: " + table.Rows[0]["TimeUsed"].ToString() + "\n"
+        ;*/
+}
 
         private void Button_StartPlaying_Click(object sender, EventArgs e)
         {
@@ -337,6 +337,8 @@ namespace FinalDBMS
             DataGridView_ManageDevices.DataSource = device.getAllDevices();
             EditWidth(DataGridView_ManageDevices, 100, 154);
             TextBox_DeviceID.Text = "";
+            //ComboBox_SelectDevice.Text = "";
+            //ComboBox_SelectStatus.Text = "";
             ComboBox_SelectDevice.SelectedIndex = -1;
             ComboBox_SelectStatus.SelectedIndex = -1;
         }
@@ -376,7 +378,9 @@ namespace FinalDBMS
                                 if (device.StopPlaying(DeviceID) && device.UpdateUserlogout(IDkh, DeviceID))
                                 {
                                     MessageBox.Show("Đã dừng cấp sử dụng máy.", "Dừng cấp sử dụng máy", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    DataGridView_ManageDevices.DataSource = device.getAllDevices();
+ 
+                                   // DataGridView_ManageDevices.DataSource = device.getAllDevices();
+                            
                                     EditWidth(DataGridView_ManageDevices, 100, 154);
                                 }
 
@@ -620,6 +624,39 @@ namespace FinalDBMS
 
         private void DataGridView_ManageDevices_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void DeviceType_Click(object sender, EventArgs e)
+        {
+            Loại_máy frm = new Loại_máy();
+            frm.Show();
+        }
+
+        private void Button_SearchByType_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string typeid = ComboBox_SelectDevice.SelectedValue.ToString();
+
+                try
+                {
+
+                    DataGridView_ManageDevices.DataSource = device.Show_InfoCustomer_GroupBy_TypeID(typeid);
+
+                    EditWidth(DataGridView_ManageDevices, 100, 70);
+                }
+                catch
+                {
+                    MessageBox.Show("Kiểm tra lại thông tin nhập ", "Tìm kiếm", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
+            }
+            catch 
+            {
+                MessageBox.Show("Kiểm tra lại thông tin nhập ", "Tìm kiếm", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
 
         }
     }
