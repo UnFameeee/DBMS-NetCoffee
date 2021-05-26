@@ -24,23 +24,31 @@ namespace FinalDBMS
         
         private void btnCheckIn_Click(object sender, EventArgs e)
         {
-            if (salary.CheckIDEmployee(txtID.Text))
-            {
-                if (!salary.CheckIDWork(txtID.Text))
-                {
-                    salary.AddCheckIn(txtID.Text);
-                    dataGridViewTimeKeeping.DataSource = salary.ShowTimeKeeping();
 
-                    //Thắng
-                    takePicture(txtID.Text);
-                    changeLBcheckin("Checkin");
-                    loadInfo(txtID.Text, "Load");
+            try
+            {
+                if (salary.CheckIDEmployee(txtID.Text))
+                {
+                    if (!salary.CheckIDWork(txtID.Text))
+                    {
+                        salary.AddCheckIn(txtID.Text);
+                        dataGridViewTimeKeeping.DataSource = salary.ShowTimeKeeping();
+
+                        //Thắng
+                        takePicture(txtID.Text);
+                        changeLBcheckin("Checkin");
+                        loadInfo(txtID.Text, "Load");
+                    }
+                    else
+                        MessageBox.Show("ID is working. Can't check in");
                 }
                 else
-                    MessageBox.Show("ID is working. Can't check in");
+                    MessageBox.Show("Can't find the ID");
             }
-            else
-                MessageBox.Show("Can't find the ID");
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Check in", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnCheckOut_Click(object sender, EventArgs e)
