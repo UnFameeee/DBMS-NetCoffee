@@ -65,7 +65,7 @@ namespace FinalDBMS
         }
         public DataTable ShowTimeKeeping()
         {
-            SqlCommand command = new SqlCommand("USP_ShowFullTimeKeeping", db.getConnection);
+            SqlCommand command = new SqlCommand("SELECT * FROM UV_Timekeeping", db.getConnection);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable data = new DataTable();
             adapter.Fill(data);
@@ -73,7 +73,7 @@ namespace FinalDBMS
         }
         public DataTable ShowSalary()
         {
-            SqlCommand command = new SqlCommand("USP_ShowSalary", db.getConnection);
+            SqlCommand command = new SqlCommand("SELECT * FROM UV_Salary", db.getConnection);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable data = new DataTable();
             adapter.Fill(data);
