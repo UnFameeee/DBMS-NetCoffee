@@ -150,5 +150,48 @@ namespace FinalDBMS
         {
 
         }
+
+
+        private void btnSearchName_Click(object sender, EventArgs e)
+        {
+            Mydb db = new Mydb();
+            if(tbSearchName.Text != "")
+            {
+                string EmpID = tbSearchName.Text;
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Func_SearchEmployeesWithName('" + EmpID + "')", db.getConnection);
+                cmd.Parameters.Add("@EmpID", SqlDbType.NVarChar).Value = EmpID;
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+                table.Columns["ID"].ColumnName = "ID";
+                table.Columns["FullName"].ColumnName = "Họ tên";
+                table.Columns["Gender"].ColumnName = "Giới tính";
+                table.Columns["Birthday"].ColumnName = "Ngày sinh";
+                table.Columns["Phone"].ColumnName = "SĐT";
+                table.Columns["IdentityNumber"].ColumnName = "Số CMND";
+                table.Columns["StatusEmployee"].ColumnName = "Trạng thái";
+                table.Columns["Email"].ColumnName = "Email";
+                table.Columns["WorkID"].ColumnName = "Mã CV";
+                table.Columns["Picture"].ColumnName = "Hình ảnh";
+                //fill dgv
+                dgvEmp.DataSource = table;
+                DataGridViewImageColumn picCol = new DataGridViewImageColumn();
+                dgvEmp.RowTemplate.Height = 80;
+                picCol = (DataGridViewImageColumn)dgvEmp.Columns[9];
+                picCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
+
+                dgvEmp.Columns[0].Width = 40;
+
+                dgvEmp.Columns[1].Width = 150;
+                dgvEmp.Columns[2].Width = 80;
+                dgvEmp.Columns[5].Width = 150;
+                dgvEmp.Columns[6].Width = 150;
+                dgvEmp.Columns[8].Width = 50;
+            }
+            else
+            {
+                MessageBox.Show("Hãy điền tên nhân viên!!!", "Tìm kiếm theo tên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

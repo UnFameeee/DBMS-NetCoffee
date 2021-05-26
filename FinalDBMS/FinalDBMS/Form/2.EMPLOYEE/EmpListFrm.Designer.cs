@@ -49,6 +49,9 @@ namespace FinalDBMS
             this.pnTop = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tbSearchName = new System.Windows.Forms.TextBox();
+            this.btnSearchName = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.pnData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmp)).BeginInit();
             this.pbButton.SuspendLayout();
@@ -166,9 +169,9 @@ namespace FinalDBMS
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 52);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 25);
+            this.label1.Size = new System.Drawing.Size(115, 25);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Tìm kiếm:";
+            this.label1.Text = "Tìm kiếm ID:";
             // 
             // lbMale
             // 
@@ -234,7 +237,7 @@ namespace FinalDBMS
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.btnSearch.Location = new System.Drawing.Point(621, 52);
+            this.btnSearch.Location = new System.Drawing.Point(335, 53);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(29, 25);
             this.btnSearch.TabIndex = 7;
@@ -244,14 +247,17 @@ namespace FinalDBMS
             // tbSearch
             // 
             this.tbSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSearch.Location = new System.Drawing.Point(103, 50);
+            this.tbSearch.Location = new System.Drawing.Point(129, 50);
             this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(512, 29);
+            this.tbSearch.Size = new System.Drawing.Size(200, 29);
             this.tbSearch.TabIndex = 8;
             // 
             // pnTop
             // 
             this.pnTop.BackColor = System.Drawing.Color.White;
+            this.pnTop.Controls.Add(this.tbSearchName);
+            this.pnTop.Controls.Add(this.btnSearchName);
+            this.pnTop.Controls.Add(this.label3);
             this.pnTop.Controls.Add(this.label2);
             this.pnTop.Controls.Add(this.panel1);
             this.pnTop.Controls.Add(this.tbSearch);
@@ -281,10 +287,45 @@ namespace FinalDBMS
             this.panel1.Controls.Add(this.lbMale);
             this.panel1.Controls.Add(this.lbFemale);
             this.panel1.Controls.Add(this.btnFemale);
-            this.panel1.Location = new System.Drawing.Point(690, 47);
+            this.panel1.Location = new System.Drawing.Point(777, 47);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(283, 39);
             this.panel1.TabIndex = 9;
+            // 
+            // tbSearchName
+            // 
+            this.tbSearchName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearchName.Location = new System.Drawing.Point(504, 50);
+            this.tbSearchName.Name = "tbSearchName";
+            this.tbSearchName.Size = new System.Drawing.Size(200, 29);
+            this.tbSearchName.TabIndex = 13;
+            // 
+            // btnSearchName
+            // 
+            this.btnSearchName.BackColor = System.Drawing.Color.Transparent;
+            this.btnSearchName.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSearchName.BackgroundImage")));
+            this.btnSearchName.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSearchName.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSearchName.FlatAppearance.BorderSize = 0;
+            this.btnSearchName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchName.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.btnSearchName.Location = new System.Drawing.Point(710, 53);
+            this.btnSearchName.Name = "btnSearchName";
+            this.btnSearchName.Size = new System.Drawing.Size(29, 25);
+            this.btnSearchName.TabIndex = 12;
+            this.btnSearchName.UseVisualStyleBackColor = false;
+            this.btnSearchName.Click += new System.EventHandler(this.btnSearchName_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(375, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(125, 25);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Tìm kiếm tên:";
             // 
             // EmpListFrm
             // 
@@ -329,5 +370,8 @@ namespace FinalDBMS
         private System.Windows.Forms.Panel pnTop;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbSearchName;
+        private System.Windows.Forms.Button btnSearchName;
+        private System.Windows.Forms.Label label3;
     }
 }
